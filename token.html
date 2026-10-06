@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tokenisierung, praktisch</title>
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Allura&display=swap">
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+    --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+    --feld: #22252A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+  --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+  --feld: #22252A; color-scheme: dark;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+  .muenze { width: 26px; height: 26px; border-radius: 50%; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 9.5px; color: #fff; }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px 4px 4px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  .chip .muenze { width: 21px; height: 21px; font-size: 8px; }
+  table.coins { min-width: 520px; }
+  table.coins .n { display: flex; align-items: center; gap: 8px; font-weight: 800; white-space: nowrap; }
+  table.coins tr.aus td { opacity: 0.7; }
+  .groesse { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 18px 20px; margin-top: 20px; }
+  .gz { margin-top: 13px; }
+  .gz .kopf { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .gz .was { font-size: 13.5px; font-weight: 600; }
+  .gz .wert { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 17px; }
+  .gspur { height: 20px; background: var(--feld); border-radius: 2px; overflow: hidden; margin-top: 5px; }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+
+  <header>
+    <div class="marke">investieren.mit.seli</div>
+    <h1>Tokenisierung, praktisch</h1>
+    <p class="vorspann">
+      Was sich technisch ändert, welche vier Ebenen daran verdienen könnten, welche Namen
+      dazugehören — und <strong>wie viel Krypto überhaupt sinnvoll ist</strong>.
+    </p>
+  </header>
+
+  <section>
+    <h2>Was sich ändert</h2>
+    <p>Hinter deiner Apple-Aktie steht ein Eintrag in der Datenbank einer Verwahrstelle.
+      Tokenisiert wird daraus eine Zeile Code auf einer Blockchain. Das ändert vier Dinge:</p>
+    <div class="vn-paar">
+      <div class="vn"><h3>Heute</h3><ul>
+        <li>Handel nur zu Börsenzeiten</li>
+        <li>Ein bis zwei Tage bis zum Geld</li>
+        <li>Jede Zwischenstelle nimmt Gebühren</li>
+        <li>Immobilie: ganz oder gar nicht</li>
+      </ul></div>
+      <div class="vn neu"><h3>Tokenisiert</h3><ul>
+        <li>Handel rund um die Uhr</li>
+        <li>Abwicklung in Minuten</li>
+        <li>Keine Kette von Zwischenstellen</li>
+        <li>Teilbar — 50 € in ein Bürogebäude</li>
+      </ul></div>
+    </div>
+    <div class="hinweis">
+      Keine Theorie: BlackRock betreibt einen tokenisierten Geldmarktfonds mit rund
+      <strong>2,8 Mrd. $</strong>, Franklin Templeton seinen auf Stellar. Der Markt für
+      tokenisierte reale Werte liegt bei über <strong>32 Mrd. $</strong> — dreimal so viel
+      wie vor einem Jahr.
+    </div>
+  </section>
+
+  <section>
+    <h2>Die vier Ebenen</h2>
+    <p>Wer an einem Trend verdienen will, muss wissen, <em>wo</em> das Geld hängen bleibt.
+      Die interessanteste Stelle ist nicht die, über die alle reden.</p>
+
+    <div class="schaubild">
+      <svg viewBox="0 0 560 300" role="img" aria-label="Vier Ebenen von der echten Anleihe bis zum Anleger">
+        <defs><marker id="pf" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="var(--leise)"/></marker></defs>
+        <rect x="120" y="4" width="320" height="34" rx="3" fill="var(--feld)" stroke="var(--linie)"/>
+        <text x="280" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-size="13"
+              font-weight="700" fill="var(--tinte)">Eine echte Anleihe, ein Fonds, eine Immobilie</text>
+        <line x1="280" y1="40" x2="280" y2="54" stroke="var(--leise)" stroke-width="1.5" marker-end="url(#pf)"/>
+        <rect x="30" y="56" width="500" height="44" rx="3" fill="none" stroke="var(--gruen)" stroke-width="2"/>
+        <text x="44" y="74" font-family="Inter, sans-serif" font-size="10" font-weight="800" letter-spacing="1.1" fill="var(--gruen)">EBENE 1 · DIE SCHIENE</text>
+        <text x="44" y="91" font-family="Inter, sans-serif" font-size="13" fill="var(--tinte)">Die Blockchain, auf der der Token lebt</text>
+        <text x="516" y="84" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gruen)">ETH · SOL · XLM · SUI</text>
+        <line x1="280" y1="102" x2="280" y2="116" stroke="var(--leise)" stroke-width="1.5" marker-end="url(#pf)"/>
+        <rect x="30" y="118" width="500" height="44" rx="3" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <text x="44" y="136" font-family="Inter, sans-serif" font-size="10" font-weight="800" letter-spacing="1.1" fill="var(--gold)">EBENE 2 · DIE VERBINDUNG</text>
+        <text x="44" y="153" font-family="Inter, sans-serif" font-size="13" fill="var(--tinte)">Was ist es wert? Liegt das Geld wirklich da?</text>
+        <text x="516" y="146" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gold)">LINK · DOT</text>
+        <line x1="280" y1="164" x2="280" y2="178" stroke="var(--leise)" stroke-width="1.5" marker-end="url(#pf)"/>
+        <rect x="30" y="180" width="500" height="44" rx="3" fill="none" stroke="var(--gold)" stroke-width="2"/>
+        <text x="44" y="198" font-family="Inter, sans-serif" font-size="10" font-weight="800" letter-spacing="1.1" fill="var(--gold)">EBENE 3 · DAS GELD DAZWISCHEN</text>
+        <text x="44" y="215" font-family="Inter, sans-serif" font-size="13" fill="var(--tinte)">Digitale Dollar, mit denen bezahlt wird</text>
+        <text x="516" y="208" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gold)">CRCL · COIN · TRX</text>
+        <line x1="280" y1="226" x2="280" y2="240" stroke="var(--leise)" stroke-width="1.5" marker-end="url(#pf)"/>
+        <rect x="30" y="242" width="500" height="44" rx="3" fill="none" stroke="var(--gruen)" stroke-width="2"/>
+        <text x="44" y="260" font-family="Inter, sans-serif" font-size="10" font-weight="800" letter-spacing="1.1" fill="var(--gruen)">EBENE 4 · DIE ALTE WELT</text>
+        <text x="44" y="277" font-family="Inter, sans-serif" font-size="13" fill="var(--tinte)">Die Fondsgesellschaft, die es anbietet — und du</text>
+        <text x="516" y="270" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gruen)">BLK</text>
+      </svg>
+    </div>
+
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>1 · Die Schienen</h3>
+      <p>Das meiste läuft auf <strong>Ethereum</strong>, zunehmend auf <strong>Solana</strong>.
+        <strong>Stellar</strong> ist der leise Spezialfall — dort betreibt Franklin Templeton
+        seinen tokenisierten Fonds, und das Netzwerk wurde von Anfang an für Zahlungen und
+        Wertpapiere gebaut.</p>
+      <div class="namen">
+        <span class="chip"><span class="muenze" style="background:#627EEA">ETH</span>Ethereum</span>
+        <span class="chip"><span class="muenze" style="background:#9945FF">SOL</span>Solana</span>
+        <span class="chip"><span class="muenze" style="background:#08B5E5">XLM</span>Stellar</span>
+        <span class="chip"><span class="muenze" style="background:#4DA2FF">SUI</span>Sui</span>
+      </div>
+    </div>
+
+    <div class="block" style="--rand: var(--gold)">
+      <h3>2 · Die Verbindung zur echten Welt</h3>
+      <p>Diese Ebene fehlt in den meisten Erklärungen — und ohne sie funktioniert nichts.
+        Eine tokenisierte Anleihe muss wissen, was sie wert ist. Ein Fonds muss beweisen,
+        dass die Dollar wirklich liegen. Eine Blockchain kennt nur ihre eigenen Daten.</p>
+      <p>Diese Brücke bauen Orakel, und der größte heißt <strong>Chainlink</strong>. Wer
+        glaubt, dass tokenisierte Werte groß werden, wettet hier auf die Infrastruktur statt
+        auf eine einzelne Schiene. <strong>Polkadot</strong> verbindet Blockchains
+        untereinander — Werte müssen irgendwann zwischen ihnen wandern können.</p>
+      <div class="namen">
+        <span class="chip"><span class="muenze" style="background:#2A5ADA">LINK</span>Chainlink</span>
+        <span class="chip"><span class="muenze" style="background:#E6007A">DOT</span>Polkadot</span>
+      </div>
+    </div>
+
+    <div class="block" style="--rand: var(--gold)">
+      <h3>3 · Das Geld dazwischen</h3>
+      <p>Tokenisierte Wertpapiere brauchen tokenisiertes Geld — Stablecoins, digitale
+        Dollar mit echter Deckung. <strong>Circle</strong> gibt einen der großen heraus und
+        verdient an den Zinsen der Reserven, <strong>Coinbase</strong> teilt sich diese
+        Einnahmen. Auf der Netzwerkseite ist <strong>TRON</strong> der stille Riese: ein sehr
+        großer Teil aller Stablecoin-Überweisungen läuft darüber.</p>
+      <div class="namen">
+        <span class="chip"><span class="muenze" style="background:#1F7A4D">CRCL</span>Circle</span>
+        <span class="chip"><span class="muenze" style="background:#0052FF">COIN</span>Coinbase</span>
+        <span class="chip"><span class="muenze" style="background:#EB0029">TRX</span>TRON</span>
+      </div>
+    </div>
+
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>4 · Die alte Finanzwelt</h3>
+      <p>Man muss für diesen Trend keine Kryptowährung anfassen. <strong>BlackRock</strong>
+        hat den ersten großen tokenisierten Fonds gestartet. Die langweiligste Variante — und
+        für die meisten die vernünftigste.</p>
+      <div class="namen">
+        <span class="chip"><span class="muenze" style="background:#17181A">BLK</span>BlackRock</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Namen, mit Zweck und Größe</h2>
+    <p>Nach Marktgröße sortiert. Die letzten vier haben mit Tokenisierung nichts zu tun.</p>
+    <div class="umschlag">
+      <table class="coins">
+        <thead><tr><th>Name</th><th class="r">Marktgröße</th><th class="r">Kurs</th><th>Zweck</th></tr></thead>
+        <tbody>
+          <tr><td><span class="n"><span class="muenze" style="background:#F7931A">BTC</span>Bitcoin</span></td>
+            <td class="r zahl">1,73 Bio. $</td><td class="r zahl">rund 86.000 $</td>
+            <td>Digitales Gold. Kein Tokenisierungsprojekt, aber der Wertspeicher, an dem der Markt hängt.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#627EEA">ETH</span>Ethereum</span></td>
+            <td class="r zahl">331 Mrd. $</td><td class="r zahl">rund 2.700 $</td>
+            <td>Nummer eins für Smart Contracts. Der Großteil tokenisierter Werte liegt hier.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#9945FF">SOL</span>Solana</span></td>
+            <td class="r zahl">71 Mrd. $</td><td class="r zahl">rund 120 $</td>
+            <td>Schnellste große Blockchain, Gebühren im Bruchteil eines Cents.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#EB0029">TRX</span>TRON</span></td>
+            <td class="r zahl">32 Mrd. $</td><td class="r zahl">rund 0,33 $</td>
+            <td>Die Schiene, über die ein sehr großer Teil der Stablecoin-Überweisungen läuft.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#2A5ADA">LINK</span>Chainlink</span></td>
+            <td class="r zahl">10,6 Mrd. $</td><td class="r zahl">rund 14 $</td>
+            <td>Orakel: bringt Kurse und Nachweise auf die Blockchain. Ohne das kein tokenisierter Wert.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#08B5E5">XLM</span>Stellar</span></td>
+            <td class="r zahl">7,6 Mrd. $</td><td class="r zahl">rund 0,21 $</td>
+            <td>Für Zahlungen und Wertpapiere gebaut. Franklin Templetons Fonds läuft hier.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#4DA2FF">SUI</span>Sui</span></td>
+            <td class="r zahl">5,0 Mrd. $</td><td class="r zahl">rund 1,20 $</td>
+            <td>Herausforderer, Sprache ursprünglich bei Meta für digitale Vermögenswerte entwickelt.</td></tr>
+          <tr><td><span class="n"><span class="muenze" style="background:#E6007A">DOT</span>Polkadot</span></td>
+            <td class="r zahl">2,0 Mrd. $</td><td class="r zahl">rund 1,25 $</td>
+            <td>Verbindet eigenständige Blockchains, damit Werte zwischen ihnen wandern können.</td></tr>
+          <tr class="aus"><td><span class="n"><span class="muenze" style="background:#C2A633">DOGE</span>Dogecoin</span></td>
+            <td class="r zahl">14,9 Mrd. $</td><td class="r zahl">rund 0,10 $</td>
+            <td>Anderes Thema. Ein Meme ohne eigene Entwicklung.</td></tr>
+          <tr class="aus"><td><span class="n"><span class="muenze" style="background:#FF4C4C">RNDR</span>Render</span></td>
+            <td class="r zahl">1,0 Mrd. $</td><td class="r zahl">rund 2,10 $</td>
+            <td>Anderes Thema: vermietet Grafikleistung für 3D und KI.</td></tr>
+          <tr class="aus"><td><span class="n"><span class="muenze" style="background:#0B1D3A">FET</span>Fetch.ai</span></td>
+            <td class="r zahl">576 Mio. $</td><td class="r zahl">rund 0,25 $</td>
+            <td>Anderes Thema: KI-Agenten, die selbstständig handeln und bezahlen.</td></tr>
+          <tr class="aus"><td><span class="n"><span class="muenze" style="background:#00A389">VIRT</span>Virtuals</span></td>
+            <td class="r zahl">499 Mio. $</td><td class="r zahl">rund 0,85 $</td>
+            <td>Anderes Thema: Plattform für KI-Agenten. Sehr früh, sehr spekulativ.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="groesse">
+      <h3 style="font-family: var(--display); font-size: 18px; font-weight: 600; margin: 0">
+        Wie groß der Abstand wirklich ist</h3>
+      <div class="gz"><div class="kopf"><span class="was">Bitcoin allein</span>
+        <span class="wert" style="color:#F7931A">1,73 Bio. $</span></div>
+        <div class="gspur"><div class="fuell" style="width:100%; height:100%; background:#F7931A"></div></div></div>
+      <div class="gz"><div class="kopf"><span class="was">Alle elf anderen zusammen</span>
+        <span class="wert" style="color: var(--leise)">477 Mrd. $</span></div>
+        <div class="gspur"><div class="fuell" style="width:27.6%; height:100%; background: var(--leise)"></div></div></div>
+      <div class="gz"><div class="kopf"><span class="was">Polkadot</span>
+        <span class="wert" style="color:#E6007A">2,0 Mrd. $</span></div>
+        <div class="gspur"><div class="fuell" style="width:0.12%; min-width:2px; height:100%; background:#E6007A"></div></div></div>
+      <p style="margin: 14px 0 0; font-size: 14.5px">Bitcoin ist <strong>dreieinhalbmal so
+        groß wie alle anderen hier zusammen</strong>. Polkadot ist auf diesem Balken ein
+        Strich. Genau deshalb kann sich ein Altcoin vervielfachen — und genauso gut
+        verschwinden.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Der ehrliche Teil</h2>
+    <div class="warnung">
+      <h3>Die meisten dieser Coins werden sterben</h3>
+      <p>Das ist die Regel, keine Floskel. Von den tausenden Projekten früherer Zyklen
+        existieren die meisten nicht mehr. <strong>Bitcoin, Ethereum und Solana</strong> sind
+        die Träger, die jeden Einbruch überlebt haben. Alles darunter ist eine Wette darauf,
+        zu den wenigen Überlebenden zu gehören.</p>
+      <p>Die andere Seite ist genauso real: <strong>Polkadot</strong> steht bei rund
+        <b>1,25 $</b>. Auf 100 $ wäre das das <b>Achtzigfache</b> — und fast das Doppelte
+        seines Allzeithochs von knapp 55 $ aus Ende 2021. <em>Eine Veranschaulichung, keine
+        Prognose.</em> Von 1,25 $ auf 0,10 $ ist derselbe Weg rückwärts, und der ist in
+        diesem Markt der häufigere.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich es praktisch machen würde</h2>
+    <div class="zwei">
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Die Träger per Sparplan</h3>
+        <p>Für Bitcoin, Ethereum und Solana: automatisch, monatlich. Die drei, bei denen
+          „liegen lassen" vertretbar ist.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Altcoins nicht ewig halten</h3>
+        <p>Bewusst handeln statt horten. Ein Altcoin, der seinen Zyklus hinter sich hat,
+          kommt meistens nicht wieder.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Nur, wenn du dich auskennst</h3>
+        <p>Wächst die Netzwerkaktivität oder schrumpft sie? Wer das nicht beantworten kann,
+          handelt nicht — er rät.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Im Zweifel einfach Bitcoin</h3>
+        <p>Wer nicht tief drinsteckt, fährt damit besser als mit zehn Namen, die er nicht
+          einschätzen kann.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Nur Geld, das weg sein darf</h3>
+        <p>Nicht die Rücklage, nicht die Kaution. Krypto halbiert sich regelmäßig — das muss
+          man aussitzen können.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Und wie viel?</h3>
+        <p>Für einen jungen Menschen mit Risikotoleranz halte ich <strong>10 bis 15 % des
+          Vermögens</strong> für vertretbar. Der Rest gehört in breite ETFs.</p></article>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

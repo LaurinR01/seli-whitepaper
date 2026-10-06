@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anfangen mit ETFs</title>
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Allura&display=swap">
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+    --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+    --feld: #22252A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+  --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+  --feld: #22252A; color-scheme: dark;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+
+  td.ziel { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen);
+    white-space: nowrap; }
+  td.ziel .pfeil { color: var(--leise); font-weight: 400; margin-right: 6px; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 16px 12px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+
+  <header>
+    <div class="marke">investieren.mit.seli</div>
+    <h1>Anfangen mit ETFs</h1>
+    <p class="vorspann">
+      Die Kürzel aus dem Video stehen unten. Vorher das, was wirklich über dein
+      Ergebnis entscheidet: <strong>der Sparplan und der Tag, an dem du anfängst.</strong>
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Was ist monatlich übrig?</h2>
+    <p>Mach dir Gedanken, ob du bei diesen Punkten noch etwas sparen kannst:</p>
+    <div class="hinweis">
+      Strom- und Gastarif · Handyvertrag · Streaming und Apps · Fitnessstudio ·
+      Cloud-Speicher · Versicherungen, die sich überschneiden · Kontoführung ·
+      Lieferdienste · Lebensmittel-Einkauf planen statt spontan
+    </div>
+    <p style="margin-top: 14px">
+      Jeder Punkt klingt klein. Zusammen sind das bei vielen <strong>100 bis 300 € im
+      Monat</strong> — und genau diese Summe entscheidet in der Rechnung unten über
+      mehrere Hunderttausend.
+    </p>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Dein Weg zur Million ist greifbarer, als du denkst</h2>
+    <p>
+      Mit einem Sparplan, der früh genug läuft, ist eine Million für die meisten
+      erreichbar. So viel müsstest du dafür monatlich anlegen, um
+      <strong>mit 65 dort zu stehen</strong> — gerechnet mit 10 % Rendite im Jahr.
+    </p>
+    <div class="umschlag">
+      <table>
+        <thead><tr>
+          <th>Du fängst an</th><th class="r">Jahre bis 65</th>
+          <th class="r">Monatlich nötig</th><th class="r">Ergebnis</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>mit 20</td><td class="r zahl">45</td><td class="r zahl">95 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+          <tr><td>mit 25</td><td class="r zahl">40</td><td class="r zahl">158 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+          <tr><td>mit 30</td><td class="r zahl">35</td><td class="r zahl">263 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+          <tr><td>mit 35</td><td class="r zahl">30</td><td class="r zahl">442 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+          <tr><td>mit 40</td><td class="r zahl">25</td><td class="r zahl">754 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+          <tr><td>mit 50</td><td class="r zahl">15</td><td class="r zahl">2.413 €</td><td class="r ziel"><span class="pfeil">→</span>1.000.000 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top: 14px">
+      Mit 20 reichen <strong>95 € im Monat</strong>. Mit 40 sind es 754 €. Den Rest macht
+      die Zeit.
+    </p>
+    <div class="hinweis">
+      <strong>Rechne es für dich durch:</strong>
+      <a href="https://www.zinsen-berechnen.de/sparrechner.php" target="_blank" rel="noopener">zinsen-berechnen.de</a>
+      oder <a href="https://www.justetf.com/de/etf-sparplan-rechner.html" target="_blank" rel="noopener">justETF</a>.
+      Zwei Minuten, und man sieht das Thema anders.
+    </div>
+  </section>
+
+  <section>
+    <h2>Warum das so schwer zu glauben ist</h2>
+    <p>
+      200 € im Monat, 45 Jahre lang. Einmal auf dem Sparkonto, einmal breit angelegt.
+      Eingezahlt wird beide Male dasselbe: 108.000 €.
+    </p>
+    <div class="schaubild">
+      <svg viewBox="0 0 560 300" role="img"
+           aria-label="200 Euro monatlich auf dem Sparkonto gegen breit angelegt über 45 Jahre">
+        <line x1="56" y1="262.0" x2="518" y2="262.0" stroke="var(--linie)" stroke-width="1"/><text x="48" y="266.0" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">0</text><line x1="56" y1="212.8" x2="518" y2="212.8" stroke="var(--linie)" stroke-width="1"/><text x="48" y="216.8" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">500 Tsd.</text><line x1="56" y1="163.7" x2="518" y2="163.7" stroke="var(--linie)" stroke-width="1"/><text x="48" y="167.7" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">1 Mio.</text><line x1="56" y1="114.5" x2="518" y2="114.5" stroke="var(--linie)" stroke-width="1"/><text x="48" y="118.5" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">1,5 Mio.</text><line x1="56" y1="65.3" x2="518" y2="65.3" stroke="var(--linie)" stroke-width="1"/><text x="48" y="69.3" text-anchor="end" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">2 Mio.</text>
+        <path d="M 56.0 262.0 L 66.3 261.8 L 76.5 261.5 L 86.8 261.2 L 97.1 260.8 L 107.3 260.5 L 117.6 260.1 L 127.9 259.6 L 138.1 259.1 L 148.4 258.6 L 158.7 258.0 L 168.9 257.3 L 179.2 256.6 L 189.5 255.7 L 199.7 254.8 L 210.0 253.8 L 220.3 252.7 L 230.5 251.5 L 240.8 250.2 L 251.1 248.7 L 261.3 247.1 L 271.6 245.3 L 281.9 243.3 L 292.1 241.0 L 302.4 238.6 L 312.7 235.9 L 322.9 232.9 L 333.2 229.6 L 343.5 226.0 L 353.7 222.0 L 364.0 217.5 L 374.3 212.6 L 384.5 207.2 L 394.8 201.2 L 405.1 194.6 L 415.3 187.3 L 425.6 179.3 L 435.9 170.4 L 446.1 160.5 L 456.4 149.6 L 466.7 137.6 L 476.9 124.4 L 487.2 109.7 L 497.5 93.5 L 507.7 75.6 L 518.0 55.8 L 518.0 262.0 L 56.0 262.0 Z" fill="var(--gruen)" opacity="0.10"/>
+        <path d="M 56.0 262.0 L 66.3 261.8 L 76.5 261.5 L 86.8 261.3 L 97.1 261.0 L 107.3 260.8 L 117.6 260.5 L 127.9 260.3 L 138.1 260.0 L 148.4 259.8 L 158.7 259.5 L 168.9 259.3 L 179.2 259.0 L 189.5 258.7 L 199.7 258.5 L 210.0 258.2 L 220.3 257.9 L 230.5 257.6 L 240.8 257.3 L 251.1 257.1 L 261.3 256.8 L 271.6 256.5 L 281.9 256.2 L 292.1 255.9 L 302.4 255.6 L 312.7 255.3 L 322.9 255.0 L 333.2 254.7 L 343.5 254.4 L 353.7 254.1 L 364.0 253.7 L 374.3 253.4 L 384.5 253.1 L 394.8 252.8 L 405.1 252.4 L 415.3 252.1 L 425.6 251.8 L 435.9 251.4 L 446.1 251.1 L 456.4 250.7 L 466.7 250.4 L 476.9 250.0 L 487.2 249.7 L 497.5 249.3 L 507.7 249.0 L 518.0 248.6" fill="none" stroke="var(--leise)" stroke-width="2.5"/>
+        <path d="M 56.0 262.0 L 66.3 261.8 L 76.5 261.5 L 86.8 261.2 L 97.1 260.8 L 107.3 260.5 L 117.6 260.1 L 127.9 259.6 L 138.1 259.1 L 148.4 258.6 L 158.7 258.0 L 168.9 257.3 L 179.2 256.6 L 189.5 255.7 L 199.7 254.8 L 210.0 253.8 L 220.3 252.7 L 230.5 251.5 L 240.8 250.2 L 251.1 248.7 L 261.3 247.1 L 271.6 245.3 L 281.9 243.3 L 292.1 241.0 L 302.4 238.6 L 312.7 235.9 L 322.9 232.9 L 333.2 229.6 L 343.5 226.0 L 353.7 222.0 L 364.0 217.5 L 374.3 212.6 L 384.5 207.2 L 394.8 201.2 L 405.1 194.6 L 415.3 187.3 L 425.6 179.3 L 435.9 170.4 L 446.1 160.5 L 456.4 149.6 L 466.7 137.6 L 476.9 124.4 L 487.2 109.7 L 497.5 93.5 L 507.7 75.6 L 518.0 55.8" fill="none" stroke="var(--gruen)" stroke-width="2.5"/>
+        <circle cx="518.0" cy="55.8" r="4" fill="var(--gruen)"/>
+        <circle cx="518.0" cy="248.6" r="4" fill="var(--leise)"/>
+        <text x="72" y="42" font-family="Inter, sans-serif" font-size="12"
+              font-weight="800" fill="var(--gruen)">breit angelegt, 10 % im Jahr</text>
+        <text x="72" y="236.0" font-family="Inter, sans-serif" font-size="12"
+              font-weight="800" fill="var(--leise)">Sparkonto, 1 % im Jahr</text>
+        <text x="510.0" y="75.8" text-anchor="end" font-family="Inter, sans-serif"
+              font-size="15" font-weight="800" fill="var(--gruen)">2.096.000 €</text>
+        <text x="510.0" y="236.6" text-anchor="end" font-family="Inter, sans-serif"
+              font-size="13" font-weight="800" fill="var(--leise)">136.000 €</text>
+        <text x="56.0" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">0</text><text x="158.7" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">10</text><text x="261.3" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">20</text><text x="364.0" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">30</text><text x="466.7" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">40</text><text x="518.0" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--leise)">45</text>
+        <text x="287" y="294" text-anchor="middle" font-family="Inter, sans-serif"
+              font-size="10.5" fill="var(--leise)">Jahre</text>
+      </svg>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Dass kaum jemand das glaubt, liegt nicht am Willen. Unser Gehirn denkt linear,
+        Zinseszins läuft exponentiell: Die Kurve bleibt jahrelang flach und schießt dann
+        weg — am Ende <strong>fast zwei Millionen Unterschied</strong> bei gleicher Rate.</p>
+      <p>In den USA besitzen rund <strong>58 %</strong> der Erwachsenen Aktien, in
+        Deutschland <strong>jeder Fünfte</strong>. Es liegt nicht am Einkommen.
+        <strong>Fang früh an und lies dich ein.</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 3</div>
+    <h2>Drei Beispieldepots</h2>
+    <p>Beispiele, keine Empfehlungen — drei Abstufungen, damit du siehst, wie sich
+      Risiko in Gewichtungen übersetzt.</p>
+
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Konservativ — ein Fonds, fertig</h3>
+      <p><strong>100 % FTSE All-World</strong> · VWCE · VT</p>
+      <p>Rund 4.000 Firmen aus Industrie- und Schwellenländern in einem Produkt.
+        Für die allermeisten vollkommen ausreichend.</p>
+    </div>
+
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Moderat — mit mehr Schwellenländern</h3>
+      <p><strong>⅔ FTSE All-World</strong> · VWCE · VT<br>
+        <strong>⅓ Emerging Markets</strong> · EIMI · IEMG</p>
+      <p>Schwellenländer sind im All-World schon enthalten, aber klein gewichtet.
+        Wer ihnen mehr zutraut, erhöht hier bewusst.</p>
+    </div>
+
+    <div class="block" style="--rand: var(--rot)">
+      <h3>Riskanter — mit Überzeugung</h3>
+      <p><strong>65 % FTSE All-World</strong> · VWCE · VT<br>
+        <strong>20 % Halbleiter</strong> · VVSM · SMH<br>
+        <strong>10 % Bitcoin</strong> · BITC · IBIT<br>
+        <strong>5 % Ethereum</strong> · CETH · ETHA</p>
+      <p>Nur für Leute, die einen Rückgang um die Hälfte aussitzen können.</p>
+    </div>
+
+    <div class="hinweis">
+      <strong>Das Wichtigste bleibt: anfangen.</strong> Ein einfacher Sparplan, der seit
+      zehn Jahren läuft, schlägt das perfekte Depot, das man nie eröffnet hat. Die
+      Aufteilung kann man später ändern — die verlorenen Jahre nicht.
+    </div>
+  </section>
+
+  <section>
+    <h2>Drei Dinge, bei denen ich vorsichtig bin</h2>
+
+    <div class="block" style="--rand: var(--rot)">
+      <h3>Gehebelte Produkte: lieber gar nicht</h3>
+      <p>Der Hebel wird jeden Tag neu angesetzt. Geht es rauf, runter und wieder rauf,
+        steht am Ende weniger da — obwohl der Index unverändert ist. Für einen Sparplan
+        sind die nichts.</p>
+    </div>
+
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Dividenden: selten der richtige Anfang</h3>
+      <p>Eine Dividende ist Geld, das die Firma <strong>nicht</strong> in ihr Wachstum
+        steckt. Firmen, die viel ausschütten, wachsen deshalb im Schnitt langsamer und
+        liegen über lange Zeiträume meist hinter dem breiten Markt.</p>
+      <p>Dazu sinkt der Kurs am Zahltag um denselben Betrag. Du bekommst dein eigenes
+        Geld überwiesen und zahlst darauf Steuern.</p>
+      <p><strong>Sinnvoll wird das Thema, wenn man schon Kapital hat</strong> und davon
+        leben oder Ausschüttungen haben will. Wer jung ist und aufbaut, fährt mit einem
+        thesaurierenden Welt-ETF besser.</p>
+    </div>
+
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Halbleiter: spannend, aber mit offenen Augen</h3>
+      <p>Für die nächsten Jahre eines der interessantesten Themen — die Chips stecken in
+        jeder KI, egal wer gewinnt. Der Sektor hängt aber an einer Bedingung: dass die
+        großen Technologiekonzerne weiter zweistellige Milliardenbeträge investieren.</p>
+      <p>Worauf ich achte: <strong>Bleiben diese Investitionen hoch, und was werfen sie
+        ab?</strong> Beim Einbruch Ende Juni 2026 hat sich gezeigt, dass nicht alles
+        wächst. Gehalten haben sich die Firmen, die nicht schwer verschuldet sind und auf
+        ihr Kapital wirklich eine Rendite erwirtschaften.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Kürzel aus dem Video</h2>
+    <p>Je Stufe das deutsche Kürzel für Xetra und die internationale Variante.</p>
+    <div class="umschlag">
+      <table>
+        <thead><tr><th>Kategorie</th><th>Lieber nicht</th><th>Solide</th><th>Mein Favorit</th></tr></thead>
+        <tbody>
+          <tr><td><b>Welt</b></td><td class="zahl">LVWC · SSO</td><td class="zahl">EUNL · URTH</td><td class="haupt">VWCE · VT</td></tr>
+          <tr><td><b>S&amp;P 500</b></td><td class="zahl">US9L · SPXL</td><td class="zahl">VUSA · SPY</td><td class="haupt">SXR8 · VOO</td></tr>
+          <tr><td><b>Krypto</b></td><td class="zahl">BITX · BTC3</td><td class="zahl">CETH · ETHA</td><td class="haupt">BITC · IBIT</td></tr>
+          <tr><td><b>Dividenden</b></td><td class="zahl">JGPI · JEPI</td><td class="zahl">SPYD · NOBL</td><td class="haupt">VWCE · VT</td></tr>
+          <tr><td><b>Tech und KI</b></td><td class="zahl">QQQ3 · TQQQ</td><td class="zahl">SXRV · QQQ</td><td class="haupt">VVSM · SMH</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hinweis">
+      Vorsicht bei zwei Kürzeln: <strong>SPYD</strong> heißt in den USA ein anderer Fonds
+      als in Deutschland. Und <strong>BTCE</strong>, das bekannteste Bitcoin-Produkt hier,
+      kostet 2,00 % im Jahr — BITC kostet 0,15 % bei fast doppelter Größe.
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

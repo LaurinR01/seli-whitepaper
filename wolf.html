@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wolfspeed, meine These</title>
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Allura&display=swap">
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+    --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+    --feld: #22252A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+  --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+  --feld: #22252A; color-scheme: dark;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+  .balken { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+  .reihe .kopf { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .reihe .was { font-size: 13.5px; font-weight: 600; }
+  .reihe .wert { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 18px; }
+  .spur { height: 22px; background: var(--feld); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .fuell { height: 100%; }
+  .reihe .fuss { font-size: 12px; color: var(--leise); margin-top: 5px; }
+  .rechnung { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 20px; margin-top: 18px; }
+  .sonder { display: flex; gap: 16px; background: color-mix(in srgb, var(--gruen) 8%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--gruen) 32%, var(--linie));
+    border-radius: 3px; padding: 20px 22px; }
+  .sonder .icon { font-size: 26px; line-height: 1; flex: none; }
+  .sonder h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+  .sonder p { margin: 0; }
+  .sonder .buch { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--linie);
+    font-size: 13.5px; color: var(--leise); }
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+
+  <header>
+    <div class="marke">investieren.mit.seli</div>
+    <h1>Wolfspeed, meine These</h1>
+    <p class="vorspann">
+      <strong>Spekulativ</strong> — das steht hier oben und nicht versteckt am Ende.
+      Warum ich die Aktie trotzdem spannend finde, was dagegen spricht, und wie ich
+      damit umgehe.
+    </p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Kurs</div><div class="v">rund 34 $</div><div class="n">Oktober 2026</div></div>
+      <div class="kz"><div class="l">Mein Kursziel</div><div class="v" style="color: var(--gruen)">123 $</div><div class="n">etwa das 3,5-fache</div></div>
+      <div class="kz"><div class="l">Börsenwert</div><div class="v">rund 1,8 Mrd. $</div><div class="n">52,9 Mio. Aktien</div></div>
+      <div class="kz"><div class="l">Einstufung</div><div class="v" style="color: var(--rot); font-size: 18px">spekulativ</div><div class="n">kleine Position</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sonder">
+      <div class="icon">🎯</div>
+      <div>
+        <h3>Dein unfairer Vorteil</h3>
+        <p>Große Fonds müssen Milliarden unterbringen und arbeiten nach festen Regeln.
+          Was durch eine <strong>Insolvenz</strong> gegangen ist, dürfen viele davon
+          schlicht nicht halten — und eine Firma dieser Größe ist für sie ohnehin zu
+          klein: Sie kämen gar nicht hinein, ohne gleich einen zu großen Teil zu
+          besitzen. Beides drückt den Kurs, ohne dass jemand das Geschäft bewertet
+          hätte. <strong>Genau da bist du als Kleinanleger im Vorteil.</strong></p>
+        <p class="buch">📚 Buchtipp: Joel Greenblatt, <em>You Can Be a Stock Market
+          Genius</em> — mehr Empfehlungen in meiner Bio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Was Wolfspeed macht</h2>
+    <p>
+      Wolfspeed stellt Siliziumkarbid her — das Material, auf dem Leistungselektronik mit
+      hoher Spannung läuft. Es hält etwa das Zehnfache der Feldstärke von normalem
+      Silizium aus und leitet Wärme rund dreimal besser. Deshalb steckt es in
+      E-Auto-Antrieben, Netztechnik, Verteidigung und zunehmend in KI-Rechenzentren.
+    </p>
+    <p>
+      2024 war Wolfspeed weltweit die <strong>Nummer eins bei Siliziumkarbid-Substraten</strong>
+      mit rund einem Drittel Marktanteil — durchgängig integriert vom Kristall bis zum
+      Chip, gefertigt in den USA.
+    </p>
+  </section>
+
+  <section>
+    <h2>Der Sonderfall: eine Restrukturierung, die viele meiden</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Im Juni 2025 ging Wolfspeed in ein vorbereitetes Chapter-11-Verfahren, im
+        September 2025 kam die Aktie zurück an die Börse. Das Verfahren hat die Schulden
+        um rund <strong>70 %</strong> gesenkt, Fälligkeiten bis 2030 gestreckt und die
+        jährlichen Zinszahlungen um etwa <strong>60 %</strong> reduziert.</p>
+      <p>Damit hat das neue Eigenkapital wieder einen weitgehend unbelasteten Anspruch
+        auf die Anlagen. Trotzdem fassen viele Investoren nichts an, was durch eine
+        Insolvenz gegangen ist — und genau in diesem Stigma sehe ich die Gelegenheit.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Rechnung</h2>
+    <div class="rechnung">
+      <div class="balken">
+        <div class="reihe">
+          <div class="kopf"><span class="was">Börsenwert</span>
+            <span class="wert" style="color: var(--gruen)">rund 1,8 Mrd. $</span></div>
+          <div class="spur"><div class="fuell" style="width: 30%; background: var(--gruen)"></div></div>
+        </div>
+        <div class="reihe">
+          <div class="kopf"><span class="was">Mit Schulden, abzüglich Kasse</span>
+            <span class="wert">rund 2,5 Mrd. $</span></div>
+          <div class="spur"><div class="fuell" style="width: 41%; background: var(--gold)"></div></div>
+          <div class="fuss">1,8 Mrd. $ Schulden, 1,1 Mrd. $ Kasse — der ehrlichere Vergleichswert</div>
+        </div>
+        <div class="reihe">
+          <div class="kopf"><span class="was">Was die zwei Fabriken im Bau gekostet haben</span>
+            <span class="wert">über 6 Mrd. $</span></div>
+          <div class="spur"><div class="fuell" style="width: 100%; background: var(--tinte)"></div></div>
+          <div class="fuss">North Carolina rund 5 Mrd. $ · Mohawk Valley, New York, über 1 Mrd. $</div>
+        </div>
+      </div>
+      <p style="margin: 18px 0 0; font-family: var(--display); font-size: 17.5px; line-height: 1.45">
+        Selbst mit allen Schulden zahlt man weniger als die Hälfte der Baukosten. Eine
+        Siliziumkarbid-Fabrik zu bauen und die Ausbeute in den Griff zu bekommen dauert
+        Jahre und kostet Milliarden. Deshalb ist der Wiederbeschaffungswert für mich ein
+        echter Boden.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Der Chart</h2>
+    <figure>
+      <img src="wolf_chart.webp" alt="Tageschart von Wolfspeed mit Trendsignalen">
+      <figcaption>
+        <strong>Der bullische Trend ist gerade erst wieder erobert.</strong> Das ist die
+        Marke, auf die ich achte: Hält sie darüber, bleibt die These intakt. Fällt sie
+        zurück, werde ich kleiner statt nachzukaufen.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Warum KI-Rechenzentren das Material brauchen</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>KI-Racks werden so stromhungrig, dass Rechenzentren auf höhere Spannungen
+        umstellen — Nvidias 800-Volt-Architektur ist das bekannteste Beispiel. Strom bei
+        solchen Spannungen effizient umzuwandeln ist genau das, wofür
+        1.200-Volt-Siliziumkarbid gebaut ist.</p>
+      <p>Zu E-Autos und Stromnetz kommt damit ein <strong>zweites Standbein</strong> — und
+        Wolfspeed ist als größter US-Produzent der naheliegende Name dafür.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Vera Rubin: eine Frage des Zeitpunkts</h3>
+      <p>Im Juli 2026 berichtete SemiAnalysis, Nvidias Kyber-Rack für Rubin Ultra rutsche
+        auf 2028. Nvidia widerspricht und sagt, die Roadmap sei intakt. Für mich
+        verschiebt das, <em>wann</em> die Nachfrage kommt, nicht <em>ob</em>.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Zurückgeblieben gegenüber den Nachbarn</h3>
+      <p>Seit der Rückkehr an die Börse sind Navitas, Vicor und Monolithic Power deutlich
+        stärker gelaufen. Im Geschäft sehe ich keinen Grund dafür — ich sehe das Stigma
+        der Restrukturierung. Solche Lücken schließen sich, sobald die Geschichte sauber
+        wird.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Ein strategisches US-Gut?</h3>
+      <p>Die gesamte Produktion steht in den USA. Siliziumkarbid führt das
+        US-Energieministerium unter den kritischen Materialien, und Wolfspeed war für bis
+        zu 750 Mio. $ aus dem CHIPS-Programm vorgesehen. Washington hat sich bei Intel und
+        MP Materials bereits an strategischen Firmen beteiligt.</p>
+      <p><strong>Eine Beteiligung an Wolfspeed gibt es nicht</strong> — das ist eine Frage,
+        keine Nachricht. Käme sie, könnte der Abschlag schnell verschwinden.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Zahlen dahinter</h2>
+    <figure>
+      <img src="wolf_zahlen.webp" alt="Kennzahlen von Wolfspeed">
+      <figcaption>
+        Das Unternehmen schreibt Verlust. Wer hier kauft, kauft die Anlagen und die
+        Aussicht, nicht den heutigen Gewinn. Genau deshalb gehört die Position klein.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Was schiefgehen kann</h2>
+    <div class="zwei">
+      <article class="kachel"><h3>Ausführung</h3>
+        <p>Die Fabriken zu füllen und die Ausbeute hochzubekommen ist schwer — daran hat
+          sich Wolfspeed schon einmal verhoben.</p></article>
+      <article class="kachel"><h3>Verwässerung</h3>
+        <p>Ein anlagenschweres Geschäft kann frisches Eigenkapital brauchen. Jede neue
+          Aktie drückt den Kurs der bestehenden.</p></article>
+      <article class="kachel"><h3>Wettbewerb aus China</h3>
+        <p>Chinesische Anbieter drücken die Substratpreise. Ein Preiskampf trifft genau
+          die Marge, auf der die These steht.</p></article>
+      <article class="kachel"><h3>Zeitpunkt</h3>
+        <p>Kommen die 800 Volt später, kommt das KI-Standbein später — und bis dahin muss
+          die Firma durchhalten.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Mein Kursziel sind <strong>123 $</strong>, auf lange Sicht halte ich eine
+        Verzehnfachung für möglich. Dasselbe Wort beschreibt das Risiko:
+        <strong>spekulativ</strong>.</p>
+      <p><strong>Ich heirate diese Aktie nicht.</strong> Ich bin hier aktiv unterwegs und
+        gehe rund um große Termine auch mal raus. Bei dieser Schwankung ist Stillhalten
+        keine Strategie.</p>
+      <p>Was vorher feststeht, nicht danach: eine Positionsgröße, die ich aushalte, und
+        eine Marke, bei der ich kleiner werde — derzeit die Trendlinie aus dem Chart.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>

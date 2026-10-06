@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Honeywell, meine These</title>
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&family=Allura&display=swap">
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+    --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+    --feld: #22252A; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papier: #121316; --karte: #1B1D21; --tinte: #F3EFE6; --leise: #9A9484;
+  --linie: #2E3137; --gruen: #4FB380; --rot: #E8695F; --gold: #D6A64A;
+  --feld: #22252A; color-scheme: dark;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+  .sonder { display: flex; gap: 16px; background: color-mix(in srgb, var(--gruen) 8%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--gruen) 32%, var(--linie));
+    border-radius: 3px; padding: 20px 22px; }
+  .sonder .icon { font-size: 26px; line-height: 1; flex: none; }
+  .sonder h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+  .sonder p { margin: 0; }
+  .sonder .buch { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--linie);
+    font-size: 13.5px; color: var(--leise); }
+  .drei { display: grid; grid-template-columns: repeat(3, 1fr); gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .drei { grid-template-columns: 1fr; } }
+  .sparte { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand);
+    border-radius: 3px; padding: 16px; min-width: 0; }
+  .sparte h3 { font-family: var(--display); font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+  .sparte p { margin: 0; font-size: 14px; }
+  .termin { background: color-mix(in srgb, var(--gold) 10%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--gold) 40%, var(--linie));
+    border-left: 3px solid var(--gold); border-radius: 3px; padding: 18px 20px; margin-top: 18px; }
+  .termin h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 7px; color: var(--gold); }
+  .termin p { margin: 0; }
+</style>
+</head>
+<body>
+
+
+<div class="seite">
+
+  <header>
+    <div class="marke">investieren.mit.seli</div>
+    <h1>Honeywell, meine These</h1>
+    <p class="vorspann">
+      Eine <strong>Sondersituation</strong>: Ein Konzern teilt sich auf, und genau in
+      dieser Phase verkaufen viele Fonds, ohne hinzuschauen. Warum ich das für eine
+      Gelegenheit halte — und was dagegen spricht.
+    </p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Kurs</div><div class="v">rund 156 $</div><div class="n">Oktober 2026</div></div>
+      <div class="kz"><div class="l">Mein Kursziel</div><div class="v" style="color: var(--gruen)">350 $</div><div class="n">rund +125 %</div></div>
+      <div class="kz"><div class="l">Chance zu Risiko</div><div class="v">3 : 1</div><div class="n">Basisszenario +50 %</div></div>
+      <div class="kz"><div class="l">Einstufung</div><div class="v" style="font-size: 18px">moderat</div><div class="n">kein Zock</div></div>
+    </div>
+  </header>
+  <section>
+    <div class="sonder">
+      <div class="icon">🎯</div>
+      <div>
+        <h3>Dein unfairer Vorteil</h3>
+        <p>Große Fonds müssen Milliarden unterbringen und arbeiten nach festen Regeln.
+          Eine <strong>Abspaltung</strong> haben sie sich nie ausgesucht: Sie passt oft
+          weder in den Index noch ins Mandat und wird mechanisch verkauft — ohne dass
+          jemand die neue Firma bewertet hätte. Nach der von Greenblatt zitierten
+          Untersuchung schlagen Abspaltungen den Markt in den ersten drei Jahren um rund
+          <strong>10 % pro Jahr</strong>.
+          <strong>Genau da bist du als Kleinanleger im Vorteil.</strong></p>
+        <p class="buch">📚 Buchtipp: Joel Greenblatt, <em>You Can Be a Stock Market
+          Genius</em> — mehr Empfehlungen in meiner Bio.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Der Chart: zu jung für eine Trendaussage</h2>
+    <figure>
+      <img src="hona_chart.webp" alt="Tageschart von Honeywell Aerospace">
+      <figcaption>
+        <strong>Diese Aktie wird erst seit wenigen Monaten eigenständig gehandelt.</strong>
+        Für eine belastbare Trendaussage ist das zu wenig Historie. Zu sehen ist der Weg
+        vom <strong>35-fachen des Gewinns</strong> auf ein <strong>22-faches</strong>, ohne
+        dass das Geschäft eingebrochen wäre. Deshalb kaufe ich hier früh in die Schwäche
+        hinein, statt auf ein Signal zu warten, das es noch gar nicht geben kann.
+      </figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Was die Firma macht</h2>
+    <p>Luftfahrttechnik sowie Automatisierungs- und Gebäudetechnik — und genau diese
+      Teile werden gerade voneinander getrennt.</p>
+    <div class="drei">
+      <article class="sparte" style="--rand: var(--gruen)">
+        <h3>Luftfahrt</h3>
+        <p>Antriebe, Avionik und Hilfsaggregate. Größter Bereich. Wettbewerber: RTX,
+          Safran, GE Aerospace.</p>
+      </article>
+      <article class="sparte" style="--rand: var(--gold)">
+        <h3>Industrie&shy;automatisierung</h3>
+        <p>Steuerungen, Sensoren, Sicherheitstechnik, Lagerautomatisierung. Wettbewerber:
+          Emerson, Rockwell, Zebra.</p>
+      </article>
+      <article class="sparte" style="--rand: var(--gold)">
+        <h3>Gebäude&shy;technik</h3>
+        <p>Brandmelde- und Sicherheitsanlagen, Gebäudesoftware. Wettbewerber: Johnson
+          Controls, Siemens, Schneider.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Das Modell: Rasierer und Klingen</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Die Stärke liegt nicht im Verkauf neuer Geräte, sondern im Ersatzteil- und
+        Wartungsgeschäft. Über die jahrzehntelange Lebensdauer eines Flugzeugs wird
+        geliefert, gewartet und überholt — <strong>etwa dreimal so viel Umsatz wie mit
+        neuen Produkten</strong>, und deutlich margenstärker.</p>
+      <p>Angetrieben wird das von den weltweit geflogenen Flugstunden. Sichtbar im
+        <strong>Rekord-Auftragsbestand von 39,1 Milliarden Dollar</strong>.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Warum gerade jetzt</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Aus einem Gemischtwarenladen werden Spezialisten</h3>
+      <p>Der Konzern zerlegt sich in drei fokussierte Unternehmen. Die Materialsparte
+        Solstice ist bereits abgespalten, die Trennung von Luftfahrt und Automatisierung
+        läuft in der zweiten Jahreshälfte 2026.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Ein aktivistischer Investor hat nachgeholfen</h3>
+      <p>Elliott Investment Management hat Druck gemacht, ein Partner sitzt im
+        Verwaltungsrat. Elliott selbst ist laut Pflichtmeldungen nicht mehr investiert.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Der Teil, über den kaum jemand spricht: Quanten</h3>
+      <p>Auch die Quantensparte wird abgespalten. Sie hat zuletzt <strong>600 Mio. $</strong>
+        eingesammelt, unter anderem von Nvidia, und wurde dabei mit <strong>10 Mrd. $</strong>
+        bewertet — etwa doppelt so hoch wie 2024. Zum Vergleich: IonQ, die populärste
+        Quantenaktie, liegt bei rund 18 Mrd. $.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Die Bilanz ist aufgeräumt</h3>
+      <p>Alte Lasten wurden abgearbeitet, etwa bei Asbest und der früheren Abspaltung von
+        Resideo. Das vereinfacht die Geschichte und setzt künftige Zahlungsströme frei.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Zahlen und der nächste Termin</h2>
+    <figure>
+      <img src="hona_zahlen.webp" alt="Quartalszahlen von Honeywell Aerospace">
+      <figcaption>
+        Im zweiten Quartal wurden <strong>1,87 $</strong> je Aktie berichtet, erwartet
+        waren 2,12 $ — eine Verfehlung von <strong>11,8 %</strong>. Genau das hat den Kurs
+        gedrückt. Die Margenschwäche kommt aus der Eingliederung eines Zukaufs; das
+        Management sieht sie als vorübergehend.
+      </figcaption>
+    </figure>
+    <div class="termin">
+      <h3>28. Oktober 2026</h3>
+      <p>Der nächste Quartalsbericht. Erwartet werden <strong>1,90 $</strong> je Aktie bei
+        <strong>4,59 Mrd. $</strong> Umsatz. Dann zeigt sich, ob die Margenschwäche
+        wirklich vorübergehend war.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Was ich für die Aktie halte</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Mit einem 21-fachen Gewinn ist Honeywell historisch nicht billig, aber der
+        Vergleich hinkt wegen der vielen Zu- und Abgänge. In den letzten fünf Jahren lag
+        der Boden beim <strong>18-fachen</strong> — nach unten ist der Spielraum damit
+        klein, nach oben durch die Abspaltungen groß.</p>
+      <p>Aussagekräftiger ist die Summe der Einzelteile: jede künftige Firma für sich
+        bewerten und addieren. Das ergibt bei mir im Basisszenario rund
+        <strong>50 % Luft nach oben</strong>, also Chance zu Risiko etwa
+        <strong>3 zu 1</strong>. Die Quantensparte kommt als Möglichkeit obendrauf.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Was schiefgehen kann</h2>
+    <div class="zwei">
+      <article class="kachel"><h3>Die Aufspaltung selbst</h3>
+        <p>Mehrere Sparten in kurzer Zeit abzuspalten ist nicht trivial. Das Projekt kann
+          an der Umsetzung scheitern.</p></article>
+      <article class="kachel"><h3>Gebundene Kräfte</h3>
+        <p>Der Umbau bindet Managementkapazität, die dem Tagesgeschäft fehlt — genau dann,
+          wenn es liefern müsste.</p></article>
+      <article class="kachel"><h3>Wechsel an der Spitze</h3>
+        <p>Neuer Finanzchef, neue Leitung der Industrieautomatisierung. Ideal ist das
+          nicht.</p></article>
+      <article class="kachel"><h3>Die Lieferkette</h3>
+        <p>Die Prognose wurde gesenkt, weil die Lieferkette nicht nachkommt. Löst sich das
+          nicht, bleibt die Marge unter Druck.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Weil die Aktie für eine Trendaussage noch zu jung ist, kaufe ich hier bewusst
+        <strong>früh und in die Schwäche hinein</strong>, statt auf ein Signal zu warten.
+        Das ist eine Entscheidung mit offenen Augen: Es kann noch tiefer gehen.</p>
+      <p>Anders als bei einem spekulativen Wert arbeite ich nicht mit einem engen Stop.
+        Es ist ein etabliertes Unternehmen mit laufendem Geschäft und über 39 Milliarden
+        Auftragsbestand — keine Wette, die über Nacht wertlos wird. Dafür gehört die
+        Position entsprechend dimensioniert, und ein bis zwei Jahre Geduld muss man
+        mitbringen.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
