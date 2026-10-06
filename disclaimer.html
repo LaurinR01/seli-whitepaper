@@ -38,11 +38,15 @@ a { color: var(--gruen); }
 .adresse { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
   padding: 16px 18px; margin-bottom: 16px; }
 .adresse p { margin: 0; }
-/* Lueckenmarkierung: faellt absichtlich auf. Wird ersetzt, bevor die Seite
-   online geht -- eine halb ausgefuellte Rechtsseite ist schlimmer als keine. */
-.luecke { background: #FDECEA; border: 1px solid var(--rot); color: var(--rot);
-  border-radius: 3px; padding: 2px 7px; font-size: 13px; font-weight: 700;
-  display: inline-block; }
+/* Warnkasten ganz oben auf dem Disclaimer. Seine Ansage 06.10.2026:
+   "das soll wasserdicht sein" -- deshalb abgesetzt und nicht im Fliesstext,
+   damit niemand behaupten kann, der Hinweis sei versteckt gewesen. */
+.warnkasten { background: var(--feld); border: 1px solid var(--linie);
+  border-left: 4px solid var(--rot); border-radius: 3px; padding: 18px 20px;
+  margin: 22px 0 8px; }
+.warnkasten .satz { font-family: var(--display); font-weight: 700; font-size: 20px;
+  line-height: 1.25; margin: 0 0 9px; letter-spacing: -0.01em; color: var(--tinte); }
+.warnkasten p { margin: 0; font-size: 14.5px; color: var(--leise); }
 footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--linie);
   font-size: 12.5px; color: var(--leise); }
 </style>
@@ -54,6 +58,16 @@ footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--linie)
   <a class="zurueck" href="index.html">&larr; investieren.mit.seli</a>
   <h1>Disclaimer</h1>
   <p class="stand">Risikohinweise und Haftungsausschluss</p>
+
+  <div class="warnkasten">
+    <p class="satz">Keine Anlageberatung &mdash; meine pers&ouml;nliche
+      Einsch&auml;tzung.</p>
+    <p>Alles auf diesen Seiten dient der Information und der Unterhaltung. Es ist keine
+      Empfehlung, irgendetwas zu kaufen oder zu verkaufen, und es ist nicht auf deine
+      pers&ouml;nliche Lage zugeschnitten. Jede Entscheidung triffst du selbst und auf
+      eigenes Risiko &mdash; bis hin zum vollst&auml;ndigen Verlust des eingesetzten
+      Geldes.</p>
+  </div>
 
   <h2>Haftung f&uuml;r Inhalte</h2>
   <p>F&uuml;r die Vollst&auml;ndigkeit, Aktualit&auml;t und Richtigkeit der hier
@@ -92,6 +106,23 @@ footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--linie)
   <p>Alle Zahlen beziehen sich auf den im jeweiligen Text genannten Stand. Kurse,
     Kennzahlen und Einsch&auml;tzungen k&ouml;nnen sich jederzeit &auml;ndern. Eine
     Pflicht, ver&ouml;ffentlichte Inhalte zu aktualisieren, besteht nicht.</p>
+
+  <h2>Keine Pr&uuml;fung des Einzelfalls</h2>
+  <p>Wir kennen deine Verm&ouml;genslage, deine Ziele, deinen Anlagehorizont und deine
+    Risikobereitschaft nicht. Unsere Inhalte richten sich an die Allgemeinheit und sind
+    deshalb nie auf eine einzelne Person zugeschnitten. Sie ersetzen weder eine
+    Anlageberatung noch eine steuerliche oder rechtliche Beratung.</p>
+
+  <h2>Kein Vertragsverh&auml;ltnis</h2>
+  <p>Durch das Lesen dieser Seiten, das Anfordern einer Unterlage oder den Austausch von
+    Nachrichten entsteht kein Beratungs-, Auskunfts- oder sonstiges
+    Vertragsverh&auml;ltnis und keine Pflicht zur Betreuung.</p>
+
+  <h2>Keine Verg&uuml;tung durch Dritte</h2>
+  <p>Wir werden von keinem Emittenten, keinem Fondsanbieter, keinem Broker und keiner
+    Kryptob&ouml;rse daf&uuml;r bezahlt, &uuml;ber einen bestimmten Wert zu schreiben.
+    Was hier steht, ist unsere eigene Einsch&auml;tzung. Sollte sich daran je etwas
+    &auml;ndern, kennzeichnen wir es deutlich im jeweiligen Beitrag.</p>
 
   <h2>Besonderer Hinweis zu Kryptowerten</h2>
   <p>Kryptowerte unterliegen besonders starken Kursschwankungen. Es gibt keine
