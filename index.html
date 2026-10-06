@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>investieren.mit.seli</title>
+<meta name="description" content="Die Unterlagen zu meinen Videos — ETFs, Wolfspeed, Honeywell, Tokenisierung.">
+<meta name="color-scheme" content="light">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Schriften lokal, siehe Begründung in den Whitepapern. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Startseite. Seine Ansage 06.10.2026: "root domain ist scheisse bitte mache da
+   kleine übersicht wie das seli mit sigantur und was es ist". Also kurz, gleiche
+   Gestaltung wie die vier Beilagen, Unterschrift am Ende. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.kopf { display: flex; align-items: center; gap: 16px; }
+.kopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 6vw, 40px);
+  line-height: 1.1; margin: 6px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 18px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+
+h2 { font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--leise); margin: 44px 0 14px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--linie); }
+
+/* Die vier Kacheln. Je ein Rand in der Farbe des Themas, damit man sie
+   auseinanderhält, ohne dass es bunt wird. */
+.liste { display: grid; gap: 11px; }
+a.karte { display: block; background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px;
+  padding: 16px 18px; text-decoration: none; color: inherit; }
+a.karte:hover { border-color: var(--rand, var(--gruen)); }
+a.karte .zeile { display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; }
+a.karte .t { font-family: var(--display); font-weight: 600; font-size: 20px;
+  letter-spacing: -0.01em; }
+a.karte .wort { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  color: var(--rand, var(--gruen)); white-space: nowrap; }
+a.karte .u { color: var(--leise); font-size: 14.5px; margin-top: 5px; }
+
+.hinweis { background: var(--feld); border: 1px solid var(--linie); border-radius: 3px;
+  padding: 15px 18px; margin-top: 26px; font-size: 14.5px; color: var(--leise); }
+.hinweis strong { color: var(--tinte); font-weight: 600; }
+
+/* Unterschrift — gleich wie in den vier Beilagen. */
+.signatur { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); }
+
+@media (max-width: 420px) {
+  .kopf img { width: 62px; height: 62px; }
+  .signatur { gap: 14px; }
+  .signatur img { width: 76px; height: 76px; }
+  .signatur .name { font-size: 50px; }
+}
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <div class="kopf">
+    <img src="seli.png" alt="Seli">
+    <div>
+      <div class="marke">investieren.mit.seli</div>
+      <h1>Die Unterlagen zu meinen Videos</h1>
+    </div>
+  </div>
+
+  <p class="vorspann">
+    Hi, ich bin Seli. In meinen Videos geht es um Aktien, Krypto und die News, die
+    dein Geld betreffen. Manches passt aber nicht in sechzig Sekunden — die Zahlen,
+    die konkreten ETFs, die Gegenargumente. Das schreibe ich hier auf.
+    <strong>Kein Newsletter, keine Anmeldung, keine Mail-Adresse.</strong> Du klickst,
+    du liest, fertig.
+  </p>
+
+  <h2>Die vier Unterlagen</h2>
+
+  <div class="liste">
+
+    <a class="karte" href="start" style="--rand: #1F7A4D">
+      <div class="zeile">
+        <span class="t">Anfangen mit ETFs</span>
+        <span class="wort">ETF</span>
+      </div>
+      <div class="u">Drei Portfolios — konservativ, moderat, riskanter — mit Kürzeln und
+        Kosten. Dazu der Sparplan und warum der Tag, an dem du anfängst, mehr entscheidet
+        als die Auswahl.</div>
+    </a>
+
+    <a class="karte" href="wolf" style="--rand: #C8372F">
+      <div class="zeile">
+        <span class="t">Wolfspeed, meine These</span>
+        <span class="wort">WOLF</span>
+      </div>
+      <div class="u">Eine Aktie nach der Insolvenz. Warum ich sie trotzdem spannend finde,
+        was klar dagegen spricht — und wie ich mit dem Risiko umgehe.</div>
+    </a>
+
+    <a class="karte" href="honey" style="--rand: #B07E1F">
+      <div class="zeile">
+        <span class="t">Honeywell, meine These</span>
+        <span class="wort">HONEY</span>
+      </div>
+      <div class="u">Ein Konzern teilt sich in drei. In genau dieser Phase verkaufen viele
+        Fonds, ohne hinzuschauen. Warum das eine Gelegenheit sein kann.</div>
+    </a>
+
+    <a class="karte" href="token" style="--rand: #1F7A4D">
+      <div class="zeile">
+        <span class="t">Tokenisierung, praktisch</span>
+        <span class="wort">TOKEN</span>
+      </div>
+      <div class="u">Was sich technisch wirklich ändert, welche Namen daran verdienen
+        könnten — und wie viel Krypto in einem Depot überhaupt sinnvoll ist.</div>
+    </a>
+
+  </div>
+
+  <div class="hinweis">
+    <strong>Wie du hierher kommst:</strong> Unter meinen Videos steht immer ein Wort —
+    ETF, WOLF, HONEY oder TOKEN. Wer es kommentiert, bekommt den Link direkt per
+    Nachricht. Du kannst aber auch einfach hier lesen.
+  </div>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung. Stand Oktober 2026.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
