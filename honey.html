@@ -47,6 +47,12 @@ body { background: var(--papier); color: var(--tinte); font-family: var(--text);
   font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 .seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
 
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
 .marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
 h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
   line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
@@ -143,8 +149,13 @@ footer a:hover { color: var(--gruen); }
 <div class="seite">
 
   <header>
-    <div class="marke">investieren.mit.seli</div>
-    <h1>Honeywell, meine These</h1>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Honeywell, meine These</h1>
+      </div>
+    </div>
     <p class="vorspann">
       Eine <strong>Sondersituation</strong>: Ein Konzern teilt sich auf, und genau in
       dieser Phase verkaufen viele Fonds, ohne hinzuschauen. Warum ich das für eine

@@ -39,8 +39,8 @@ body { background: var(--papier); color: var(--tinte); font-family: var(--text);
   font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
 .seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
 
-.kopf { display: flex; align-items: center; gap: 16px; }
-.kopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
   flex: none; border: 2px solid var(--linie); }
 .marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
   text-transform: uppercase; color: var(--gruen); }
@@ -92,7 +92,7 @@ footer a:hover { color: var(--gruen); }
 .rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
 
 @media (max-width: 420px) {
-  .kopf img { width: 62px; height: 62px; }
+  .seitenkopf img { width: 62px; height: 62px; }
   .signatur { gap: 14px; }
   .signatur img { width: 76px; height: 76px; }
   .signatur .name { font-size: 50px; }
@@ -103,7 +103,7 @@ footer a:hover { color: var(--gruen); }
 
 <div class="seite">
 
-  <div class="kopf">
+  <div class="seitenkopf">
     <img src="seli.png" alt="Seli">
     <div>
       <div class="marke">investieren.mit.seli</div>

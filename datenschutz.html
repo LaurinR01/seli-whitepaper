@@ -31,6 +31,12 @@ body { background: var(--papier); color: var(--tinte); font-family: var(--text);
 .seite { max-width: 680px; margin: 0 auto; padding-inline: 22px; padding-block: 44px 64px; }
 .zurueck { font-size: 12.5px; color: var(--leise); text-decoration: none; }
 .zurueck:hover { color: var(--gruen); }
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
 h1 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 6vw, 38px);
   line-height: 1.1; margin: 14px 0 4px; letter-spacing: -0.015em; }
 .stand { color: var(--leise); font-size: 13px; margin: 0 0 26px; }
@@ -53,8 +59,13 @@ footer { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--linie)
 <div class="seite">
 
   <a class="zurueck" href="index.html">&larr; investieren.mit.seli</a>
-  <h1>Datenschutz</h1>
-  <p class="stand">Informationen nach Art. 13 DSGVO &middot; Stand Oktober 2026</p>
+  <div class="seitenkopf">
+    <img src="seli.png" alt="Seli">
+    <div>
+      <h1>Datenschutz</h1>
+      <p class="stand">Informationen nach Art. 13 DSGVO &middot; Stand Oktober 2026</p>
+    </div>
+  </div>
 
   <p>Diese Seite ist absichtlich einfach gebaut: keine Cookies, keine Analyse-Werkzeuge,
     keine Werbenetzwerke, kein Formular und kein Newsletter. Du musst nichts akzeptieren
