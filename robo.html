@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roboter</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Roboter</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Wie früh wir wirklich sind, was ein Roboter im Haushalt wert wäre, wer daran baut, welche Fonds es gibt — und <strong>was du dafür hergibst</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Der Ausgangspunkt</div>
+    <h2>Zwei Zahlen, und du verstehst das ganze Thema</h2>
+    <p>Amazon betreibt in seinen Lagern <strong>6.427 Roboter je 10.000 Mitarbeiter</strong>.
+      Die gesamte US-Industrie kommt auf 295. Ein einziges Unternehmen ist also 22-mal weiter
+      als die Industrie des Landes, in dem es sitzt.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 250" role="img" aria-label="Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung."><text x="124.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Amazon</text><rect x="136" y="8" width="410.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">6.427</text><text x="124.0" y="73.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Korea|Industrie</text><rect x="136" y="56" width="72.0" height="24" rx="2" fill="var(--leise)"/><text x="217.0" y="73.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">1.129</text><text x="124.0" y="121.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">China|Industrie</text><rect x="136" y="104" width="30.0" height="24" rx="2" fill="var(--leise)"/><text x="175.0" y="121.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">470</text><text x="124.0" y="169.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Deutschland|Industrie</text><rect x="136" y="152" width="27.4" height="24" rx="2" fill="var(--leise)"/><text x="172.4" y="169.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">429</text><text x="124.0" y="217.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">USA|Industrie</text><rect x="136" y="200" width="18.8" height="24" rx="2" fill="var(--rot)"/><text x="163.8" y="217.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">295</text></svg><p class="quelle">Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung.</p></div>
+    <p>Das ist keine Geschichte über Technik. Das ist eine Geschichte über
+      <strong>Nachholbedarf</strong>: Was bei Amazon funktioniert, fehlt überall sonst noch.</p>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Wie früh wir sind</h2>
+    <div class="schaubild"><svg viewBox="0 0 560 154" role="img" aria-label="Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Die Balken sind maßstabsgetreu — deshalb sieht man die unteren zwei kaum."><text x="138.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Industrieroboter|seit 1961</text><rect x="150" y="8" width="396.0" height="24" rx="2" fill="var(--leise)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">7,2 Mio.</text><text x="138.0" y="73.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Vierbeiner|seit 2015</text><rect x="150" y="56" width="1.5" height="24" rx="2" fill="var(--leise)"/><text x="160.5" y="73.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">27.000</text><text x="138.0" y="121.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Humanoide|seit 2020</text><rect x="150" y="104" width="0.1" height="24" rx="2" fill="var(--gruen)"/><text x="159.1" y="121.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">gut 2.000</text></svg><p class="quelle">Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Die Balken sind maßstabsgetreu — deshalb sieht man die unteren zwei kaum.</p></div>
+    <p>Industrieroboter gibt es seit 1961 — über sieben Millionen Stück, aber jeder von ihnen
+      kann genau eine Sache. Humanoide gibt es seit 2020, gebaut wurden gut zweitausend.
+      <strong>Das ist nicht der Anfang einer Kurve. Das ist der Punkt davor.</strong></p>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Warum der Unterschied so groß ist</h3>
+      <p>Ein Industrieroboter arbeitet in einer Welt, die für ihn gebaut wurde: gleiche Teile,
+        gleicher Ort, gleiche Bewegung. Ein Haushaltsroboter muss in <em>deine</em> Welt passen —
+        Treppen, Haustiere, Wäsche, die jedes Mal anders liegt.</p>
+      <p>ARK schätzt, dass die Steuerung eines Humanoiden rund <strong>200.000-mal
+        komplexer</strong> ist als die eines Robotaxis. Das ist der Grund, warum es so lange
+        dauert, und auch der Grund, warum es einen Moment geben wird, in dem es plötzlich geht.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Was ein Roboter im Haushalt wert wäre</h2>
+    <p>Die interessanteste Rechnung aus dem ARK-Bericht dreht sich nicht um den Verkaufspreis,
+      sondern um den Wert. Hausarbeit zählt heute fast nicht in der Wirtschaftsleistung —
+      sie wird ja nicht bezahlt.</p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Wert pro Jahr</div><div class="v">62.000 $</div>
+        <div class="n">zusätzliche Wirtschaftsleistung je Roboter</div></div>
+      <div class="kz"><div class="l">Kosten pro Jahr</div><div class="v">20.000 $</div>
+        <div class="n">umgelegt, nicht Kaufpreis</div></div>
+      <div class="kz"><div class="l">US-Eigenheime</div><div class="v">90 Mio.</div>
+        <div class="n">wenn in jedem einer stünde</div></div>
+      <div class="kz"><div class="l">Summe</div><div class="v">~6 Bio. $</div>
+        <div class="n">rund 20 % mehr Wirtschaftsleistung</div></div>
+    </div>
+    <div class="hinweis">
+      <strong>Woraus sich die 62.000 $ zusammensetzen:</strong> 3.600 $ für Dienste, die man
+      nicht mehr kaufen muss · rund 31.000 $ an freigewordener Zeit, zur Hälfte in bezahlte
+      Arbeit umgerechnet · 7.100 $ für Arbeit, die sonst liegen bliebe · gegengerechnet die
+      20.000 $ Kapitalkosten. <em>Daten: ARK Invest, Big Ideas 2026, Seite 10.</em>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Und die ganz große Zahl</h3>
+      <p>ARK rechnet, dass sich das <strong>weltweite Wirtschaftswachstum von zwei bis drei
+        Prozent auf fünf bis sechs Prozent im Jahr</strong> verdoppeln könnte, wenn 80 Prozent
+        der Haushalte so ein Gerät haben. Der gesamte Markt für Automatisierung — Fabrik und
+        Haushalt zusammen — wird mit <strong>26 Billionen Dollar</strong> angesetzt.</p>
+    </div>
+    <div class="warnung">
+      <h3>Wo ich bei diesen Zahlen abziehe</h3>
+      <p>Ein guter Teil der 26 Billionen entsteht rechnerisch dadurch, dass unbezahlte
+        Hausarbeit <b>künftig überhaupt erst gezählt</b> wird. Das ist nicht falsch, aber es ist
+        auch kein neues Geld in deiner Tasche.</p>
+      <p>Und es gibt Gegenrechnungen: BCC Research sieht den Markt für Humanoide 2030 erst bei
+        <b>11 Milliarden Dollar</b>. Zwischen 11 Milliarden und 26 Billionen liegt ungefähr
+        alles, was man sich vorstellen kann. <strong>Ich nehme solche Prognosen als Richtung,
+        nicht als Zahl.</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 3</div>
+    <h2>Wer daran baut</h2>
+    <p>Beispiele, keine Empfehlungen — und bewusst getrennt in zwei Gruppen, weil das zwei
+      völlig verschiedene Wetten sind.</p>
+    <div class="vn-paar">
+      <div class="vn neu"><h3>Humanoide — die Wette</h3><ul>
+        <li><strong>Tesla</strong> — Optimus</li>
+        <li><strong>XPeng</strong> — Iron</li>
+        <li>Figure — F.03 <em>(nicht börsennotiert)</em></li>
+        <li>1X — NEO <em>(nicht börsennotiert)</em></li>
+        <li>Unitree — G1 <em>(Börsengang in China angekündigt)</em></li>
+        <li>Agility, Apptronik, Boston Dynamics, AGIBOT, Fourier, UBTECH</li>
+      </ul></div>
+      <div class="vn"><h3>Zulieferer — der Umweg</h3><ul>
+        <li><strong>Teradyne</strong> — Roboterarme, und mit „Vulcan" Greifer mit Tastsinn</li>
+        <li><strong>Symbotic</strong> — Lagerautomatisierung</li>
+        <li><strong>FANUC</strong>, <strong>Yaskawa</strong>, <strong>ABB</strong>, <strong>KUKA</strong> — die alten Industriegrößen</li>
+        <li><strong>Intuitive Surgical</strong> — Operationsroboter</li>
+        <li>Amazon Robotics <em>(steckt in Amazon)</em></li>
+      </ul></div>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Warum mir die rechte Spalte lieber ist</h3>
+      <p>Von den Firmen links sind die spannendsten gar nicht handelbar. Und von denen, die es
+        sind, hängt der Kurs an einer Wette, die 2030 entschieden wird.</p>
+      <p>Die Firmen rechts verkaufen heute. An jeden, der automatisiert — egal, wer das Rennen
+        bei den Humanoiden gewinnt. Das ist der langweiligere und der robustere Weg.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fonds, wenn du es breit willst</h2>
+<!-- TRADINGVIEW-PLATZ · Datei: robo_rbot.webp
+     Zu ziehen: <code>XETR:RBOT</code> oder <code>LSE:RBOT</code> · Woche · fünf Jahre
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="robo_rbot.webp" alt="Kursverlauf des iShares Automation &amp; Robotics">
+      <figcaption>
+        <strong>So lief der Korb bisher.</strong> Mehr Schwankung als ein Welt-ETF, und die
+        Ausschläge kommen aus dem Halbleiterteil, nicht aus den Robotern.
+      </figcaption>
+    </figure>
+-->
+    <div class="umschlag">
+      <table>
+        <thead><tr><th>Fonds</th><th>Kürzel</th><th>Was drin ist</th></tr></thead>
+        <tbody>
+          <tr><td>iShares Automation &amp; Robotics</td><td class="zahl">RBOT</td>
+              <td>ISIN IE00BYZK4552, laufende Kosten rund 0,40 %, etwa 4 Mrd. € groß, 133 Positionen. Folgt dem STOXX Global Automation &amp; Robotics.</td></tr>
+          <tr><td>ROBO Global Robotics</td><td class="zahl">ROBO</td>
+              <td>Der Fonds, den man meint, wenn man „der Robo-ETF" sagt — eine US-Notierung. Ob dein Broker eine europäische Variante anbietet, musst du nachsehen.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="warnung">
+      <h3>Das musst du über diese Fonds wissen</h3>
+      <p>Die drei größten Positionen im RBOT waren zuletzt <b>Intel, AMD und Advantest</b>.
+        Das sind Halbleiterfirmen. Ein Robotik-Fonds ist zu einem guten Teil ein
+        <strong>Halbleiter-Fonds mit anderem Namen</strong> — weil in jedem Roboter Chips
+        stecken und es nicht genug reine Roboterfirmen gibt, um einen Fonds zu füllen.</p>
+      <p>Das ist kein Argument dagegen. Aber wenn du schon einen Technologie-ETF hast, kaufst
+        du hier zu einem großen Teil dasselbe noch einmal. <strong>Schau vor dem Kauf in die
+        Liste der zehn größten Positionen</strong> — das dauert zwei Minuten und erspart dir
+        die Überraschung.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Der Teil, über den fast niemand redet</h2>
+    <div class="warnung">
+      <h3>Du lässt ein Gerät mit Augen in dein Wohnzimmer</h3>
+      <p>Ein Haushaltsroboter braucht Kameras und Mikrofone, sonst funktioniert er nicht. Er
+        sieht, wann du aufstehst, wer dich besucht, was im Kühlschrank fehlt, wie du mit deinen
+        Kindern redest. Er muss das sehen — sonst kann er die Wäsche nicht von deinem Teppich
+        unterscheiden.</p>
+      <p>Den Komfort bezahlst du also nicht nur mit Geld, sondern mit einem Stück Privatsphäre.
+        Und anders als beim Handy kannst du ihn nicht in die Tasche stecken.</p>
+      <p><strong>Die Fragen, die ich stellen würde, bevor so ein Gerät einzieht:</strong> Wird
+        gerechnet, bevor Daten das Haus verlassen, oder danach? Lässt sich die Kamera hart
+        abschalten, nicht nur in einer App? Wem gehören die Aufnahmen, wenn die Firma verkauft
+        wird?</p>
+      <p>Und ein Gedanke, den ich nicht loswerde: Dieselbe Technik, die Wäsche faltet, kann
+        auch an einer Tür stehen und sie zuhalten. Der nächste, der dich kontrolliert, muss
+        kein Mensch mehr sein. Das ist keine Vorhersage — es ist der Preis, über den bei diesem
+        Thema fast nie geredet wird.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Ich halte das Thema <strong>klein und über Zulieferer</strong>, nicht über die
+        Humanoid-Wette. Der Kern des Depots bleibt ein breiter Welt-ETF — in dem stecken die
+        großen Namen ohnehin schon.</p>
+      <p>Was ich beobachte: nicht die Vorführvideos, sondern die <strong>Stückzahlen</strong>.
+        Wenn aus zweitausend Humanoiden zwanzigtausend werden, ist das der Moment. Vorher ist
+        es eine Geschichte.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

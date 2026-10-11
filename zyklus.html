@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Der Vierjahreszyklus</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Der Vierjahreszyklus</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Die ganze Tabelle seit 2013, warum alle dachten sie sei vorbei, was dagegen spricht — und <strong>warum ich trotzdem nicht darauf wette</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Das Muster</div>
+    <h2>152 Wochen hoch, 52 Wochen runter</h2>
+    <p>Dreimal hintereinander hat Bitcoin fast dasselbe gemacht: rund drei Jahre aufwärts,
+      rund ein Jahr abwärts. Nicht ungefähr — auf wenige Wochen genau.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 274" role="img" aria-label="Länge der Phasen in Wochen, gemessen von Höchstkurs zu Tiefstkurs und zurück. Eigene Auswertung der Tages-Schlusskurse. Die letzte Zeile läuft noch."><text x="128.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2015 → 2017|aufwärts</text><rect x="140" y="8" width="403.3" height="24" rx="2" fill="var(--gruen)"/><text x="534.3" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">152 Wochen</text><text x="128.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2017 → 2018|abwärts</text><rect x="140" y="52" width="138.0" height="24" rx="2" fill="var(--rot)"/><text x="269.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">52</text><text x="128.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2018 → 2021|aufwärts</text><rect x="140" y="96" width="406.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">153 Wochen</text><text x="128.0" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2021 → 2022|abwärts</text><rect x="140" y="140" width="143.3" height="24" rx="2" fill="var(--rot)"/><text x="274.3" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">54</text><text x="128.0" y="201.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2022 → 2025|aufwärts</text><rect x="140" y="184" width="400.7" height="24" rx="2" fill="var(--gruen)"/><text x="531.7" y="201.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">151 Wochen</text><text x="128.0" y="245.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2025 → heute|abwärts</text><rect x="140" y="228" width="140.6" height="24" rx="2" fill="var(--gold)"/><text x="271.6" y="245.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">53</text></svg><p class="quelle">Länge der Phasen in Wochen, gemessen von Höchstkurs zu Tiefstkurs und zurück. Eigene Auswertung der Tages-Schlusskurse. Die letzte Zeile läuft noch.</p></div>
+<div class="schaubild"><svg viewBox="0 0 560 210" role="img" aria-label="Die vier Bitcoin-Zyklen auf einer Zeitachse"><rect x="108.0" y="30" width="106.0" height="22" rx="2" fill="var(--gruen)"/><rect x="214.0" y="30" width="36.3" height="22" rx="2" fill="var(--rot)"/><text x="113.0" y="45.5" text-anchor="start" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">152 Wochen aufwärts</text><text x="246.3" y="45.5" text-anchor="end" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">52</text><rect x="250.3" y="64" width="105.2" height="22" rx="2" fill="var(--gruen)"/><rect x="355.5" y="64" width="37.4" height="22" rx="2" fill="var(--rot)"/><text x="255.3" y="79.5" text-anchor="start" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">151 Wochen aufwärts</text><text x="388.9" y="79.5" text-anchor="end" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">54</text><rect x="392.9" y="98" width="104.1" height="22" rx="2" fill="var(--gruen)"/><rect x="497.0" y="98" width="37.0" height="22" rx="2" fill="var(--gold)" opacity="0.75"/><text x="397.9" y="113.5" text-anchor="start" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">150 Wochen aufwärts</text><text x="530.0" y="113.5" text-anchor="end" font-family="Inter, sans-serif" font-size="10" font-weight="800" fill="#fff">53</text><line x1="34" y1="140" x2="542" y2="140" stroke="var(--linie)" stroke-width="1.5"/><line x1="70.3" y1="140" x2="70.3" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="70.3" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2014</text><line x1="142.9" y1="140" x2="142.9" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="142.9" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2016</text><line x1="215.4" y1="140" x2="215.4" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="215.4" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2018</text><line x1="288.0" y1="140" x2="288.0" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="288.0" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2020</text><line x1="360.6" y1="140" x2="360.6" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="360.6" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2022</text><line x1="433.1" y1="140" x2="433.1" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="433.1" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2024</text><line x1="505.7" y1="140" x2="505.7" y2="144" stroke="var(--linie)" stroke-width="1.5"/><text x="505.7" y="157.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="600" fill="var(--leise)">2026</text><line x1="162.5" y1="18" x2="162.5" y2="140" stroke="var(--tinte)" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/><text x="162.5" y="13.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="var(--leise)">Halving 2016</text><line x1="301.4" y1="18" x2="301.4" y2="140" stroke="var(--tinte)" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/><text x="301.4" y="13.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="var(--leise)">Halving 2020</text><line x1="443.7" y1="18" x2="443.7" y2="140" stroke="var(--tinte)" stroke-width="1" stroke-dasharray="3 3" opacity="0.45"/><text x="443.7" y="13.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="var(--leise)">Halving 2024</text></svg><p class="quelle">Grün: aufwärts, rot: abwärts, Zahlen in Wochen. Die gestrichelten Linien sind die Halvings. Die letzte Abwärtsphase läuft noch — deshalb heller. Eigene Auswertung der Tages-Schlusskurse.</p></div>
+    <div class="umschlag">
+      <table>
+        <thead><tr><th>Zyklus</th><th>Hoch</th><th>Tief</th><th class="r">Abwärts</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Dez 2013</td><td>Jan 2015</td><td class="r zahl">~58 Wochen</td></tr>
+          <tr><td>2</td><td>17.12.2017 · 19.800 $</td><td>15.12.2018 · 3.100 $</td><td class="r zahl">52 Wochen</td></tr>
+          <tr><td>3</td><td>10.11.2021 · 69.000 $</td><td>21.11.2022 · 15.500 $</td><td class="r zahl">54 Wochen</td></tr>
+          <tr><td>4</td><td>06.10.2025 · 126.198 $</td><td>läuft</td><td class="r haupt">Woche 53</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Dazu passt die Halbierung der Belohnung für die Miner, das sogenannte Halving: 2012,
+      2016, 2020, April 2024 — und die nächste erst wieder im <strong>April 2028</strong>.
+      Alle vier Jahre.</p>
+  </section>
+
+<!-- TRADINGVIEW-PLATZ · Datei: zyklus_btc.webp
+     Zu ziehen: <code>BITSTAMP:BTCUSD</code> · Monat · log an · Zeitraum „alle" · senkrechte Linien auf Dez 2013, Dez 2017, Nov 2021, Okt 2025
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="zyklus_btc.webp" alt="Bitcoin seit 2013, Monatschart, logarithmisch">
+      <figcaption>
+        <strong>Dasselbe Muster, ungeglättet.</strong> Vier Hochs, vier Abstürze, und jedes Mal
+        dachten alle, diesmal sei es anders.
+      </figcaption>
+    </figure>
+-->
+  <section>
+    <div class="schritt">Der eigentliche Punkt</div>
+    <h2>Warum alle dachten, es wäre diesmal vorbei</h2>
+    <div class="block" style="--rand: var(--gold)">
+      <p>Vor diesem Zyklus waren sich fast alle einig, dass das Muster nicht mehr gilt. Die
+        Begründungen waren gut:</p>
+      <ul class="liste">
+        <li>Mit den börsengehandelten Fonds kam <strong>ganz anderes Geld</strong> in den Markt —
+          Vermögensverwalter statt Privatleute.</li>
+        <li>Das Halving fällt <strong>relativ immer kleiner</strong> aus. Bei 450 neuen Bitcoin
+          am Tag gegenüber einem Bestand von fast 20 Millionen bewegt eine Halbierung kaum noch
+          etwas.</li>
+        <li>Unternehmen und sogar Staaten halten Bitcoin inzwischen in der Bilanz. Nach Zahlen
+          von ARK liegen <strong>rund 12 Prozent aller Bitcoin</strong> bei US-Fonds und
+          börsennotierten Firmen.</li>
+      </ul>
+      <p>Und trotzdem lief es bisher fast auf die Woche genau wie vorher.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Zwei Erklärungen, und niemand weiß welche</h3>
+      <p><strong>Die erste:</strong> Es gibt eine echte Mechanik. Das Angebot ist im Code
+        festgeschrieben, die Nachfrage kommt in Wellen, und beides zusammen erzeugt diesen
+        Rhythmus.</p>
+      <p><strong>Die zweite:</strong> Genug Leute kennen das Muster und handeln danach. Dann
+        erfüllt sich die Vorhersage selbst — nicht weil sie stimmt, sondern weil alle sie
+        kennen. Das ist die unheimlichere Variante, weil sie bedeutet: Sie funktioniert so
+        lange, bis genug Leute aufhören, daran zu glauben.</p>
+      <p>Ehrlich gesagt kann das bis heute niemand richtig erklären. Und genau das finde ich
+        das Interessante daran.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Wichtig</div>
+    <h2>Wo das Muster schon jetzt nicht passt</h2>
+    <div class="warnung">
+      <h3>Der tiefste Kurs lag nicht jetzt, sondern im Juni</h3>
+      <p>Nach dem Muster müsste das Tief im Oktober 2026 liegen. Tatsächlich war der tiefste
+        Kurs dieses Zyklus im <b>Juni 2026 bei rund 58.000 bis 59.000 Dollar</b>. Seitdem
+        steht Bitcoin über 40 Prozent höher.</p>
+      <p>Was man also sagen kann: Die <strong>Abwärtsphase</strong> endet nach dem Muster jetzt.
+        Was man nicht sagen kann: „Der Boden ist diese Woche." Wer die Juni-Kerze kennt,
+        widerlegt das in zehn Sekunden — und ich schreibe hier nichts hin, was so leicht
+        auseinanderfällt.</p>
+    </div>
+    <div class="zwei" style="margin-top:18px">
+      <div class="kachel" style="--rand: var(--rot)"><h3>Dagegen</h3>
+        <p><b>Arthur Hayes</b> hält den Vierjahreszyklus für tot. Treiber sei allein die
+          weltweite Geldmenge.</p></div>
+      <div class="kachel" style="--rand: var(--rot)"><h3>Dagegen</h3>
+        <p><b>Willy Woo</b> hält einen Sechs- bis Achtjahreszyklus für möglich. Dann käme das
+          Tief erst 2027.</p></div>
+      <div class="kachel" style="--rand: var(--gruen)"><h3>Dafür</h3>
+        <p><b>Benjamin Cowen</b> erwartet den Boden im vierten Quartal 2026, am ehesten im
+          Oktober.</p></div>
+      <div class="kachel" style="--rand: var(--gruen)"><h3>Dafür</h3>
+        <p><b>Kaiko Research</b> sieht den Rückgang als Bestätigung des Zyklus.</p></div>
+    </div>
+    <div class="hinweis">
+      <strong>Und die wichtigste Einschränkung:</strong> Wir haben vier Zyklen. Vier.
+      Mit vier Datenpunkten kannst du jedes Muster finden, das du suchen willst. Das ist keine
+      Formel, das ist eine Beobachtung — und sie kann jederzeit aufhören zu gelten, ohne
+      Ankündigung.
+    </div>
+  </section>
+
+  <section>
+    <h2>Was ich stattdessen anschaue</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Nicht das Datum, sondern die <strong>Flüsse</strong>. Das Angebot ist bekannt: rund
+        450 neue Bitcoin am Tag, festgeschrieben bis 2028. Die Nachfrage ist die Variable — und
+        die kann man täglich nachlesen.</p>
+      <p>Am 7. und 8. Oktober sind zusammen rund <strong>730 Millionen Dollar</strong> aus den
+        Fonds abgeflossen. In der Woche davor flossen 241 Millionen hinein, die dritte
+        Zuflusswoche in Folge. So schnell dreht das.</p>
+      <p>Mein Umgang damit: <strong>feste Rate, kein Timing.</strong> Wenn das Muster stimmt,
+        kaufe ich sowieso in der richtigen Phase. Wenn es nicht stimmt, habe ich nichts
+        verloren, außer einer Geschichte.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

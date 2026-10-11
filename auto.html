@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Autonomes Fahren</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Autonomes Fahren</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Was in Austin wirklich fährt, warum die Rechnung kippt, wer in der Kette wo verdient — und <strong>woran das Ganze noch hängt</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Der Stand</div>
+    <h2>Das ist kein Test mehr</h2>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Cybercab in Austin</div><div class="v">3. Sept.</div>
+        <div class="n">2026 gestartet, 45 Fahrzeuge in einer Flotte von 314</div></div>
+      <div class="kz"><div class="l">Tesla Robotaxi</div><div class="v">5 Städte</div>
+        <div class="n">Dallas und Houston seit April, Miami, Orlando, Tampa seit Juli</div></div>
+      <div class="kz"><div class="l">Waymo</div><div class="v">10 Städte</div>
+        <div class="n">fahrerlos im kommerziellen Betrieb</div></div>
+      <div class="kz"><div class="l">Lyft</div><div class="v">9. Sept.</div>
+        <div class="n">Waymo über die Lyft-App in Nashville</div></div>
+    </div>
+    <p>Das Cybercab hat <strong>kein Lenkrad, keine Pedale, keine Spiegel</strong>. Nicht als
+      Studie — als Fahrzeug, das du in einer App buchst. Genau das ist der Unterschied zu allen
+      Ankündigungen der letzten zehn Jahre.</p>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Warum das die Rechnung dreht</h2>
+    <p>Dein Auto steht rund 95 Prozent der Zeit herum. Du bezahlst Anschaffung, Versicherung,
+      Steuer und Stellplatz dafür, dass es wartet. Ein Robotaxi wartet nicht.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 114" role="img" aria-label="Anteil der Zeit, in der das Fahrzeug fährt. Der Vergleichswert für Robotaxis ist eine Modellannahme von ARK Invest, Big Ideas 2026, kein gemessener Betriebswert. Eigene Darstellung."><text x="148.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Dein Auto</text><rect x="160" y="8" width="48.2" height="24" rx="2" fill="var(--rot)"/><text x="217.2" y="25.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">5 %</text><text x="148.0" y="77.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Ein Robotaxi|im Schichtbetrieb</text><rect x="160" y="60" width="386.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="77.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">rund 8-mal so viel</text></svg><p class="quelle">Anteil der Zeit, in der das Fahrzeug fährt. Der Vergleichswert für Robotaxis ist eine Modellannahme von ARK Invest, Big Ideas 2026, kein gemessener Betriebswert. Eigene Darstellung.</p></div>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Bei achtfacher Auslastung verteilen sich die Kosten des Fahrzeugs auf achtmal so viele
+        Kilometer. Dazu fällt der größte Einzelposten weg: der Fahrer. <strong>Deshalb bricht
+        der Preis pro Kilometer ein</strong> — und erst dann wird es für dich billiger, nicht zu
+        besitzen, als zu besitzen.</p>
+      <p>ARK rechnet, dass rund <strong>140.000 Robotaxis</strong> genügen würden, um das
+        heutige gesamte Fahrdienst-Volumen in den USA abzudecken. Und dass etwa 24 Millionen —
+        weniger als zehn Prozent des heutigen Fahrzeugbestands — den städtischen Verkehr
+        übernehmen könnten.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Wer in dieser Kette wo verdient</h2>
+    <p>Das ist der Teil, der über Geld entscheidet. Die Kette hat drei Glieder, und sie verdienen
+      sehr unterschiedlich.</p>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>1. Die Technologie-Plattform — hier liegt das Geld</h3>
+      <p>Wer die Software und die Daten hat, kassiert pro Fahrt, ohne Autos zu besitzen. Das ist
+        das Geschäftsmodell mit den besten Margen und die Rolle, die <strong>Tesla</strong> und
+        <strong>Waymo</strong> (also Alphabet) anstreben. ARK setzt den gesamten
+        Unternehmenswert, der dabei 2030 entstehen könnte, mit <strong>34 Billionen
+        Dollar</strong> an — eine Modellzahl, aber sie zeigt, wo die Rechnung landet.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>2. Der Autobauer — das schlechteste Los</h3>
+      <p>Autos bauen ist kapitalintensiv und margenschwach. Wer nur die Hardware liefert, wird
+        zum Zulieferer der Plattform. Genau deshalb will Tesla beides sein.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>3. Die App, die den Kunden hat</h3>
+      <p>Und hier kommt der Punkt, den ich spannend finde: <strong>Uber</strong> hat
+        Partnerschaften mit praktisch jedem Entwickler außer Tesla, Lyft hat seit September
+        Waymo in der App.</p>
+      <p>Fast alle halten Uber für den Verlierer, weil die Fahrer wegfallen. Ich sehe es
+        andersherum: <strong>Die Fahrer waren Ubers teuerster Posten.</strong> Bleibt die App
+        und fällt der Fahrer weg, wird aus dem Verlierer der Gewinner — vorausgesetzt, Uber
+        behält den Kunden. Das ist die ganze Wette.</p>
+      <p>Die Gegenwette dazu: Wenn du das Robotaxi direkt bei Tesla buchst, brauchst du die App
+        dazwischen nicht. Dass Waymo und Uber ihre Zusammenarbeit in Phoenix im Juli beendet
+        haben, passt genau in dieses Bild.</p>
+    </div>
+<div class="schaubild"><svg viewBox="0 0 560 250" role="img" aria-label="Wer in der Robotaxi-Kette wie viel verdient"><text x="18.0" y="16.0" text-anchor="start" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="var(--leise)">Wie viel von der Marge hängen bleibt — meine Einschätzung, keine Prognose</text><rect x="18" y="34" width="158" height="86" rx="3" fill="var(--feld)" stroke="var(--linie)"/><text x="97.0" y="60.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--tinte)">Technologie-</text><text x="97.0" y="76.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--tinte)">Plattform</text><text x="97.0" y="104.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="var(--leise)">Software und Daten</text><rect x="18" y="144.9" width="158" height="67.1" rx="2" fill="var(--gruen)"/><text x="97.0" y="138.9" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gruen)">hoch</text><path d="M 179 77 L 189 77" stroke="var(--leise)" stroke-width="1.5"/><path d="M 185 73 L 189 77 L 185 81" fill="none" stroke="var(--leise)" stroke-width="1.5"/><rect x="192" y="34" width="158" height="86" rx="3" fill="var(--feld)" stroke="var(--linie)"/><text x="271.0" y="60.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--tinte)">Autobauer</text><text x="271.0" y="104.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="var(--leise)">Hardware, dünne Margen</text><rect x="192" y="200.0" width="158" height="12.0" rx="2" fill="var(--rot)"/><text x="271.0" y="194.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--rot)">dünn</text><path d="M 353 77 L 363 77" stroke="var(--leise)" stroke-width="1.5"/><path d="M 359 73 L 363 77 L 359 81" fill="none" stroke="var(--leise)" stroke-width="1.5"/><rect x="366" y="34" width="158" height="86" rx="3" fill="var(--feld)" stroke="var(--linie)"/><text x="445.0" y="60.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--tinte)">App / Flotte</text><text x="445.0" y="104.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="var(--leise)">der Kundenzugang</text><rect x="366" y="175.9" width="158" height="36.1" rx="2" fill="var(--gold)"/><text x="445.0" y="169.9" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="800" fill="var(--gold)">mittel</text><line x1="18" y1="212" x2="542" y2="212" stroke="var(--linie)" stroke-width="1.5"/><text x="280.0" y="236.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="10.5" font-weight="600" fill="var(--leise)">Höhe der Balken = wie viel von jeder Fahrt bei dieser Stufe bleibt</text></svg><p class="quelle">Eigene Darstellung und eigene Einschätzung. Die Richtung — Plattformen vor Autobauern — entspricht der Einordnung von ARK Invest, Big Ideas 2026; die Höhen sind nicht gemessen, sondern illustrativ.</p></div>
+    <div class="vn-paar">
+      <div class="vn neu"><h3>Gewinnt tendenziell</h3><ul>
+        <li>Plattformen mit Software und Daten</li>
+        <li>Apps, die den Kunden halten</li>
+        <li>Autoverleiher, die Flotten betreuen</li>
+        <li>Zulieferer für Sensorik und Rechenleistung</li>
+      </ul></div>
+      <div class="vn"><h3>Verliert tendenziell</h3><ul>
+        <li>Autobauer ohne eigene Software</li>
+        <li>Kfz-Versicherer — weniger Unfälle heißt weniger Prämie</li>
+        <li>Parkhausbetreiber</li>
+        <li>alles, was am Privatauto hängt</li>
+      </ul></div>
+    </div>
+  </section>
+
+<!-- TRADINGVIEW-PLATZ · Datei: auto_uber.webp
+     Zu ziehen: <code>NYSE:UBER/SP:SPX</code> · Woche · fünf Jahre
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="auto_uber.webp" alt="Uber gegen den S&amp;P 500">
+      <figcaption>
+        <strong>Die Wette in einer Linie.</strong> Hält Uber den Kunden, läuft diese Linie nach
+        oben. Verliert Uber ihn an die Plattformen, nach unten.
+      </figcaption>
+    </figure>
+-->
+  <section>
+    <h2>Woran es noch hängt</h2>
+    <div class="warnung">
+      <h3>Die Zulassung, nicht die Technik</h3>
+      <p>Die US-Verkehrsbehörde NHTSA prüft, ob Tesla ein Fahrzeug <b>ohne Lenkrad</b>
+        überhaupt selbst zertifizieren durfte. Fällt das anders aus, steht das Cybercab still —
+        egal, wie gut es fährt.</p>
+      <p>Dazu: Jede Stadt entscheidet einzeln. Jeder Unfall mit einem fahrerlosen Auto
+        verändert die Stimmung in allen anderen Städten mit. Diese Branche wächst nicht
+        technisch, sie wächst <strong>genehmigungsweise</strong> — und das ist nicht
+        planbar.</p>
+    </div>
+    <ul class="liste">
+      <li><strong>45 Fahrzeuge sind 45 Fahrzeuge.</strong> Von einer Flotte, die den Verkehr
+        verändert, sind wir weit weg. Die Geschichte ist der Beweis, dass es geht — nicht der
+        Beweis, dass es skaliert.</li>
+      <li><strong>Die 34 Billionen sind eine Modellrechnung</strong> und hängen daran, wie
+        schnell andere Hersteller als Tesla aufbauen können. ARK nennt das selbst als
+        Hauptrisiko ihrer Prognose.</li>
+      <li><strong>In Europa dauert es länger.</strong> Alles hier Genannte spielt in den USA.
+        Wann du in Deutschland fahrerlos fahren kannst, weiß niemand.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Ich halte das Thema über die <strong>Plattformen</strong>, nicht über die Autobauer —
+        und die großen Namen stecken in einem breiten Welt-ETF ohnehin schon. Eine zusätzliche
+        Position braucht einen Grund, der über „die Geschichte ist spannend" hinausgeht.</p>
+      <p>Was ich beobachte, ist eine einzige Zahl: <strong>die Anzahl der Städte mit
+        fahrerlosem Regelbetrieb.</strong> Nicht Ankündigungen, nicht Pilotprojekte — Städte, in
+        denen man es buchen kann. Steigt die Zahl schnell, stimmt die These. Bleibt sie stehen,
+        bleibt es eine Geschichte.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

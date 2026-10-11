@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Weltraum</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Weltraum</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Warum Raketen plötzlich ein KI-Thema sind, wer das überhaupt kann, wie man teilnimmt — und <strong>warum die meisten „Weltraum-Aktien" keine sind</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Der Ausgangspunkt</div>
+    <h2>Eine Zahl erklärt alles</h2>
+    <p>Eine Ladung in den Orbit zu bringen kostete 2008 rund <strong>15.600 Dollar pro
+      Kilogramm</strong>. Heute liegt der Preis unter <strong>1.000</strong>. Das ist ein
+      Rückgang von 95 Prozent in 17 Jahren — erreicht dadurch, dass die erste Raketenstufe
+      zurückkommt und wieder fliegt.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 154" role="img" aria-label="Startkosten in den erdnahen Orbit, Dollar je Kilogramm, in Preisen von 2025. Daten: ARK Invest, Big Ideas 2026, nach Roberts 2022, Sheetz 2022 und Kirtland 2023. Eigene Darstellung. Die 100 $ sind eine Modellrechnung für Starship im Dauerbetrieb, kein erreichter Wert."><text x="108.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">2008|Falcon 1</text><rect x="120" y="8" width="426.0" height="24" rx="2" fill="var(--rot)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">15.600 $</text><text x="108.0" y="73.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">heute|Falcon 9</text><rect x="120" y="56" width="27.3" height="24" rx="2" fill="var(--gruen)"/><text x="156.3" y="73.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">unter 1.000 $</text><text x="108.0" y="121.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Ziel|Starship</text><rect x="120" y="104" width="2.7" height="24" rx="2" fill="var(--gold)"/><text x="131.7" y="121.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gold)">100 $</text></svg><p class="quelle">Startkosten in den erdnahen Orbit, Dollar je Kilogramm, in Preisen von 2025. Daten: ARK Invest, Big Ideas 2026, nach Roberts 2022, Sheetz 2022 und Kirtland 2023. Eigene Darstellung. Die 100 $ sind eine Modellrechnung für Starship im Dauerbetrieb, kein erreichter Wert.</p></div>
+    <div class="block" style="--rand: var(--gold)">
+      <p>Alles, was im Weltraum gerade passiert, folgt aus dieser einen Linie. Wenn Transport
+        um 95 Prozent billiger wird, werden Dinge möglich, die vorher nicht unwirtschaftlich
+        waren, sondern <em>undenkbar</em>.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Warum Raketen ein KI-Thema geworden sind</h2>
+    <p>Rechenzentren für KI stoßen auf der Erde an drei Grenzen: Strom, Kühlung, Fläche. Im
+      Orbit gibt es Sonne rund um die Uhr und das Vakuum als Kühlung. Was dagegen spricht, ist
+      der Transport — und genau der wird billiger.</p>
+    <div class="vn-paar">
+      <div class="vn"><h3>Zu heutigen Startkosten</h3><ul>
+        <li>Rechenleistung im All wäre rund <strong>30 % teurer</strong> als auf der Erde</li>
+        <li>also kein Geschäft</li>
+      </ul></div>
+      <div class="vn neu"><h3>Zu erwarteten Startkosten</h3><ul>
+        <li>Rechenleistung im All wäre rund <strong>25 % günstiger</strong></li>
+        <li>und damit wird es eines</li>
+      </ul></div>
+    </div>
+    <p>Der Kipppunkt liegt also beim Preis pro Kilogramm. Und wenn er kippt, wird die Nachfrage
+      nach Starts gewaltig:</p>
+    <div class="schaubild"><svg viewBox="0 0 560 114" role="img" aria-label="Benötigte Masse im Orbit, gemessen an allem, was SpaceX bis 2025 insgesamt transportiert hat. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung."><text x="156.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Starlink|Ausbau bis 2030</text><rect x="168" y="8" width="69.3" height="24" rx="2" fill="var(--gruen)"/><text x="246.3" y="25.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">11-mal</text><text x="156.0" y="77.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">100 GW Rechenleistung|im Orbit</text><rect x="168" y="60" width="378.0" height="24" rx="2" fill="var(--gold)"/><text x="537.0" y="77.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">60-mal</text></svg><p class="quelle">Benötigte Masse im Orbit, gemessen an allem, was SpaceX bis 2025 insgesamt transportiert hat. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung.</p></div>
+    <p>Das ist der eigentliche Punkt: Nicht „Weltraum ist spannend", sondern <strong>KI braucht
+      Raketen</strong>. Damit hängt das Thema am stärksten Trend, den wir gerade haben.</p>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Wer das kann</h2>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">SpaceX</div><div class="v">&gt; 90 %</div>
+        <div class="n">aller Nutzlast, die weltweit in den Orbit geht</div></div>
+      <div class="kz"><div class="l">Starlink</div><div class="v">&gt; 9.000</div>
+        <div class="n">aktive Satelliten, rund zwei Drittel aller aktiven weltweit</div></div>
+      <div class="kz"><div class="l">Nächster Anbieter</div><div class="v">648</div>
+        <div class="n">OneWeb</div></div>
+      <div class="kz"><div class="l">Blue Origin</div><div class="v">2</div>
+        <div class="n">Orbitalstarts, SpaceX im Vergleich rund 600</div></div>
+    </div>
+    <div class="hinweis">
+      Das ist kein Vorsprung, das ist eine andere Liga. Und es ist auch das Problem an diesem
+      Thema: <strong>Der Marktführer ist nicht börsennotiert.</strong> SpaceX wird mit rund
+      800 Milliarden Dollar bewertet, ein Börsengang gilt als der Treiber der Branche —
+      angekündigt ist nichts.
+      <br><br>
+      <em>Stand Anfang 2026. Bei den Satellitenzahlen laufen verschiedene Quellen um einige
+      Hundert auseinander, weil täglich welche dazukommen und ausfallen. Die Größenordnung
+      stimmt, auf die letzte Stelle würde ich mich nicht verlassen.</em>
+    </div>
+  </section>
+
+<!-- TRADINGVIEW-PLATZ · Datei: space_rklb.webp
+     Zu ziehen: <code>NASDAQ:RKLB</code> · Woche · seit Börsengang
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="space_rklb.webp" alt="Kursverlauf von Rocket Lab">
+      <figcaption>
+        <strong>Der einzige halbwegs reine Vertreter an der Börse.</strong> Und man sieht
+        sofort, was das heißt: Diese Kurve ist kein Sparplan-Kandidat.
+      </figcaption>
+    </figure>
+-->
+  <section>
+    <div class="schritt">Schritt 3</div>
+    <h2>Wie man überhaupt teilnimmt</h2>
+    <p>Beispiele, keine Empfehlungen. Und der Reihenfolge nach von „normal" bis „heikel".</p>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>1. Über die Nachfrager</h3>
+      <p>Wer Rechenleistung im Orbit braucht, sind dieselben Namen wie auf der Erde — die
+        großen Cloud-Anbieter. Die hast du in einem breiten Welt-ETF ohnehin. Der langweiligste
+        Weg, und der, der am wenigsten schiefgeht.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>2. Über börsennotierte Raumfahrt</h3>
+      <p><strong>Rocket Lab</strong> ist der bekannteste eigenständige Anbieter neben SpaceX.
+        Daneben Satellitenbetreiber und Datenanbieter wie <strong>AST SpaceMobile</strong>,
+        <strong>Planet Labs</strong> oder <strong>Iridium</strong>. Alle klein, alle schwankend,
+        alle abhängig von einzelnen Aufträgen.</p>
+    </div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>3. Über Weltraum-Fonds</h3>
+      <p>Es gibt sie, aber lies die Positionen. In den meisten stecken zu einem guten Teil
+        <strong>Rüstungs- und Luftfahrtkonzerne</strong> — die sind an Raumfahrt beteiligt,
+        aber ihr Kurs hängt an Verteidigungshaushalten, nicht an Startkosten.</p>
+    </div>
+    <div class="warnung">
+      <h3>4. Über Umwege zu SpaceX — hier würde ich aufpassen</h3>
+      <p>Es gibt börsennotierte Vehikel, die Anteile an SpaceX halten und damit den einzigen
+        indirekten Zugang bieten. Das Problem: Sie werden regelmäßig mit einem
+        <b>massiven Aufschlag</b> auf ihren eigenen Inhalt gehandelt. Du zahlst dann zwei Euro
+        für einen Euro SpaceX.</p>
+      <p>Dazu kommt, dass der Wert des Anteils selbst nur geschätzt wird — SpaceX ist nicht
+        verpflichtet, Zahlen zu veröffentlichen. <strong>Wenn du diesen Weg gehst, schau
+        zuerst, wie hoch der Aufschlag gerade ist.</strong> Steht er über 50 Prozent, kaufst du
+        vor allem Hoffnung.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die ehrliche Seite</h2>
+    <ul class="liste">
+      <li><strong>Die 25 Prozent günstiger sind eine Modellrechnung.</strong> Sie setzen
+        Startkosten voraus, die es noch nicht gibt, und ein Starship, das verlässlich fliegt.</li>
+      <li><strong>Ein Rechenzentrum im Orbit ist ungelöst.</strong> Wartung, Strahlung,
+        Datenleitung nach unten — nichts davon ist gebaut, alles davon ist gerechnet.</li>
+      <li><strong>Der Markt ist klein und lebt von Aufträgen.</strong> Ein verschobener Start
+        oder ein verlorener Auftrag bewegt diese Aktien um zweistellige Prozente.</li>
+      <li><strong>Ohne SpaceX fehlt dir der Kern.</strong> Das ist die unangenehme Wahrheit bei
+        diesem Thema: Die beste Firma kannst du nicht kaufen.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Ich halte das Thema <strong>sehr klein</strong> und über die Nachfrager, nicht über die
+        Anbieter. Was ich beobachte, sind die <strong>Startkosten pro Kilogramm</strong> und wie
+        oft Starship fliegt. Das sind die zwei Zahlen, an denen alles andere hängt.</p>
+      <p>Und ich warte auf den Börsengang von SpaceX. Nicht um am ersten Tag zu kaufen —
+        sondern weil die Zahlen, die dann offengelegt werden müssen, das erste Mal eine echte
+        Bewertung möglich machen.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

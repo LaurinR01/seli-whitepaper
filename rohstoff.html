@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Knappe Werte</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+  .kuerzel td.k { font-weight: 800; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kuerzel { min-width: 480px; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Knappe Werte</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Gold, Silber, Kupfer — warum ich hinschaue, wie man Rohstoffe gegen Aktien liest, welche Kürzel dazugehören und <strong>was gerade dagegen spricht</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Der Ausgangspunkt</div>
+    <h2>Derselbe Betrag, ein anderer Maßstab</h2>
+    <p>1999 kostete eine Unze Gold rund 245 Euro. Heute kostet sie 3.745. Wer seit der
+      Einführung des Euro in Gold rechnet, hat gut <strong>93 Prozent</strong> der Kaufkraft
+      verloren — aus 100 Euro Goldwert wurden rund sechseinhalb.</p>
+    <div class="schaubild"><svg viewBox="0 0 420 250" role="img" aria-label="Eigene Rechnung. Startwert: 7.879 € je Kilo, der erste in Euro notierte Goldpreis von 1999 (= 245 € je Unze). Endwert: 3.744,75 € am 11.10.2026."><line x1="20" y1="204" x2="400" y2="204" stroke="var(--linie)" stroke-width="1.5"/><rect x="82.0" y="194.0" width="66.0" height="10.0" rx="2" fill="var(--gruen)"/><text x="115.0" y="185.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">245 €</text><text x="115.0" y="223.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">1999</text><text x="115.0" y="236.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">erster Euro-Goldpreis</text><rect x="272.0" y="51.4" width="66.0" height="152.6" rx="2" fill="var(--gold)"/><text x="305.0" y="42.4" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gold)">3.745 €</text><text x="305.0" y="223.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">2026</text><text x="305.0" y="236.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">11. Oktober</text><text x="20.0" y="15.0" text-anchor="start" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="var(--leise)">Was eine Unze Gold kostet, in Euro</text></svg><p class="quelle">Eigene Rechnung. Startwert: 7.879 € je Kilo, der erste in Euro notierte Goldpreis von 1999 (= 245 € je Unze). Endwert: 3.744,75 € am 11.10.2026.</p></div>
+    <div class="block" style="--rand: var(--gold)">
+      <p>Das ist kein Zusammenbruch des Euro. Es ist ein <strong>anderer Maßstab</strong>: Gold
+        lässt sich nicht nachdrucken, Geld schon. Deshalb zeigt dieser Vergleich nicht,
+        wie schlecht der Euro ist, sondern wie viel Geld in 27 Jahren entstanden ist.</p>
+      <p>Mir hilft der Vergleich als <em>Erinnerung</em>, nicht als Prognose: Wer nur in Euro
+        denkt, übersieht, dass sich die Maßeinheit selbst bewegt.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Drei Knappheiten, die ich beobachte</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Gold — die Käufer sind nicht wir</h3>
+      <p>Im zweiten Quartal 2026 haben Zentralbanken netto <strong>289 Tonnen</strong> Gold
+        gekauft, so viel wie in keinem zweiten Quartal zuvor. Das ist der Teil der Nachfrage,
+        der nicht auf Kurse schaut: Reserven werden umgeschichtet, weil Dollarguthaben
+        einfrierbar sind und Gold nicht.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Silber — das sechste Defizitjahr in Folge</h3>
+      <p>Seit sechs Jahren wird mehr Silber verbraucht als gefördert, die Lücke wird aus
+        Lagerbeständen gedeckt. Silber ist dabei halb Edelmetall, halb Industriemetall —
+        Photovoltaik und Elektronik nehmen den Großteil. Das macht es schwankungsfreudiger
+        als Gold, in beide Richtungen.</p>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Kupfer und Aluminium — die Kabel der KI</h3>
+      <p>Jedes Rechenzentrum, jedes Stromnetz, jedes E-Auto braucht Kupfer. In zehn Jahren
+        ist Kupfer rund 160 Prozent teurer geworden, Aluminium rund 44. Beim Aluminium kippt
+        der Überschuss nach gängigen Schätzungen ab <strong>2027/28</strong> in ein Defizit
+        von etwa 1,4 Millionen Tonnen — rund zwei Prozent des Verbrauchs, mit einer erwarteten
+        Dauer von etwa fünf Jahren.</p>
+      <p>Neue Minen brauchen zehn bis fünfzehn Jahre. Das ist der ganze Kern der These: Die
+        Nachfrage kann schnell steigen, das Angebot nicht.</p>
+    </div>
+    <div class="schaubild"><svg viewBox="0 0 560 194" role="img" aria-label="Kupfer und Aluminium: Preisveränderung über zehn Jahre, gerundet, Stand Oktober 2026. Silber: Jahresverlauf 2026. Gold: Abstand zum Euro-Allzeithoch von 4.553 € im Januar 2026."><text x="120.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Kupfer</text><rect x="132" y="8" width="414.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">+160 %</text><text x="120.0" y="71.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Aluminium</text><rect x="132" y="54" width="113.8" height="24" rx="2" fill="var(--gruen)"/><text x="236.8" y="71.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">+44 %</text><text x="120.0" y="117.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Silber 2026</text><rect x="132" y="100" width="31.1" height="24" rx="2" fill="var(--rot)"/><text x="172.1" y="117.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">−12 %</text><text x="120.0" y="163.0" text-anchor="end" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="var(--tinte)">Gold in Euro|vom Hoch</text><rect x="132" y="146" width="46.6" height="24" rx="2" fill="var(--rot)"/><text x="187.6" y="163.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">−18 %</text></svg><p class="quelle">Kupfer und Aluminium: Preisveränderung über zehn Jahre, gerundet, Stand Oktober 2026. Silber: Jahresverlauf 2026. Gold: Abstand zum Euro-Allzeithoch von 4.553 € im Januar 2026.</p></div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Wie man Aktien gegen Rohstoffe liest</h2>
+    <!-- TRADINGVIEW-PLATZ · Datei: rohstoff_gold_spx.webp
+     Zu ziehen: <code>TVC:GOLD/SP:SPX</code> · Monat · log an · Zeitraum „alle"
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="rohstoff_gold_spx.webp" alt="Gold geteilt durch den S&amp;P 500, Monatschart, logarithmisch">
+      <figcaption>
+        <strong>Der lange Blick.</strong> Steigt die Linie, laufen Rohstoffe besser als Aktien.
+        Die 1970er und die 2000er sehen so aus, die 1990er und 2010er umgekehrt.
+      </figcaption>
+    </figure>
+-->
+<p>Die interessante Frage ist nicht „steigt Gold?", sondern <strong>„steigt Gold schneller
+      als Aktien?"</strong> Dafür gibt es einen einfachen Trick: Man teilt das eine durch das
+      andere und schaut sich nur diese eine Linie an.</p>
+    <div class="vn-paar">
+      <div class="vn"><h3>Linie steigt</h3><ul>
+        <li>Rohstoffe laufen besser als Aktien</li>
+        <li>typisch für Phasen mit Inflation und knappem Angebot</li>
+        <li>die 1970er und die 2000er sahen so aus</li>
+      </ul></div>
+      <div class="vn neu"><h3>Linie fällt</h3><ul>
+        <li>Aktien laufen besser</li>
+        <li>typisch für Phasen mit billigem Geld und Technologie-Booms</li>
+        <li>die 1990er und die 2010er sahen so aus</li>
+      </ul></div>
+    </div>
+    <div class="hinweis">
+      <p style="margin:0 0 9px"><strong>So tippst du es in TradingView ein</strong> — einfach als
+        Symbol eingeben, Schrägstrich inklusive:</p>
+      <div class="namen">
+        <span class="chip">GOLD/SPX</span>
+        <span class="chip">GSG/SPY</span>
+        <span class="chip">HG1!/GOLD</span>
+        <span class="chip">XME/SPY</span>
+      </div>
+      <p style="margin:11px 0 0">Der erste ist der wichtigste: Gold geteilt durch den S&amp;P 500,
+        mit Jahrzehnten Geschichte. Der zweite nimmt einen ganzen Rohstoffkorb statt nur Gold.
+        Der dritte — Kupfer durch Gold — ist der Stimmungsmesser: steigt er, erwartet der Markt
+        Wachstum; fällt er, erwartet er Ärger. Der vierte vergleicht Minenaktien mit dem
+        Gesamtmarkt. <strong>Monatschart und logarithmische Skala</strong>, sonst sieht man das
+        Muster nicht.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 3</div>
+    <h2>Die Kürzel</h2>
+    <p>Beispiele, keine Empfehlungen. Minenaktien sind der gehebelte Weg: Steigt das Metall um
+      zehn Prozent, bewegen sich die Minen oft um dreißig — nach unten genauso.</p>
+    <div class="umschlag">
+      <table class="kuerzel">
+        <thead><tr><th>Zweck</th><th>Kürzel</th><th>Was es ist</th></tr></thead>
+        <tbody>
+          <tr><td>Gold physisch</td><td class="k">Xetra-Gold</td>
+              <td>physisch hinterlegt, Lagerung in Frankfurt, lieferbar. Der einfachste Weg, über Xetra in Euro.</td></tr>
+          <tr><td>Breite Miner</td><td class="k">GDIG / WMIN</td>
+              <td>VanEck S&amp;P Global Mining, ISIN IE00BDFBTQ78, laufende Kosten 0,50 %. <strong>Derselbe Fonds, zwei Linien</strong> — GDIG in Amsterdam, Mailand und Zürich, WMIN auf Xetra. Enthält Eisenerz, Kupfer, Silber, Gold.</td></tr>
+          <tr><td>Goldproduzenten</td><td class="k">IS0E</td>
+              <td>iShares Gold Producers, Xetra, 0,55 %. Nicht mit GDIG verwechseln.</td></tr>
+          <tr><td>Goldminen groß</td><td class="k">GDX</td><td>VanEck Gold Miners — US-Notierung</td></tr>
+          <tr><td>Goldminen klein</td><td class="k">GDXJ</td><td>Junior Gold Miners, schwankt deutlich stärker — US-Notierung</td></tr>
+          <tr><td>Kupferminen</td><td class="k">ICOP</td><td>iShares Copper and Metals Miners — US-Notierung</td></tr>
+          <tr><td>Silberminen</td><td class="k">SLVP / SIL</td><td>iShares 0,39 % gegen Global X 0,65 %. SIL ist deutlich handelbarer — US-Notierungen</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hinweis">
+      <strong>Wichtig für deutsche Depots:</strong> GDX, GDXJ, ICOP, SLVP und SIL sind
+      US-Fonds. Viele Broker lassen sie für Privatanleger in der EU nicht zu, weil das
+      vorgeschriebene Informationsblatt fehlt. Bestätigt handelbar in Euro über Xetra sind
+      <strong>GDIG/WMIN</strong>, <strong>IS0E</strong> und <strong>Xetra-Gold</strong>.
+      Prüf vor dem Kauf, was dein Broker anzeigt.
+    </div>
+  </section>
+
+  <section>
+    <h2>Als Sparplan gedacht</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Rohstoffe sind der Teil eines Depots, bei dem Einmalkäufe besonders wehtun — der
+        Zeitpunkt entscheidet fast alles. Genau deshalb finde ich hier den Sparplan
+        besonders sinnvoll: eine feste kleine Rate, jeden Monat, über Jahre.</p>
+      <p>Mein Maßstab für die Größe: <strong>ein Beiwerk, kein Hauptgericht.</strong> Der Kern
+        bleibt ein breiter Welt-ETF — dazu steht alles im Fahrplan für den Anfang.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die ehrliche Seite</h2>
+    <div class="warnung">
+      <h3>Gold hat gerade einen Gegner</h3>
+      <p>Gold zahlt keine Zinsen. Solange die Inflation hoch bleibt und die Notenbanken die
+        Zinsen deshalb oben halten, konkurriert Gold mit Anleihen, die etwas abwerfen — und
+        verliert diesen Vergleich oft.</p>
+      <p>Deshalb steht Gold <b>rund 18 Prozent unter seinem Euro-Hoch</b> von 4.553 € aus dem
+        Januar 2026, und Silber liegt <b>2026 zweistellig im Minus</b>. Das ist keine
+        Ausnahme von der These, das ist die These: Knappheit wirkt langsam, Zinsen wirken
+        schnell.</p>
+      <p>Meine Erwartung — und es ist eine Erwartung, keine Vorhersage: Bis zum Jahreswechsel
+        bleibt das Bild so. <b>Ab Februar oder März</b> könnte es sich drehen, wenn die
+        Zinsschraube locker wird. Dann wäre aus dem Gegner ein Rückenwind geworden.</p>
+      <p>Konkrete Kursziele nenne ich bewusst nicht. Die Zahlen, die dazu herumgehen, finde
+        ich in keiner belastbaren Quelle, und ich schreibe hier nichts hin, was ich nicht
+        belegen kann.</p>
+    </div>
+    <ul class="liste">
+      <li><strong>Minen sind keine Metalle.</strong> Du kaufst Unternehmen mit Schulden,
+        Streiks, Stromkosten und Ländern, die Verträge ändern.</li>
+      <li><strong>Silber schwankt brutal.</strong> Zwei Drittel der Nachfrage sind Industrie —
+        in einer Rezession bricht genau die weg.</li>
+      <li><strong>Kupfer ist ein Konjunkturmetall.</strong> Die Knappheitsgeschichte stimmt
+        langfristig und hilft dir in einem Abschwung trotzdem nicht.</li>
+      <li><strong>Steuern und Kosten.</strong> Physisches Gold und Fonds werden
+        unterschiedlich behandelt. Das ist nichts, was ich dir allgemein beantworten kann.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Was ich tue</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Ich halte einen kleinen Teil breit über Miner und physisches Gold, kaufe per
+        Sparplan weiter und beobachte die Linie <strong>Gold geteilt durch S&amp;P 500</strong>
+        auf dem Monatschart. Dreht die nach oben und bleibt dort, wird der Teil bei mir
+        größer. Vorher nicht.</p>
+      <p>Was ich nicht tue: auf einen Ausbruch wetten, der ein Datum hat.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand Oktober 2026.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
