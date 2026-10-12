@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Erbgut und KI</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block + .block { margin-top: 14px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .vn-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-top: 16px; }
+  @media (max-width: 620px) { .vn-paar { grid-template-columns: 1fr; } }
+  .vn { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 16px; min-width: 0; }
+  .vn h3 { font-size: 10.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0 0 10px; color: var(--leise); }
+  .vn.neu h3 { color: var(--gruen); }
+  .vn ul { margin: 0; padding-left: 17px; }
+  .vn li { margin-bottom: 6px; font-size: 14px; }
+  .vn li:last-child { margin-bottom: 0; }
+  .schaubild { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px;
+    padding: 18px 14px; margin-top: 18px; }
+  .schaubild svg { display: block; width: 100%; height: auto; }
+  .schaubild .quelle { margin-top: 11px; padding-top: 9px; border-top: 1px solid var(--linie);
+    font-size: 11.5px; color: var(--leise); }
+  .warnung { background: color-mix(in srgb, var(--rot) 7%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--rot) 35%, var(--linie));
+    border-left: 3px solid var(--rot); border-radius: 3px; padding: 20px 22px; }
+  .warnung h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 10px; color: var(--rot); }
+  .warnung p { margin: 0 0 10px; }
+  .warnung p:last-child { margin-bottom: 0; }
+  .warnung b { font-variant-numeric: tabular-nums; }
+  .namen { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .chip { display: inline-flex; align-items: center; padding: 5px 12px;
+    border-radius: 999px; background: var(--feld); font-size: 12.5px; font-weight: 700; }
+  ul.liste { margin: 12px 0 0; padding-left: 19px; }
+  ul.liste li { margin-bottom: 7px; }
+  ul.liste li:last-child { margin-bottom: 0; }
+
+  table.firmen td.k { font-weight: 800; white-space: nowrap; }
+  table.firmen { min-width: 500px; }
+
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Erbgut und KI</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Warum DNA und künstliche Intelligenz erst zusammen funktionieren, wie weit wir wirklich sind, wer daran arbeitet — und <strong>warum Heilung ein Geschäftsproblem ist</strong>.
+    </p>
+  </header>
+
+  <section>
+    <div class="schritt">Der Ausgangspunkt</div>
+    <h2>Zwei Kurven treffen sich</h2>
+    <p>Dein komplettes Erbgut zu lesen kostete im Jahr 2001 rund hundert Millionen Dollar. Heute
+      kostet es ungefähr hundert. Das ist der steilste Preissturz, den irgendeine Technologie je
+      hingelegt hat — steiler als bei Computerchips.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 230" role="img" aria-label="Was es kostet, ein komplettes menschliches Genom zu lesen. Logarithmische Achse — maßstabsgetreu wären die unteren Balken unsichtbar. Zwischenwerte gerundet nach den Zahlen des US-Genomforschungsinstituts NHGRI, Erwartung für 2030 nach ARK Invest, Big Ideas 2026, Seite 64. Eigene Darstellung."><text x="112.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">2001</text><rect x="124" y="8" width="422.0" height="24" rx="2" fill="var(--rot)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">100 Mio. $</text><text x="112.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">2007</text><rect x="124" y="52" width="370.2" height="24" rx="2" fill="var(--leise)"/><text x="485.2" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">10 Mio. $</text><text x="112.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">2015</text><rect x="124" y="96" width="194.0" height="24" rx="2" fill="var(--leise)"/><text x="309.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">4.000 $</text><text x="112.0" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">heute</text><rect x="124" y="140" width="110.9" height="24" rx="2" fill="var(--gruen)"/><text x="225.9" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">rund 100 $</text><text x="112.0" y="201.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">2030, erwartet</text><rect x="124" y="184" width="59.1" height="24" rx="2" fill="var(--gold)"/><text x="192.1" y="201.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gold)">10 $</text></svg><p class="quelle">Was es kostet, ein komplettes menschliches Genom zu lesen. Logarithmische Achse — maßstabsgetreu wären die unteren Balken unsichtbar. Zwischenwerte gerundet nach den Zahlen des US-Genomforschungsinstituts NHGRI, Erwartung für 2030 nach ARK Invest, Big Ideas 2026, Seite 64. Eigene Darstellung.</p></div>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Und warum das allein nichts gebracht hätte</h3>
+      <p>Ein menschliches Genom hat rund <strong>drei Milliarden Bausteine</strong>. Kein Mensch
+        kann darin erkennen, welche winzige Abweichung später eine Krankheit auslöst — es gibt
+        schlicht zu viele Möglichkeiten.</p>
+      <p>Deshalb lag das Lesen jahrelang vor dem Verstehen. Erst eine Maschine, die Millionen
+        solcher Datensätze gesehen hat, findet darin Muster. <strong>Billig lesen können wir seit
+        Jahren. Verstehen können wir erst seit Kurzem.</strong></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 1</div>
+    <h2>Wo wir wirklich stehen</h2>
+    <p>Das greifbarste Beispiel ist ein Bluttest, der Signale von <strong>17 Krebsarten</strong>
+      erkennt, bevor Beschwerden auftreten. Bei gut der Hälfte der entdeckten Tumoren handelte es
+      sich um frühe Stadien, und ein Beratergremium der US-Arzneimittelbehörde hat die Zulassung
+      empfohlen.</p>
+    <div class="warnung">
+      <h3>Und jetzt der Teil, der in keiner Schlagzeile steht</h3>
+      <p><b>Vier von zehn Treffern waren Fehlalarme.</b> Das klingt nach einer Fußnote, ist aber
+        das zentrale Problem: Jeder Fehlalarm bedeutet Biopsien, Wochen Angst und Kosten für
+        jemanden, der gesund ist.</p>
+      <p>Dazu kommt: Die große Studie zum bekanntesten dieser Tests hat <b>ihr Hauptziel
+        verfehlt</b> — sie konnte nicht zeigen, dass dadurch weniger Krebs im fortgeschrittenen
+        Stadium entdeckt wird. Und der deutsche Krebsinformationsdienst stellt nüchtern fest,
+        dass bis heute <b>kein Test</b> alle Prüfungen bestanden hat, die ihn für eine
+        Reihenuntersuchung qualifizieren würden.</p>
+      <p>In Deutschland sind solche Tests deshalb <strong>nicht</strong> Teil der
+        Krebsvorsorge der Krankenkassen.</p>
+    </div>
+    <p>Breiter betrachtet läuft die Entwicklung trotzdem eindeutig in eine Richtung. Vor ChatGPT
+      war fast keine von der FDA zugelassene Diagnose KI-gestützt. Für 2030 wird erwartet, dass
+      es etwa jede dritte ist.</p>
+    <div class="schaubild"><svg viewBox="0 0 520 270" role="img" aria-label="Daten: ARK Invest, Big Ideas 2026, Seite 66. Der mittlere Wert ist interpoliert — ARK nennt nur „einstellig vor ChatGPT" und „rund 30 % bis 2030". Eigene Darstellung."><line x1="20" y1="224" x2="500" y2="224" stroke="var(--linie)" stroke-width="1.5"/><rect x="67.0" y="201.3" width="66.0" height="22.7" rx="2" fill="var(--gruen)"/><text x="100.0" y="192.3" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">einstellig</text><text x="100.0" y="243.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">vor 2022</text><text x="100.0" y="256.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">vor ChatGPT</text><rect x="227.0" y="155.9" width="66.0" height="68.1" rx="2" fill="var(--gruen)"/><text x="260.0" y="146.9" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">wächst</text><text x="260.0" y="243.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">2026</text><text x="260.0" y="256.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">heute</text><rect x="387.0" y="53.8" width="66.0" height="170.2" rx="2" fill="var(--gold)"/><text x="420.0" y="44.8" text-anchor="middle" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gold)">rund 30 %</text><text x="420.0" y="243.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">2030</text><text x="420.0" y="256.0" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" font-weight="600" fill="var(--leise)">erwartet</text><text x="20.0" y="15.0" text-anchor="start" font-family="Inter, sans-serif" font-size="10.5" font-weight="700" fill="var(--leise)">Anteil KI-gestützter Diagnostika an allen FDA-Zulassungen</text></svg><p class="quelle">Daten: ARK Invest, Big Ideas 2026, Seite 66. Der mittlere Wert ist interpoliert — ARK nennt nur „einstellig vor ChatGPT" und „rund 30 % bis 2030". Eigene Darstellung.</p></div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 2</div>
+    <h2>Fünf Ebenen, fünf Arten von Firmen</h2>
+    <p>Wer in das Thema investieren will, sollte wissen, dass „Genetik" fünf ziemlich
+      verschiedene Geschäfte meint. Beispiele, keine Empfehlungen.</p>
+    <div class="umschlag">
+      <table class="firmen">
+        <thead><tr><th>Ebene</th><th>Was gemessen wird</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td class="k">DNA</td><td>der Bauplan selbst</td><td>Illumina — die Lesegeräte, auf denen fast die ganze Branche arbeitet</td></tr>
+          <tr><td class="k">Epigenom</td><td>welche Gene an- und abgeschaltet sind</td><td>10X Genomics</td></tr>
+          <tr><td class="k">RNA</td><td>was die Zelle gerade tatsächlich tut</td><td>Tempus AI — liest RNA für die Krebsbehandlung</td></tr>
+          <tr><td class="k">Proteine</td><td>die Werkzeuge, die daraus entstehen</td><td>Quantum-Si</td></tr>
+          <tr><td class="k">Stoffwechsel</td><td>was am Ende im Körper übrig bleibt</td><td>908 Devices</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <p><strong>Die unaufgeregteste Position ist die erste.</strong> Wer die Lesegeräte verkauft,
+        verdient an jedem Test, egal welche Therapie am Ende gewinnt — dasselbe Muster wie bei
+        Schaufeln im Goldrausch. Die spannenderen Namen sitzen weiter hinten in der Kette und
+        sind entsprechend riskanter.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Das Geschäftsproblem, über das niemand spricht</h2>
+    <div class="block" style="--rand: var(--gold)">
+      <p>Heutige Medizin behandelt Symptome, und zwar im Durchschnitt. Je genauer man die Ursache
+        im Einzelfall liest, desto eher behandelt man die Ursache — und zwar <strong>einmal</strong>.</p>
+      <p>ARK setzt eine echte Heilung mit <strong>etwa dem Zwanzigfachen</strong> dessen an, was
+        ein Medikament wert ist, das man dauerhaft nimmt. Für den Patienten ist das die beste
+        Nachricht überhaupt. Für eine Branche, deren Geschäftsmodell auf wiederkehrenden
+        Einnahmen beruht, ist es eine unbequeme Frage: <em>Wie verdient man an einer Krankheit,
+        die man abschafft?</em></p>
+      <p>Wer das Thema beobachtet, sollte genau darauf achten, welche Firmen eine Antwort darauf
+        haben. Das entscheidet mehr als jede Technologie.</p>
+    </div>
+  </section>
+
+<!-- TRADINGVIEW-PLATZ · Datei: gen_arkg.png
+     Zu ziehen: AMEX:ARKG · Woche · seit 2020, damit der Absturz nach 2021 sichtbar ist
+     Daneben zum Vergleich IWDA oder SPY einblenden.
+     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
+     Zeilen entkommentieren und diesen Kommentar loeschen.
+    <figure>
+      <img src="gen_arkg.png" alt="Kursverlauf eines Genomik-Fonds seit 2020">
+      <figcaption>
+        <strong>Warum ich hier klein bleibe.</strong> Der Boom 2020/21 und was danach kam —
+        diese Spanne muss man aushalten koennen, bevor man einsteigt.
+      </figcaption>
+    </figure>
+-->
+
+  <section>
+    <div class="schritt">Schritt 3</div>
+    <h2>Wenn du es breit willst</h2>
+    <div class="umschlag">
+      <table class="firmen">
+        <thead><tr><th>Fonds</th><th>ISIN / Kürzel</th><th>Was drin ist</th></tr></thead>
+        <tbody>
+          <tr><td>VanEck Genomics and Healthcare Innovators</td><td class="k">IE000B9PQW54</td>
+              <td><strong>Über Xetra in Euro handelbar</strong>, laufende Kosten 0,35 %, thesaurierend. Gentherapie, Testlabore, Telemedizin-Software.</td></tr>
+          <tr><td>iShares Genomics Immunology and Healthcare</td><td class="k">IDNA</td>
+              <td>US-Notierung, laufende Kosten 0,47 %. Enger auf Genomik und Immuntherapie.</td></tr>
+          <tr><td>ARK Genomic Revolution</td><td class="k">ARKG</td>
+              <td>US-Notierung, aktiv gemanagt, der bekannteste und mit Abstand schwankungsfreudigste.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hinweis">
+      <strong>Wichtig für deutsche Depots:</strong> Nur der erste ist eine europäische UCITS-Linie
+      und damit bei den meisten Brokern ohne Weiteres handelbar. Die beiden anderen sind
+      US-Fonds — viele Broker lassen sie für Privatanleger in der EU nicht zu, weil das
+      vorgeschriebene Informationsblatt fehlt. <strong>Prüf vor dem Kauf, was dein Broker
+      anzeigt.</strong>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die ehrliche Seite</h2>
+    <ul class="liste">
+      <li><strong>Biotechnologie ist binär.</strong> Eine Studie geht auf oder sie geht nicht auf.
+        Dazwischen gibt es wenig, und der Kurs bildet das in einem einzigen Handelstag ab.</li>
+      <li><strong>Die meisten Firmen scheitern.</strong> Von den Namen in so einem Fonds wird ein
+        erheblicher Teil in zehn Jahren nicht mehr existieren. Genau deshalb ist ein Fonds hier
+        sinnvoller als ein Einzelwert.</li>
+      <li><strong>Die Branche kommt von einem brutalen Absturz.</strong> Nach dem Boom von 2020
+        und 2021 haben viele dieser Werte drei Viertel und mehr verloren. Wer jetzt einsteigt,
+        kauft billiger — aber eben auch, weil es Gründe dafür gab.</li>
+      <li><strong>Regulierung bremst, und das ist gut so.</strong> Ein Fehlalarm bei einem
+        Krebstest ist kein Software-Bug. Jede Zulassung dauert deshalb länger, als die
+        Technologie erlauben würde.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Ich halte das Thema <strong>klein, breit und per Sparplan</strong> — nicht über
+        Einzelwerte. Bei einem Thema, in dem einzelne Studien über alles entscheiden, ist ein
+        Korb die einzige Form, die ich mir zutraue.</p>
+      <p>Und was ich beobachte, sind nicht die Schlagzeilen über Durchbrüche, sondern eine
+        unscheinbare Zahl: <strong>wie viele KI-gestützte Diagnosen tatsächlich zugelassen
+        werden.</strong> Zulassungen sind das Einzige, was sich nicht schönreden lässt.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand 12. Oktober 2026. Jede Zahl auf dieser Seite trägt ihr Datum — was später
+      passiert ist, steht hier nicht.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
