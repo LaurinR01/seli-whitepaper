@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }
@@ -257,18 +257,17 @@ footer a:hover { color: var(--gruen); }
     </div>
   </section>
 
-<!-- TRADINGVIEW-PLATZ · Datei: gen_xbi_ibb.png
-     Zu ziehen: AMEX:XBI · Woche · seit 2020, mit AMEX:IBB und IWDA zum Vergleich
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
     <figure>
-      <img src="gen_xbi_ibb.png" alt="XBI gegen IBB seit 2020">
+      <img src="gen_xbi.webp" alt="SPDR S&amp;P Biotech gegen MSCI World, Wochenkerzen seit 2024">
       <figcaption>
-        <strong>Warum ich hier klein bleibe.</strong> Der Boom 2020/21 und was danach kam —
-        und wie weit XBI und IBB auseinanderlaufen, obwohl beide dieselbe Branche halten.
+        <strong>Biotech gegen Welt.</strong> Nach knapp drei Jahren liegt der Biotech-Index mit
+        plus 71 gegen plus 62 Prozent nur knapp vorn — dazwischen lag ein Einbruch auf rund minus
+        25 Prozent, während der Welt-ETF im Plus blieb. Billig lesen können wir seit Jahren; dass
+        daraus Geld wird, ist eine andere Frage.
+        <em>SPDR S&amp;P Biotech (XBI) gegen Xtrackers MSCI World (XDWD), Wochenkerzen,
+        Stand 13.10.2026. Chart: TradingView.</em>
       </figcaption>
     </figure>
--->
 
   <section>
     <div class="schritt">Schritt 3</div>

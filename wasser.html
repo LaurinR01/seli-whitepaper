@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }
@@ -220,20 +220,17 @@ footer a:hover { color: var(--gruen); }
       Abwasseraufbereitung. Genau das steckt in den Fonds unten.</p>
   </section>
 
-<!-- TRADINGVIEW-PLATZ · Datei: wasser_ih2o.png
-     Zu ziehen: AMS:IQQQ oder LSE:IH2O (iShares Global Water) · Woche · zehn Jahre
-     Daneben zum Vergleich SPY oder IWDA einblenden, damit man sieht, dass der
-     Wasser-ETF kein Überflieger ist, sondern ruhig mitläuft.
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
     <figure>
-      <img src="wasser_ih2o.png" alt="Kursverlauf des iShares Global Water über zehn Jahre">
+      <img src="wasser_ih2o.webp" alt="iShares Global Water gegen MSCI World, Wochenkerzen seit 2015">
       <figcaption>
-        <strong>Zehn Jahre Wasser.</strong> Kein Überflieger, aber eine erstaunlich ruhige
-        Kurve — genau das ist der Charakter dieses Themas.
+        <strong>Elf Jahre Wasser gegen Welt.</strong> Der Wasserfonds steht bei plus 160 Prozent,
+        ein ganz normaler Welt-ETF bei plus 302 — fast beim Doppelten. Das ist kein Argument
+        gegen das Thema, aber es ist der Grund, warum es bei mir eine Beimischung bleibt und
+        nicht in den Kern wandert.
+        <em>iShares Global Water (IQQQ) gegen Xtrackers MSCI World (XDWD), Wochenkerzen,
+        Stand 13.10.2026. Chart: TradingView.</em>
       </figcaption>
     </figure>
--->
 
   <section>
     <div class="schritt">Schritt 2</div>

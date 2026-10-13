@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }
@@ -172,6 +172,14 @@ footer a:hover { color: var(--gruen); }
   <section>
     <div class="schritt">Der Stand</div>
     <h2>Das ist kein Test mehr</h2>
+    <figure>
+      <img src="auto_cybercab.webp" alt="Tesla Cybercab, zweisitziges Robotaxi ohne Lenkrad und Pedale">
+      <figcaption>
+        <strong>Der Cybercab.</strong> Zwei Sitze, kein Lenkrad, keine Pedale — gebaut für genau
+        einen Zweck: fahren, ohne dass jemand mitfährt, der fahren kann.
+        <em>Foto: Ulkl, Public Domain, via Wikimedia Commons.</em>
+      </figcaption>
+    </figure>
     <div class="kopfzahlen">
       <div class="kz"><div class="l">Cybercab in Austin</div><div class="v">3. Sept.</div>
         <div class="n">2026 gestartet, 45 Fahrzeuge in einer Flotte von 314</div></div>
@@ -254,30 +262,16 @@ footer a:hover { color: var(--gruen); }
     </div>
   </section>
 
-<!-- TRADINGVIEW-PLATZ · Datei: auto_uber.webp
-     Zu ziehen: <code>NYSE:UBER/SP:SPX</code> · Woche · fünf Jahre
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
     <figure>
-      <img src="auto_uber.webp" alt="Uber gegen den S&amp;P 500">
+      <img src="auto_uber.webp" alt="Uber Technologies, Tageskerzen seit 2021">
       <figcaption>
-        <strong>Die Wette in einer Linie.</strong> Hält Uber den Kunden, läuft diese Linie nach
-        oben. Verliert Uber ihn an die Plattformen, nach unten.
+        <strong>Uber seit 2021.</strong> Unterm Strich plus 31 Prozent in fünf Jahren — mit einem
+        Absturz auf rund minus 60 Prozent dazwischen und einem Hoch bei plus 85, das inzwischen
+        wieder abgegeben ist. Wer die Robotaxi-Geschichte über Uber spielt, kauft diese
+        Schwankung mit.
+        <em>Uber Technologies (UBER), Tageskerzen, Stand 13.10.2026. Chart: TradingView.</em>
       </figcaption>
     </figure>
--->
-<!-- TRADINGVIEW-PLATZ · Datei: auto_uber.webp
-     Zu ziehen: <code>NYSE:UBER/SP:SPX</code> · Woche · fünf Jahre
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
-    <figure>
-      <img src="auto_uber.webp" alt="Uber gegen den S&amp;P 500">
-      <figcaption>
-        <strong>Die Wette in einer Linie.</strong> Hält Uber den Kunden, läuft diese Linie nach
-        oben. Verliert Uber ihn an die Plattformen, nach unten.
-      </figcaption>
-    </figure>
--->
   <section>
     <h2>Woran es noch hängt</h2>
     <div class="warnung">

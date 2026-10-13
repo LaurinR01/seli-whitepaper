@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }

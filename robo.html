@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }
@@ -171,35 +171,24 @@ footer a:hover { color: var(--gruen); }
 
   <section>
     <div class="schritt">Der Ausgangspunkt</div>
-    <h2>Zwei Zahlen, und du verstehst das ganze Thema</h2>
-    <p>Amazon betrieb Ende 2025 in seinen Lagern <strong>6.427 Roboter je 10.000
-      Mitarbeiter</strong>. Die gesamte US-Industrie kam auf 295. Ein einziges Unternehmen ist also 22-mal weiter
-      als die Industrie des Landes, in dem es sitzt.</p>
-    <div class="schaubild"><svg viewBox="0 0 560 230" role="img" aria-label="Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung. Für die Länder ist die Industrie insgesamt gemeint."><text x="92.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Amazon</text><rect x="104" y="8" width="442.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">6.427</text><text x="92.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Korea</text><rect x="104" y="52" width="77.6" height="24" rx="2" fill="var(--leise)"/><text x="190.6" y="69.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">1.129</text><text x="92.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">China</text><rect x="104" y="96" width="32.3" height="24" rx="2" fill="var(--leise)"/><text x="145.3" y="113.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">470</text><text x="92.0" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Deutschland</text><rect x="104" y="140" width="29.5" height="24" rx="2" fill="var(--leise)"/><text x="142.5" y="157.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">429</text><text x="92.0" y="201.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">USA</text><rect x="104" y="184" width="20.3" height="24" rx="2" fill="var(--rot)"/><text x="133.3" y="201.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">295</text></svg><p class="quelle">Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung. Für die Länder ist die Industrie insgesamt gemeint.</p></div>
-    <p>Das ist keine Geschichte über Technik. Das ist eine Geschichte über
-      <strong>Nachholbedarf</strong>: Was bei Amazon funktioniert, fehlt überall sonst noch.</p>
-  </section>
-
-  <section>
-    <div class="schritt">Schritt 1</div>
-    <h2>Wie früh wir sind</h2>
-    <div class="schaubild"><svg viewBox="0 0 560 160" role="img" aria-label="Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Achtung: Die Achse ist logarithmisch — maßstabsgetreu wäre der unterste Balken dünner als ein Haar. Jeder Schritt nach rechts ist ein Vielfaches."><text x="112.0" y="19.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Industrieroboter</text><text x="112.0" y="32.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 1961</text><rect x="124" y="8" width="422.0" height="24" rx="2" fill="var(--leise)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">7,2 Mio.</text><text x="112.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Vierbeiner</text><text x="112.0" y="82.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 2015</text><rect x="124" y="58" width="174.4" height="24" rx="2" fill="var(--leise)"/><text x="289.4" y="75.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">27.000</text><text x="112.0" y="119.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Humanoide</text><text x="112.0" y="132.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 2020</text><rect x="124" y="108" width="59.1" height="24" rx="2" fill="var(--gruen)"/><text x="192.1" y="125.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">gut 2.000</text></svg><p class="quelle">Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Achtung: Die Achse ist logarithmisch — maßstabsgetreu wäre der unterste Balken dünner als ein Haar. Jeder Schritt nach rechts ist ein Vielfaches.</p></div>
-    <p>Industrieroboter gibt es seit 1961 — über sieben Millionen Stück, aber jeder von ihnen
-      kann genau eine Sache. Humanoide gibt es seit 2020, gebaut wurden gut zweitausend.
-      <strong>Das ist nicht der Anfang einer Kurve. Das ist der Punkt davor.</strong></p>
-    <div class="block" style="--rand: var(--gold)">
-      <h3>Warum der Unterschied so groß ist</h3>
-      <p>Ein Industrieroboter arbeitet in einer Welt, die für ihn gebaut wurde: gleiche Teile,
-        gleicher Ort, gleiche Bewegung. Ein Haushaltsroboter muss in <em>deine</em> Welt passen —
-        Treppen, Haustiere, Wäsche, die jedes Mal anders liegt.</p>
-      <p>ARK schätzt, dass die Steuerung eines Humanoiden rund <strong>200.000-mal
-        komplexer</strong> ist als die eines Robotaxis. Das ist der Grund, warum es so lange
-        dauert, und auch der Grund, warum es einen Moment geben wird, in dem es plötzlich geht.</p>
+    <h2>In zehn Jahren soll in jedem Haushalt einer stehen</h2>
+    <p>Elon Musk sagt, es werde einmal mehr Roboter geben als Menschen, und in rund zehn Jahren
+      stehe in jedem Haushalt einer. Das Erstaunliche daran ist nicht die Prognose, sondern:
+      <strong>Vorbestellen kann man so ein Gerät heute schon.</strong></p>
+    <p>Die Firma <strong>1X</strong> nimmt seit Herbst 2025 Vorbestellungen für einen
+      Haushaltsroboter an. Aufräumen, Wäsche, Spülmaschine, Einkäufe wegsortieren, Tür öffnen —
+      also genau die Stunden, die bei dir jede Woche draufgehen.</p>
+    <div class="hinweis">
+      <strong>Zwei Dinge, die oft durcheinandergehen:</strong> In der <strong>Fabrik</strong>
+      arbeiten Roboter seit Jahrzehnten, und zwar in Millionenstückzahl. Im
+      <strong>Haushalt</strong> gibt es sie praktisch noch nicht. Das sind zwei verschiedene
+      Geschichten, und dieser Text erzählt beide — erst, was ein Haushaltsroboter wert wäre,
+      dann, wie weit die Fabrik schon ist und warum das Wohnzimmer so viel schwerer ist.
     </div>
   </section>
 
   <section>
-    <div class="schritt">Schritt 2</div>
+    <div class="schritt">Schritt 1 · Der Haushalt</div>
     <h2>Was ein Roboter im Haushalt wert wäre</h2>
     <p>Die interessanteste Rechnung aus dem ARK-Bericht dreht sich nicht um den Verkaufspreis,
       sondern um den Wert. Hausarbeit zählt heute fast nicht in der Wirtschaftsleistung —
@@ -238,9 +227,36 @@ footer a:hover { color: var(--gruen); }
         nicht als Zahl.</strong></p>
     </div>
   </section>
-
+  <section>
+    <div class="schritt">Schritt 2 · Die Fabrik</div>
+    <h2>Wo Roboter längst arbeiten</h2>
+    <p>Amazon betrieb Ende 2025 in seinen Lagern <strong>6.427 Roboter je 10.000
+      Mitarbeiter</strong>. Die gesamte US-Industrie kam auf 295. Ein einziges Unternehmen ist also 22-mal weiter
+      als die Industrie des Landes, in dem es sitzt.</p>
+    <div class="schaubild"><svg viewBox="0 0 560 230" role="img" aria-label="Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung. Für die Länder ist die Industrie insgesamt gemeint."><text x="92.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Amazon</text><rect x="104" y="8" width="442.0" height="24" rx="2" fill="var(--gruen)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">6.427</text><text x="92.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Korea</text><rect x="104" y="52" width="77.6" height="24" rx="2" fill="var(--leise)"/><text x="190.6" y="69.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">1.129</text><text x="92.0" y="113.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">China</text><rect x="104" y="96" width="32.3" height="24" rx="2" fill="var(--leise)"/><text x="145.3" y="113.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">470</text><text x="92.0" y="157.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Deutschland</text><rect x="104" y="140" width="29.5" height="24" rx="2" fill="var(--leise)"/><text x="142.5" y="157.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--leise)">429</text><text x="92.0" y="201.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">USA</text><rect x="104" y="184" width="20.3" height="24" rx="2" fill="var(--rot)"/><text x="133.3" y="201.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--rot)">295</text></svg><p class="quelle">Roboter je 10.000 Beschäftigte. Daten: International Federation of Robotics 2025 und Amazon, Stand Dezember 2025; zusammengestellt von ARK Invest, Big Ideas 2026. Eigene Darstellung. Für die Länder ist die Industrie insgesamt gemeint.</p></div>
+    <p>Das ist keine Geschichte über Technik. Das ist eine Geschichte über
+      <strong>Nachholbedarf</strong>: Was bei Amazon funktioniert, fehlt überall sonst noch.</p>
+  </section>
   <section>
     <div class="schritt">Schritt 3</div>
+    <h2>Wie früh wir sind</h2>
+    <div class="schaubild"><svg viewBox="0 0 560 160" role="img" aria-label="Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Achtung: Die Achse ist logarithmisch — maßstabsgetreu wäre der unterste Balken dünner als ein Haar. Jeder Schritt nach rechts ist ein Vielfaches."><text x="112.0" y="19.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Industrieroboter</text><text x="112.0" y="32.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 1961</text><rect x="124" y="8" width="422.0" height="24" rx="2" fill="var(--leise)"/><text x="537.0" y="25.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">7,2 Mio.</text><text x="112.0" y="69.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Vierbeiner</text><text x="112.0" y="82.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 2015</text><rect x="124" y="58" width="174.4" height="24" rx="2" fill="var(--leise)"/><text x="289.4" y="75.0" text-anchor="end" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="#fff">27.000</text><text x="112.0" y="119.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="700" fill="var(--tinte)">Humanoide</text><text x="112.0" y="132.0" text-anchor="end" font-family="Inter, sans-serif" font-size="11.5" font-weight="500" fill="var(--leise)">seit 2020</text><rect x="124" y="108" width="59.1" height="24" rx="2" fill="var(--gruen)"/><text x="192.1" y="125.0" text-anchor="start" font-family="Inter, sans-serif" font-size="13" font-weight="800" fill="var(--gruen)">gut 2.000</text></svg><p class="quelle">Weltweit gebaute Stückzahlen, kumuliert. Daten: ARK Invest, Big Ideas 2026. Eigene Darstellung. Achtung: Die Achse ist logarithmisch — maßstabsgetreu wäre der unterste Balken dünner als ein Haar. Jeder Schritt nach rechts ist ein Vielfaches.</p></div>
+    <p>Industrieroboter gibt es seit 1961 — über sieben Millionen Stück, aber jeder von ihnen
+      kann genau eine Sache. Humanoide gibt es seit 2020, gebaut wurden gut zweitausend.
+      <strong>Das ist nicht der Anfang einer Kurve. Das ist der Punkt davor.</strong></p>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Warum der Unterschied so groß ist</h3>
+      <p>Ein Industrieroboter arbeitet in einer Welt, die für ihn gebaut wurde: gleiche Teile,
+        gleicher Ort, gleiche Bewegung. Ein Haushaltsroboter muss in <em>deine</em> Welt passen —
+        Treppen, Haustiere, Wäsche, die jedes Mal anders liegt.</p>
+      <p>ARK schätzt, dass die Steuerung eines Humanoiden rund <strong>200.000-mal
+        komplexer</strong> ist als die eines Robotaxis. Das ist der Grund, warum es so lange
+        dauert, und auch der Grund, warum es einen Moment geben wird, in dem es plötzlich geht.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Schritt 4</div>
     <h2>Wer daran baut</h2>
     <p>Beispiele, keine Empfehlungen — und bewusst getrennt in zwei Gruppen, weil das zwei
       völlig verschiedene Wetten sind.</p>
@@ -272,30 +288,17 @@ footer a:hover { color: var(--gruen); }
 
   <section>
     <h2>Fonds, wenn du es breit willst</h2>
-<!-- TRADINGVIEW-PLATZ · Datei: robo_rbot.webp
-     Zu ziehen: <code>XETR:RBOT</code> oder <code>LSE:RBOT</code> · Woche · fünf Jahre
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
     <figure>
-      <img src="robo_rbot.webp" alt="Kursverlauf des iShares Automation &amp; Robotics">
+      <img src="robo_rbot.webp" alt="iShares Automation and Robotics gegen MSCI World, Wochenkerzen seit 2017">
       <figcaption>
-        <strong>So lief der Korb bisher.</strong> Mehr Schwankung als ein Welt-ETF, und die
-        Ausschläge kommen aus dem Halbleiterteil, nicht aus den Robotern.
+        <strong>Neun Jahre Robotik gegen Welt.</strong> Hier liegt der Themenfonds vorn — plus
+        334 gegen plus 243 Prozent. Den Preis dafür sieht man in der Mitte des Charts: 2022 ging
+        es deutlich tiefer runter als beim Welt-ETF, und es hat zwei Jahre gedauert, bis das
+        wieder aufgeholt war.
+        <em>iShares Automation &amp; Robotics (RBOT) gegen Xtrackers MSCI World (XDWD),
+        Wochenkerzen, Stand 13.10.2026. Chart: TradingView.</em>
       </figcaption>
     </figure>
--->
-<!-- TRADINGVIEW-PLATZ · Datei: robo_rbot.webp
-     Zu ziehen: <code>XETR:RBOT</code> oder <code>LSE:RBOT</code> · Woche · fünf Jahre
-     Hintergrund hell. Sobald das Bild im Ordner liegt, die naechsten sechs
-     Zeilen entkommentieren und diesen Kommentar loeschen.
-    <figure>
-      <img src="robo_rbot.webp" alt="Kursverlauf des iShares Automation &amp; Robotics">
-      <figcaption>
-        <strong>So lief der Korb bisher.</strong> Mehr Schwankung als ein Welt-ETF, und die
-        Ausschläge kommen aus dem Halbleiterteil, nicht aus den Robotern.
-      </figcaption>
-    </figure>
--->
     <div class="umschlag">
       <table>
         <thead><tr><th>Fonds</th><th>Kürzel</th><th>Was drin ist</th></tr></thead>

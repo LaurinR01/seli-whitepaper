@@ -80,7 +80,7 @@ td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gr
 
 .block { background: var(--karte); border: 1px solid var(--linie);
   border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
-.block + .block { margin-top: 14px; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
 .block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
 .block p { margin: 0 0 9px; }
 .block p:last-child { margin-bottom: 0; }
@@ -289,6 +289,11 @@ footer a:hover { color: var(--gruen); }
         30 Jahre, abrufbar in Stufen, dafür Optionsrechte auf bis zu <strong>7,5 Prozent</strong>
         der Firma. Nachbörslich sprang die Aktie fast 20 Prozent, im Tagesverlauf gab sie den
         Großteil wieder ab.</p>
+      <p>Auf das eine Wort in der Meldung kommt es an. Reuters hat sie am 7. Oktober so
+        überschrieben: <em>„Wolfspeed Announces <strong>Conditional</strong> 30-Year, $1.5 Billion
+        Loan Commitment From US Department Of War"</em> — bedingte Zusage über einen
+        <strong>Kredit</strong>. Kein ausgezahltes Geld, keine Beteiligung, und bis heute nichts,
+        worauf die Firma sich verlassen kann.</p>
       <p>Das ist genau der Fall, den ich oben als Möglichkeit beschrieben hatte — und trotzdem
         bleibe ich vorsichtig: <strong>Nichts davon ist unterschrieben.</strong> Es fehlen die
         endgültigen Verträge, Genehmigungen, Haushaltsmittel und die Zustimmung der bestehenden
