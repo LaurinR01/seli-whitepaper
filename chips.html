@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Die fünf Namen aus der Chip-Meldung</title>
+<meta name="color-scheme" content="light">
+<!-- Das S der Unterschrift in Allura, freigestellt und rechnerisch zentriert
+     (Allura hat riesige Seitenabstaende). Ohne diese Zeilen zeigt Vercel sein
+     graues V. -->
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+/* Die Schriften liegen bei uns, nicht bei Google. Grund: Wer sie direkt von
+   Google einbindet, schickt die IP jedes Besuchers an einen Server in den USA.
+   Genau dafuer hat das LG Muenchen I am 20.01.2022 (3 O 17493/20)
+   Schadenersatz zugesprochen, danach lief eine Abmahnwelle. Selbst ausliefern
+   heisst: keine Uebermittlung an Dritte, keine Einwilligung noetig, und die
+   Datenschutzerklaerung bleibt kurz. Alle drei Schriften stehen unter der SIL
+   Open Font License, Selbsthosten ist ausdruecklich erlaubt.
+   Inter und Playfair sind variable Schriften -- eine Datei deckt alle
+   Gewichte ab, deswegen sind es nur vier Dateien statt zehn. */
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+/* Gemeinsame Gestaltung aller vier Beilagen.
+   Schmale Spalte wie ein Dokument, nicht wie eine Webseite (seine Ansage
+   06.10.2026: "eher wie ein PDF vom Format her"). Farben und Schriften aus
+   den Videos, dazu Caveat für die Unterschrift. */
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+/* Kopfzeile mit Portraet, auf allen Seiten gleich */
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block:not(:first-child), .warnung:not(:first-child) { margin-top: 16px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+/* Unterschrift */
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+  .balken { display: flex; flex-direction: column; gap: 16px; margin-top: 16px; }
+  .reihe .kopf { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .reihe .was { font-size: 13.5px; font-weight: 600; }
+  .reihe .wert { font-variant-numeric: tabular-nums; font-weight: 800; font-size: 18px; }
+  .spur { height: 22px; background: var(--feld); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+  .fuell { height: 100%; }
+  .reihe .fuss { font-size: 12px; color: var(--leise); margin-top: 5px; }
+  .rechnung { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 20px; margin-top: 18px; }
+  .sonder { display: flex; gap: 16px; background: color-mix(in srgb, var(--gruen) 8%, var(--karte));
+    border: 1px solid color-mix(in srgb, var(--gruen) 32%, var(--linie));
+    border-radius: 3px; padding: 20px 22px; }
+  .sonder .icon { font-size: 26px; line-height: 1; flex: none; }
+  .sonder h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+  .sonder p { margin: 0; }
+  .sonder .buch { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--linie);
+    font-size: 13.5px; color: var(--leise); }
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Die fünf Namen</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Was Brad Gerstner im zweiten Quartal 2026 gekauft hat — <strong>alle fünf Namen mit
+      den Zahlen aus der Pflichtmeldung</strong>, was jede Firma macht, und das Muster
+      dahinter.
+    </p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Gemeldet am</div><div class="v">14.08.</div><div class="n">2026</div></div>
+      <div class="kz"><div class="l">Stichtag</div><div class="v">30.06.</div><div class="n">2026</div></div>
+      <div class="kz"><div class="l">US-Aktien im Fonds</div><div class="v">9,8 Mrd. $</div><div class="n">gemeldeter Bestand</div></div>
+      <div class="kz"><div class="l">Davon die fünf</div><div class="v" style="color: var(--gruen)">2,4 Mrd. $</div><div class="n">rund 24 %</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="schritt">Der Ausgangspunkt</div>
+    <h2>Warum diese Liste überhaupt öffentlich ist</h2>
+    <p>Wer in den USA mehr als 100 Millionen Dollar an Aktien verwaltet, muss dem
+      Börsenaufseher viermal im Jahr melden, was er hält. Das Formular heißt
+      <strong>13F</strong>, und es ist für jeden einsehbar.</p>
+    <p>Altimeter Capital Management — die Firma von Brad Gerstner — hat ihre Meldung für das
+      zweite Quartal am <strong>14. August 2026</strong> eingereicht. Darin steht der Bestand
+      zum <strong>30. Juni 2026</strong>. Alle Zahlen auf dieser Seite stammen daraus, sofern
+      nichts anderes dabeisteht.</p>
+    <div class="hinweis">
+      <strong>Was eine 13F nicht sagt:</strong> Sie zeigt nur US-Aktien, keine Anleihen, keine
+      Barmittel, keine ausländischen Titel und keine Wetten auf fallende Kurse. Und sie kommt
+      mit bis zu 45 Tagen Verzug — <strong>was zwischen dem 30. Juni und heute passiert ist,
+      steht nirgends</strong>. Es ist ein Foto, kein Film.
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Die Meldung</div>
+    <h2>Was drinsteht</h2>
+    <p>Die sechs größten Posten, die für dieses Thema zählen. Prozente sind Anteile am
+      gemeldeten US-Aktienbestand von rund 9,8 Milliarden Dollar.</p>
+    <div class="umschlag">
+      <table class="etf">
+        <thead><tr><th>Position</th><th class="r">Stück<br>30.06.2026</th><th class="r">Wert<br>30.06.2026</th><th class="r">Anteil<br>am Bestand</th></tr></thead>
+        <tbody>
+          <tr><td>Nvidia <span style="color:var(--leise)">· größte Position</span></td>
+              <td class="r zahl">—</td><td class="r haupt">1,9 Mrd. $</td><td class="r zahl">19,4 %</td></tr>
+          <tr><td><strong>Cerebras</strong> <span style="color:var(--leise)">· neu im Quartal</span></td>
+              <td class="r zahl">7.230.000</td><td class="r haupt">1,6 Mrd. $</td><td class="r zahl">16,3 %</td></tr>
+          <tr><td><strong>Micron</strong></td>
+              <td class="r zahl">209.520</td><td class="r zahl">241,8 Mio. $</td><td class="r zahl">2,5 %</td></tr>
+          <tr><td><strong>Applied Materials</strong></td>
+              <td class="r zahl">261.950</td><td class="r zahl">189,4 Mio. $</td><td class="r zahl">1,9 %</td></tr>
+          <tr><td><strong>KLA</strong></td>
+              <td class="r zahl">578.230</td><td class="r zahl">174,5 Mio. $</td><td class="r zahl">1,8 %</td></tr>
+          <tr><td><strong>Lam Research</strong></td>
+              <td class="r zahl">394.080</td><td class="r zahl">170,8 Mio. $</td><td class="r zahl">1,7 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="quelle">Alle Werte zum Stichtag <strong>30.06.2026</strong>, gemeldet am 14.08.2026. Formular 13F, Altimeter Capital Management LP.</p>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Die Größenverhältnisse, ehrlich</h3>
+      <p>Cerebras ist mit 1,6 Milliarden ein Brocken — aus dem Nichts direkt auf Platz zwei.
+        Die anderen vier zusammen kommen zum selben Stichtag auf rund <strong>777 Millionen</strong>, also auf
+        weniger als die Hälfte davon.</p>
+      <p>Das ist wichtig, weil in Videos über solche Meldungen gern alles gleich groß klingt.
+        Micron, Applied Materials, KLA und Lam Research sind jede für sich
+        <strong>kleine Positionen</strong> von unter drei Prozent. Interessant sind sie nicht
+        wegen ihrer Größe, sondern weil sie zusammen in dieselbe Richtung zeigen.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Name 1</div>
+    <h2>Cerebras — der Chip in Tellergröße</h2>
+    <p>Ein normaler Computerchip wird aus einer runden Siliziumscheibe geschnitten, dem Wafer.
+      Aus einem Wafer werden Dutzende Chips. <strong>Cerebras schneidet nicht.</strong> Die
+      Firma benutzt den ganzen Wafer als einen einzigen Chip — etwa so groß wie ein Essteller.</p>
+    <p>Der Sinn dahinter: Wenn KI-Modelle über viele kleine Chips verteilt rechnen, geht Zeit
+      verloren, weil die Chips ständig miteinander reden müssen. Auf einem einzigen großen
+      Chip entfällt dieser Weg. Dafür ist die Fertigung schwierig und teuer — ein Fehler auf
+      der Scheibe kann das ganze Stück unbrauchbar machen.</p>
+    <div class="zwei">
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Börsengang</h3>
+        <p>14. Mai 2026 zu <b>185 $</b>. Eröffnung bei <b>350 $</b>, Hoch am ersten Tag
+          <b>386,34 $</b>.</p></article>
+      <article class="kachel" style="--rand: var(--rot)"><h3>Seitdem</h3>
+        <p>Tiefstand <b>146,98 $</b> am 12.10.2026 — das sind <b>−62 %</b> vom Hoch des
+          ersten Tages.</p></article>
+    </div>
+    <div class="hinweis">
+      <strong>Zur Einordnung des Einstiegs:</strong> Zwischen dem Börsengang am 14. Mai und dem
+      Stichtag der Meldung am 30. Juni liegen rund sechs Wochen. In dieser Zeit ist die Position
+      entstanden — zu welchen Kursen, weiß niemand außer ihm.
+      <strong>Einen Durchschnittspreis enthält eine 13F nicht.</strong>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Name 2</div>
+    <h2>Micron — der Speicher, auf den alle warten</h2>
+    <p>Ein Rechenchip ist nur so schnell wie der Speicher, der ihn füttert. Für KI gilt das
+      besonders: Die Modelle sind so groß, dass sie nicht in den schnellen Speicher passen,
+      und jede Verzögerung beim Nachladen lässt teure Rechenleistung leerlaufen.</p>
+    <p>Micron baut genau diesen Speicher, unter anderem die gestapelten Bausteine, die direkt
+      neben den KI-Chips sitzen. Zusammen mit zwei koreanischen Herstellern teilt sich die
+      Firma diesen Markt — es gibt also wenige Anbieter und viele Abnehmer.
+      <strong>Das ist die Definition eines Engpasses.</strong></p>
+    <div class="block" style="--rand: var(--gold)">
+      <h3>Was daran bemerkenswert ist</h3>
+      <p>Die Aktie war in den zwölf Monaten vor der Meldung bereits stark gelaufen. Gerstner
+        ist trotzdem eingestiegen — also <strong>nicht nach einem Rückschlag</strong>, sondern
+        in die Stärke hinein. Das ist das Gegenteil dessen, was man Privatanlegern üblicherweise
+        rät, und es sagt etwas über die Annahme dahinter: dass der Engpass noch anhält.</p>
+      <p>Mit 2,5 Prozent des gemeldeten Bestands bleibt es zum Stichtag trotzdem eine kleine Position.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Namen 3 bis 5</div>
+    <h2>Applied Materials, KLA und Lam Research — die Ausrüster</h2>
+    <p>Diese drei bauen keine Chips. Sie bauen die <strong>Maschinen, mit denen Chips gebaut
+      werden</strong> — und jede der drei deckt einen anderen Schritt ab.</p>
+    <div class="zwei">
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Applied Materials</h3>
+        <p>Trägt die Materialschichten auf den Wafer auf und ätzt sie wieder weg. Der breiteste
+          Anbieter der drei. <b>189,4 Mio. $</b> · 1,9 % <span style="color:var(--leise)">(30.06.2026)</span></p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>KLA</h3>
+        <p>Prüft und misst. Findet Fehler auf dem Wafer, die mit bloßem Auge nicht zu sehen
+          sind — je kleiner die Strukturen, desto wichtiger. <b>174,5 Mio. $</b> · 1,8 % <span style="color:var(--leise)">(30.06.2026)</span></p></article>
+    </div>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Lam Research</h3>
+      <p>Spezialist für das Ätzen und für das Abscheiden sehr dünner Schichten — die Schritte,
+        die bei gestapelten Speicherbausteinen den Ausschlag geben. Damit hängt Lam besonders
+        an demselben Speicher-Engpass wie Micron. <b>170,8 Mio. $</b> · 1,7 % <span style="color:var(--leise)">(30.06.2026)</span></p>
+    </div>
+    <p>Zusammen sind das <strong>rund 535 Millionen Dollar</strong> oder 5,5 Prozent des
+      gemeldeten Bestands zum 30.06.2026 — verteilt auf drei Firmen, die sich gegenseitig kaum Konkurrenz
+      machen, weil jede einen anderen Schritt besetzt.</p>
+  </section>
+
+  <section>
+    <div class="schritt">Der Punkt</div>
+    <h2>Das Muster dahinter</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Vier der fünf Namen sitzen nicht im Wettbewerb um das Endprodukt, sondern an einer
+        Stelle, an der <strong>alle vorbeimüssen</strong>. Egal welcher Chiphersteller das
+        Rennen macht — gebaut wird mit Maschinen von Applied Materials, KLA und Lam Research,
+        und gefüttert wird mit Speicher von Micron oder einem der beiden koreanischen Anbieter.</p>
+      <p>Das ist eine andere Wette als „ich tippe auf den Gewinner". Es ist die Wette, dass
+        <strong>gebaut wird</strong> — unabhängig davon, wer am Ende gewinnt.</p>
+    </div>
+    <p>Cerebras fällt aus diesem Muster heraus. Das ist die eine Position, die tatsächlich auf
+      einen bestimmten Ansatz setzt, und sie ist zugleich die mit Abstand größte der fünf.
+      Wer das Muster schön findet, sollte diesen Widerspruch mitdenken.</p>
+  </section>
+
+  <section>
+    <h2>Was dagegen spricht</h2>
+    <ul class="liste">
+      <li><strong>Die Zahlen sind vom 30. Juni.</strong> Gemeldet wurde am 14. August. Ob
+        irgendeine dieser Positionen heute noch existiert, steht in keiner Quelle — verkauft
+        wird erst im nächsten Quartalsbericht sichtbar.</li>
+      <li><strong>Ein Name ist keine Begründung.</strong> Dass ein bekannter Investor etwas
+        kauft, sagt nichts darüber, ob es zu deiner Lage passt. Er hat einen anderen Zeithorizont,
+        andere Beträge und kann Positionen verkleinern, ohne dass es jemand merkt.</li>
+      <li><strong>Der Engpass kann sich auflösen.</strong> Speicher ist ein Zyklusgeschäft:
+        Hohe Preise ziehen neue Fabriken an, neue Fabriken drücken die Preise. Genau das ist in
+        dieser Branche mehrfach passiert.</li>
+      <li><strong>Ausrüster hängen an den Investitionsbudgets ihrer Kunden.</strong> Werden
+        Fabrikpläne verschoben, trifft es sie zuerst und härter als die Chiphersteller selbst.</li>
+      <li><strong>Cerebras ist ein junges Unternehmen</strong> mit wenigen großen Kunden und
+        einer Kursentwicklung, die das abbildet: vom Hoch des ersten Handelstags bis zum
+        12.10.2026 ging es um 62 Prozent abwärts.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Wie ich das lese</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Für mich ist diese Meldung <strong>keine Einkaufsliste, sondern eine Landkarte</strong>.
+        Sie zeigt, an welcher Stelle der Kette jemand mit viel Geld und guten Verbindungen den
+        Engpass vermutet — und das ist eine Frage, die ich mir bei jedem Thema stelle, nicht nur
+        bei Chips.</p>
+      <p>Was ich davon mitnehme, ist der Gedanke und nicht die Liste: nicht raten, wer gewinnt,
+        sondern schauen, wer in jedem Fall liefert. Ob daraus eine Position wird, ist eine
+        zweite Frage — und die hängt an Preis und Zeitpunkt, nicht am Namen in der Meldung.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Quellen</h2>
+    <ul class="liste">
+      <li><strong>Formular 13F</strong> von Altimeter Capital Management LP für das Quartal
+        zum 30.06.2026, eingereicht am 14.08.2026. Daraus stammen alle Stückzahlen, Werte und
+        Anteile.</li>
+      <li><strong>Cerebras-Börsengang</strong> am 14.05.2026: Ausgabepreis 185 $, Eröffnung
+        350 $, Tageshoch 386,34 $ — Berichterstattung vom Tag des Börsengangs.</li>
+      <li><strong>Cerebras-Tiefstand</strong> 146,98 $ am 12.10.2026.</li>
+      <li><strong>Gründung von Altimeter 2008</strong> mit weniger als drei Millionen Dollar
+        von Freunden und Familie.</li>
+    </ul>
+    <div class="hinweis">
+      Was die Firmen technisch machen, ist allgemein zugängliches Branchenwissen und keine
+      Aussage über ihre Aktien. <strong>Kursangaben tragen immer das Datum, an dem sie
+      galten.</strong> Spätere Entwicklungen stehen hier nicht.
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand 13. Oktober 2026. Jede Zahl auf dieser Seite trägt ihr Datum — was später
+      passiert ist, steht hier nicht.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
