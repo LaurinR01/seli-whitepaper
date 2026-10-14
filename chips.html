@@ -138,6 +138,13 @@ footer a:hover { color: var(--gruen); }
   .sonder p { margin: 0; }
   .sonder .buch { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--linie);
     font-size: 13.5px; color: var(--leise); }
+  tr.uns td { background: color-mix(in srgb, var(--gruen) 7%, transparent); }
+  tr.uns td:first-child { box-shadow: inset 3px 0 0 var(--gruen); }
+  .neu { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: 0.08em;
+    text-transform: uppercase; color: #fff; background: var(--gruen); border-radius: 999px;
+    padding: 2px 8px; margin-left: 6px; vertical-align: 2px; }
+  .verae { font-size: 12px; font-weight: 700; color: var(--leise); margin-left: 6px; }
+
 </style>
 </head>
 <body>
@@ -160,7 +167,7 @@ footer a:hover { color: var(--gruen); }
     <div class="kopfzahlen">
       <div class="kz"><div class="l">Gemeldet am</div><div class="v">14.08.</div><div class="n">2026</div></div>
       <div class="kz"><div class="l">Stichtag</div><div class="v">30.06.</div><div class="n">2026</div></div>
-      <div class="kz"><div class="l">US-Aktien im Fonds</div><div class="v">9,8 Mrd. $</div><div class="n">gemeldeter Bestand</div></div>
+      <div class="kz"><div class="l">US-Aktien im Fonds</div><div class="v">9,83 Mrd. $</div><div class="n">20 Positionen</div></div>
       <div class="kz"><div class="l">Davon die fünf</div><div class="v" style="color: var(--gruen)">2,4 Mrd. $</div><div class="n">rund 24 %</div></div>
     </div>
   </header>
@@ -172,8 +179,9 @@ footer a:hover { color: var(--gruen); }
       Börsenaufseher viermal im Jahr melden, was er hält. Das Formular heißt
       <strong>13F</strong>, und es ist für jeden einsehbar.</p>
     <p>Altimeter Capital Management — die Firma von Brad Gerstner — hat ihre Meldung für das
-      zweite Quartal am <strong>14. August 2026</strong> eingereicht. Darin steht der Bestand
-      zum <strong>30. Juni 2026</strong>. Alle Zahlen auf dieser Seite stammen daraus, sofern
+      zweite Quartal am <strong>14. August 2026</strong> eingereicht. Darin stehen
+      <strong>20 Positionen im Wert von 9,83 Milliarden Dollar</strong>, Bestand zum
+      <strong>30. Juni 2026</strong>. Alle Zahlen auf dieser Seite stammen daraus, sofern
       nichts anderes dabeisteht.</p>
     <div class="hinweis">
       <strong>Was eine 13F nicht sagt:</strong> Sie zeigt nur US-Aktien, keine Anleihen, keine
@@ -186,28 +194,56 @@ footer a:hover { color: var(--gruen); }
   <section>
     <div class="schritt">Die Meldung</div>
     <h2>Was drinsteht</h2>
-    <p>Die sechs größten Posten, die für dieses Thema zählen. Prozente sind Anteile am
-      gemeldeten US-Aktienbestand von rund 9,8 Milliarden Dollar.</p>
+    <p><strong>Das komplette gemeldete Portfolio: alle 20 Positionen.</strong> Prozente sind
+      Anteile am gemeldeten US-Aktienbestand von 9,83 Milliarden Dollar. <strong>Grün
+      hinterlegt</strong> sind die fünf Namen, um die es auf dieser Seite geht. Das Zeichen
+      <span class="neu">neu</span> heißt: Die Position gab es im Quartal davor noch nicht — die
+      Prozentangaben dahinter zeigen, wie sich die Stückzahl gegenüber dem 31.03.2026 verändert
+      hat.</p>
     <div class="umschlag">
       <table class="etf">
         <thead><tr><th>Position</th><th class="r">Stück<br>30.06.2026</th><th class="r">Wert<br>30.06.2026</th><th class="r">Anteil<br>am Bestand</th></tr></thead>
         <tbody>
-          <tr><td>Nvidia <span style="color:var(--leise)">· größte Position</span></td>
-              <td class="r zahl">—</td><td class="r haupt">1,9 Mrd. $</td><td class="r zahl">19,4 %</td></tr>
-          <tr><td><strong>Cerebras</strong> <span style="color:var(--leise)">· neu im Quartal</span></td>
-              <td class="r zahl">7.230.000</td><td class="r haupt">1,6 Mrd. $</td><td class="r zahl">16,3 %</td></tr>
-          <tr><td><strong>Micron</strong></td>
-              <td class="r zahl">209.520</td><td class="r zahl">241,8 Mio. $</td><td class="r zahl">2,5 %</td></tr>
-          <tr><td><strong>Applied Materials</strong></td>
-              <td class="r zahl">261.950</td><td class="r zahl">189,4 Mio. $</td><td class="r zahl">1,9 %</td></tr>
-          <tr><td><strong>KLA</strong></td>
-              <td class="r zahl">578.230</td><td class="r zahl">174,5 Mio. $</td><td class="r zahl">1,8 %</td></tr>
-          <tr><td><strong>Lam Research</strong></td>
-              <td class="r zahl">394.080</td><td class="r zahl">170,8 Mio. $</td><td class="r zahl">1,7 %</td></tr>
+          <tr><td>Nvidia <span class="verae">+1 %</span></td><td class="r zahl">9.413.589</td><td class="r haupt">1.88 Mrd. $</td><td class="r zahl">19.2 %</td></tr>
+          <tr class="uns"><td><strong>Cerebras</strong> <span class="neu">neu</span></td><td class="r zahl">7.225.037</td><td class="r haupt">1.60 Mrd. $</td><td class="r zahl">16.2 %</td></tr>
+          <tr><td>Meta Platforms <span class="verae">-31 %</span></td><td class="r zahl">1.354.990</td><td class="r zahl">763.3 Mio. $</td><td class="r zahl">7.8 %</td></tr>
+          <tr><td>Taiwan Semiconductor <span class="verae">+5 %</span></td><td class="r zahl">1.429.355</td><td class="r zahl">682.6 Mio. $</td><td class="r zahl">6.9 %</td></tr>
+          <tr><td>CoreWeave <span class="verae">+35 %</span></td><td class="r zahl">6.073.695</td><td class="r zahl">604.6 Mio. $</td><td class="r zahl">6.2 %</td></tr>
+          <tr><td>ARM Holdings <span class="verae">-4 %</span></td><td class="r zahl">1.641.972</td><td class="r zahl">582.2 Mio. $</td><td class="r zahl">5.9 %</td></tr>
+          <tr><td>Amazon <span class="verae">+16 %</span></td><td class="r zahl">2.425.351</td><td class="r zahl">578.1 Mio. $</td><td class="r zahl">5.9 %</td></tr>
+          <tr><td>Uber <span class="verae">-8 %</span></td><td class="r zahl">7.372.440</td><td class="r zahl">532.0 Mio. $</td><td class="r zahl">5.4 %</td></tr>
+          <tr><td>Snowflake</td><td class="r zahl">1.926.250</td><td class="r zahl">490.2 Mio. $</td><td class="r zahl">5.0 %</td></tr>
+          <tr><td>Microsoft <span class="verae">+7 %</span></td><td class="r zahl">1.268.082</td><td class="r zahl">473.0 Mio. $</td><td class="r zahl">4.8 %</td></tr>
+          <tr><td>Qualcomm <span class="neu">neu</span></td><td class="r zahl">1.882.490</td><td class="r zahl">347.9 Mio. $</td><td class="r zahl">3.5 %</td></tr>
+          <tr><td>SpaceX <span class="neu">neu</span></td><td class="r zahl">1.776.485</td><td class="r zahl">303.5 Mio. $</td><td class="r zahl">3.1 %</td></tr>
+          <tr class="uns"><td><strong>Micron</strong> <span class="neu">neu</span></td><td class="r zahl">209.520</td><td class="r zahl">241.8 Mio. $</td><td class="r zahl">2.5 %</td></tr>
+          <tr class="uns"><td><strong>Applied Materials</strong> <span class="neu">neu</span></td><td class="r zahl">261.950</td><td class="r zahl">189.4 Mio. $</td><td class="r zahl">1.9 %</td></tr>
+          <tr class="uns"><td><strong>KLA</strong> <span class="neu">neu</span></td><td class="r zahl">578.230</td><td class="r zahl">174.5 Mio. $</td><td class="r zahl">1.8 %</td></tr>
+          <tr class="uns"><td><strong>Lam Research</strong> <span class="neu">neu</span></td><td class="r zahl">394.080</td><td class="r zahl">170.8 Mio. $</td><td class="r zahl">1.7 %</td></tr>
+          <tr><td>Robinhood</td><td class="r zahl">899.691</td><td class="r zahl">90.2 Mio. $</td><td class="r zahl">0.9 %</td></tr>
+          <tr><td>Alphabet <span class="neu">neu</span></td><td class="r zahl">175.180</td><td class="r zahl">62.6 Mio. $</td><td class="r zahl">0.6 %</td></tr>
+          <tr><td>Synopsys <span class="neu">neu</span></td><td class="r zahl">140.343</td><td class="r zahl">62.6 Mio. $</td><td class="r zahl">0.6 %</td></tr>
+          <tr><td>Grab Holdings</td><td class="r zahl">3.502.000</td><td class="r zahl">0.2 Mio. $</td><td class="r zahl">&lt; 0,1 %</td></tr>
         </tbody>
       </table>
     </div>
     <p class="quelle">Alle Werte zum Stichtag <strong>30.06.2026</strong>, gemeldet am 14.08.2026. Formular 13F, Altimeter Capital Management LP.</p>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Alle fünf sind neu — in einem einzigen Quartal</h3>
+      <p>Das ist der Punkt, den man nur im Vergleich zum Vorquartal sieht. Zum 31.03.2026 hielt
+        der Fonds <strong>13 Positionen über 5,70 Milliarden Dollar</strong>. Drei Monate später
+        sind es <strong>20 Positionen über 9,83 Milliarden</strong> — und
+        <strong>neun davon sind neu</strong>.</p>
+      <p>Darunter sind alle fünf Namen von dieser Seite: Cerebras, Micron, Applied Materials,
+        KLA und Lam Research. Dazu kamen Qualcomm, SpaceX, Alphabet und Synopsys.
+        <strong>Die ganze Chip-Kette ist also nicht über Jahre gewachsen, sie wurde in einem
+        Quartal aufgebaut.</strong></p>
+      <p>Verkauft wurde in derselben Zeit wenig, aber bezeichnend: <strong>Broadcom</strong>
+        (20,8 Mio. $) und <strong>Axon Enterprise</strong> (63,3 Mio. $) fielen ganz heraus,
+        Meta wurde um knapp ein Drittel verkleinert. Statt Broadcom stehen jetzt Qualcomm und
+        die drei Ausrüster in der Liste — innerhalb der Halbleiter umgeschichtet, weg vom
+        einzelnen Chipdesigner, hin zu den Werkzeugen.</p>
+    </div>
     <div class="block" style="--rand: var(--gold)">
       <h3>Die Größenverhältnisse, ehrlich</h3>
       <p>Cerebras ist mit 1,6 Milliarden ein Brocken — aus dem Nichts direkt auf Platz zwei.
@@ -217,6 +253,22 @@ footer a:hover { color: var(--gruen); }
         Micron, Applied Materials, KLA und Lam Research sind jede für sich
         <strong>kleine Positionen</strong> von unter drei Prozent. Interessant sind sie nicht
         wegen ihrer Größe, sondern weil sie zusammen in dieselbe Richtung zeigen.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="block" style="--rand: var(--gruen)">
+      <h3>Zwei Drittel hängen an Halbleitern</h3>
+      <p>Das sieht man erst, wenn man die ganze Liste nebeneinander legt. Zählt man alles
+        zusammen, was unmittelbar mit Chips zu tun hat — Nvidia, Cerebras, Taiwan Semiconductor,
+        ARM, Qualcomm, Micron und die drei Ausrüster, dazu Synopsys als Anbieter der
+        Entwurfssoftware —, kommt man auf <strong>60,3 Prozent</strong> des gemeldeten Bestands.
+        Rechnet man CoreWeave dazu, das Rechenzentren für KI betreibt, sind es
+        <strong>66,5 Prozent</strong>.</p>
+      <p>Das ist kein Depot mit einem Chip-Schwerpunkt. <strong>Das ist eine Wette auf
+        Halbleiter mit ein paar anderen Positionen daneben.</strong> Die fünf Namen auf dieser
+        Seite sind davon nur ein Ausschnitt — sie zeigen das Muster am deutlichsten, aber sie
+        sind nicht die ganze Geschichte.</p>
     </div>
   </section>
 
@@ -331,7 +383,14 @@ footer a:hover { color: var(--gruen); }
       Juli 2026 auch. Die Zahlen in der Tabelle oben sind also nicht nur abgeschrieben, sie
       halten der Gegenprobe stand.
     </div>
-    <p>Zusammen sind das <strong>rund 535 Millionen Dollar</strong> oder 5,5 Prozent des
+    <div class="hinweis">
+      <strong>Dazu passt eine vierte Position, die nicht zu den fünf gehört:</strong> Taiwan
+      Semiconductor steht mit <strong>682,6 Mio. $ und 6,9 Prozent</strong> auf Platz vier der
+      Liste — das ist der Auftragsfertiger, der genau diese Maschinen kauft und damit die Chips
+      für fast alle anderen baut. Wer die Ausrüster hält und zugleich TSMC, hält die komplette
+      Kette vom Werkzeug bis zur Fertigung.
+    </div>
+    <p>Zusammen sind das <strong>rund 535 Millionen Dollar</strong> oder 5,4 Prozent des
       gemeldeten Bestands zum 30.06.2026 — verteilt auf drei Firmen, die sich gegenseitig kaum Konkurrenz
       machen, weil jede einen anderen Schritt besetzt.</p>
   </section>
@@ -369,7 +428,21 @@ footer a:hover { color: var(--gruen); }
       <li><strong>Cerebras ist ein junges Unternehmen</strong> mit wenigen großen Kunden und
         einer Kursentwicklung, die das abbildet: vom Hoch des ersten Handelstags bis zum
         12.10.2026 ging es um 62 Prozent abwärts.</li>
+      <li><strong>Die Zinsen sind hoch — und das trifft genau diese Sorte Aktie.</strong>
+        Die zehnjährige US-Anleihe rentiert Anfang Oktober 2026 bei rund 5,3 Prozent, so viel
+        wie zuletzt 2002. Ein starkes, langfristiges Wachstumsthema kann sich dem entziehen,
+        wenn die Raten groß genug sind. Aber schwankungsfreudige Aktien leiden bei hohen
+        Zinsen zuerst, und am stärksten trifft es die, die <strong>noch keinen Gewinn
+        schreiben und für ihr Wachstum laufend frisches Kapital brauchen</strong> — also
+        typischerweise die kleineren Namen. Cerebras passt in genau dieses Profil.</li>
     </ul>
+    <div class="hinweis">
+      <strong>Was ich dazu beobachte:</strong> den südkoreanischen Aktienindex als
+      Frühindikator für den KI-Handel. In Korea sitzen die beiden großen Speicherhersteller, die
+      neben Micron diesen Markt unter sich aufteilen — dort zeigt sich früh, ob die Nachfrage
+      nach KI-Speicher hält. <strong>Solange dieser Index abwärts läuft, bin ich bei dem
+      ganzen Thema vorsichtig</strong>, egal wie gut die einzelne Geschichte klingt.
+    </div>
   </section>
 
   <section>
