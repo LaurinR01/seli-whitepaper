@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GitLab, meine These</title>
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block:not(:first-child) { margin-top: 16px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 8px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+
+.sonder { display: flex; gap: 16px; background: color-mix(in srgb, var(--gruen) 8%, var(--karte));
+  border: 1px solid color-mix(in srgb, var(--gruen) 32%, var(--linie));
+  border-radius: 3px; padding: 20px 22px; }
+.sonder .icon { font-size: 26px; line-height: 1; flex: none; }
+.sonder h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+.sonder p { margin: 0; }
+
+.rechnung { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 20px; margin-top: 18px; }
+.rechnung .zeile { display: flex; justify-content: space-between; gap: 14px; padding: 9px 0; border-bottom: 1px solid var(--linie); }
+.rechnung .zeile:last-child { border-bottom: 0; padding-bottom: 0; }
+.rechnung .zeile:first-child { padding-top: 0; }
+.rechnung .zeile b { font-variant-numeric: tabular-nums; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>GitLab, meine These</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Im Frühjahr hatten alle Angst, dass künstliche Intelligenz Software wertlos macht.
+      Ich war anderer Meinung — <strong>und genau deshalb war der Kurs interessant</strong>.
+      Hier steht die ganze Rechnung, mein Kursziel und das, was dagegen spricht.
+    </p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Kurs</div><div class="v">rund 56 $</div><div class="n">16. Oktober 2026</div></div>
+      <div class="kz"><div class="l">Mein Kursziel</div><div class="v" style="color: var(--gruen)">75 $</div><div class="n">rund 34 % Luft</div></div>
+      <div class="kz"><div class="l">Bewertung</div><div class="v">7 × Umsatz</div><div class="n">Branche rund 9 ×</div></div>
+      <div class="kz"><div class="l">Einstufung</div><div class="v" style="font-size: 18px">moderat</div><div class="n">Chance zu Risiko 3 zu 1</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sonder">
+      <div class="icon">🎯</div>
+      <div>
+        <h3>Worum es hier eigentlich geht</h3>
+        <p>Seit ChatGPT läuft an der Börse ein Reflex: <strong>Chips kaufen, Software
+          verkaufen.</strong> Die Begründung klingt plausibel — wenn jeder mit
+          künstlicher Intelligenz in einer Stunde eine App bauen kann, dann ist Software
+          beliebig herstellbar und wird billig. Nur hing der Preis von Software noch nie
+          an den Herstellungskosten. Er hängt am Nutzen. Und der steigt gerade.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Zwei Bilder, die alles erzählen</h2>
+    <figure>
+      <img src="gitlab_gesamt.webp" alt="GitLab seit dem Börsengang: von rund 137 Dollar auf unter 19 und zurück auf 56">
+      <figcaption><strong>Die ganze Geschichte.</strong> Vom Hoch bei rund 137 Dollar im
+        November 2021 ging es über vier Jahre auf <strong>18,73 Dollar</strong> am
+        10. April 2026 herunter. Trotz der Erholung steht die Aktie heute noch immer
+        rund 60 Prozent unter diesem Hoch.</figcaption>
+    </figure>
+    <figure>
+      <img src="gitlab_lauf.webp" alt="Messung vom Tief im April bis heute: plus 197 Prozent">
+      <figcaption><strong>Was seit dem Tief passiert ist.</strong> Vom 17. April bis
+        heute sind es <strong>+197 Prozent</strong> in 196 Tagen. Der Auslöser für das
+        Tief war keine Zahl aus dem Unternehmen, sondern eine Herabstufung am 9. April
+        mit genau einer Begründung: Künstliche Intelligenz mache Software kaputt.</figcaption>
+    </figure>
+    <div class="hinweis">
+      Einen Teil dieser Position habe ich bei rund 56 Dollar <strong>realisiert</strong>.
+      Der Rest läuft weiter, weil das Kursziel noch nicht erreicht ist.
+    </div>
+  </section>
+
+  <section>
+    <h2>Was GitLab macht</h2>
+    <p>
+      GitLab ist die Werkstatt, in der Software entsteht. Entwickler verwalten dort ihren
+      Code, planen Projekte, lassen Tests automatisch laufen, rollen neue Versionen aus
+      und prüfen alles systematisch auf Sicherheitslücken. Das Besondere ist, dass all
+      das in <strong>einer einzigen Anwendung</strong> liegt und nicht in acht
+      verschiedenen Werkzeugen, die jemand zusammenstöpseln muss.
+    </p>
+    <p>
+      Verdient wird an Abonnements — wahlweise in der Cloud oder auf eigenen Servern des
+      Kunden — und an Beratung und Schulung. Die Wurzeln liegen im offenen Quellcode:
+      Ein erheblicher Teil des Produkts ist frei zugänglich. Das bringt eine aktive
+      Gemeinschaft, schnelle Entwicklung und, wenn ein Unternehmen erst einmal drin ist,
+      hohe Wechselkosten.
+    </p>
+  </section>
+
+  <section>
+    <h2>Meine These in einem Satz</h2>
+    <div class="block">
+      <p><strong>Künstliche Intelligenz schreibt nicht weniger Code, sondern sehr viel
+        mehr — und jede Zeile davon muss getestet, abgesichert und verwaltet werden.</strong>
+        Genau das verkauft GitLab. Was der Markt als Bedrohung einpreist, ist in
+        Wahrheit Rückenwind.</p>
+      <p>Dazu kommt: Künstliche Intelligenz macht heute noch zu viele Fehler, als dass
+        ein großes Unternehmen sich blind darauf verlassen könnte. Je mehr automatisch
+        erzeugter Code entsteht, desto wichtiger wird die Instanz, die ihn prüft.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Rechnung hinter dem Preis</h2>
+    <p>
+      Eine Lizenz kostet rund 25 Dollar pro Nutzer und Monat. Das ist ein Bruchteil
+      dessen, was ein Entwickler ein Unternehmen kostet — und deshalb ist die
+      Preisempfindlichkeit niedrig, während die Zahlungsbereitschaft hoch ist.
+    </p>
+    <div class="rechnung">
+      <div class="zeile"><span>Lizenz je Entwickler und Jahr</span><b>rund 300 $</b></div>
+      <div class="zeile"><span>Wenn ein KI-Agent die Arbeit von fünf Entwicklern übernimmt</span><b>&nbsp;</b></div>
+      <div class="zeile"><span>…misst sich der gelieferte Wert an deren Gehältern</span><b>über 1 Mio. $</b></div>
+      <div class="zeile"><span>Spielraum beim Preis</span><b style="color: var(--gruen)">nach oben</b></div>
+    </div>
+    <p style="margin-top:16px">
+      Langfristig sind deshalb auch ganz andere Preismodelle denkbar: nicht mehr pro
+      Nutzer, sondern nach Zahl und Aufgabe der eingesetzten Agenten — oder nach dem
+      Wert, den sie liefern.
+    </p>
+  </section>
+
+  <section>
+    <h2>Was von außen dafür spricht</h2>
+    <div class="zwei">
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Microsoft</h3>
+        <p>GitHub meldet, dass sich die KI-Projekte auf der Plattform binnen eines Jahres
+          <b>mehr als verdoppelt</b> haben und die Firmenkunden um <b>75 %</b> gestiegen
+          sind. Mehr Agenten heißt mehr Code, heißt mehr Verwaltung.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Die IT-Chefs</h3>
+        <p>In den Umfragen von JP Morgan und Bernstein steht Anwendungssoftware auf
+          <b>Platz zwei</b> der Ausgabenpläne. Die Mehrheit kauft künstliche Intelligenz
+          lieber vom etablierten Anbieter, als sie selbst zu bauen.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Der Arbeitsmarkt</h3>
+        <p>Die These „Künstliche Intelligenz ersetzt Entwickler" müsste sich in
+          sinkenden Stellenanzeigen zeigen. Das Gegenteil passiert: Ausschreibungen und
+          Einstellungen haben sich <b>stabilisiert</b> und drehen nach oben.</p></article>
+      <article class="kachel" style="--rand: var(--gruen)"><h3>Das eigene Produkt</h3>
+        <p>GitLab Duo ist beim Start misslungen, das Management hat nachgebessert. Die
+          Nutzerzahl hat sich seit Jahresanfang <b>versechsfacht</b> — von niedriger
+          Basis, aber in jeder Kundengruppe wachsend.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Die Zahlen</h2>
+    <div class="umschlag">
+      <table>
+        <thead><tr><th>Kennzahl</th><th class="r">Wert</th><th>Was das heißt</th></tr></thead>
+        <tbody>
+          <tr><td>Wachstum zuletzt</td><td class="r haupt">+29 %</td><td>im Jahresvergleich, rund 70 % davon aus neu gewonnenen Kunden</td></tr>
+          <tr><td>Große Kunden</td><td class="r zahl">+25 %</td><td>Kunden mit über 100.000 $ Jahresumsatz</td></tr>
+          <tr><td>Bewertung</td><td class="r zahl">7 × Umsatz</td><td>Software mit 20–40 % Wachstum liegt bei rund 9 ×</td></tr>
+          <tr><td>Freier Mittelzufluss</td><td class="r zahl">rund 20 %</td><td>das Unternehmen ist profitabel, nicht nur schnell</td></tr>
+          <tr><td>Operative Marge</td><td class="r zahl">+700 Basispunkte</td><td>Verbesserung im Jahresvergleich</td></tr>
+          <tr><td>Vertrieb und Verwaltung</td><td class="r zahl">rund 70 %</td><td>Branchenschnitt — hier liegt weiteres Sparpotenzial</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hinweis">
+      <strong>Warum die Aktie nach den letzten Zahlen trotzdem fiel:</strong> Umsatz und
+      Margen lagen über den Erwartungen, aber das Management hat die Jahresprognose nur
+      bestätigt statt angehoben. Rechnerisch heißt das, dass aus 29 Prozent Wachstum bis
+      zum Schlussquartal knapp 20 werden könnten. Begründet wurde es mit der Schwäche
+      kleiner und mittlerer US-Kunden — die machen allerdings nur rund 8 Prozent des
+      Umsatzes aus. Ich halte das für bewusst vorsichtig gesetzte Erwartungen, auch weil
+      der Finanzchef das Unternehmen verlässt.
+    </div>
+  </section>
+
+  <section>
+    <h2>Was dagegen spricht</h2>
+    <div class="zwei">
+      <article class="kachel"><h3>Wettbewerb</h3>
+        <p>Der Markt verändert sich schnell. GitHub gehört zu Microsoft, und die
+          Vibe-Coding-Plattformen wachsen rasant.</p></article>
+      <article class="kachel"><h3>Abrechnung je Nutzer</h3>
+        <p>Der Großteil des Umsatzes hängt noch an der Zahl der Sitze. Wenn weniger neue
+          Kunden dazukommen, muss der Umsatz je Kunde wachsen.</p></article>
+      <article class="kachel"><h3>Die Stimmung</h3>
+        <p>Software-Anleger schauen fast nur auf Umsatzwachstum. Eine Delle dort trifft
+          den Kurs härter als eine Delle beim Gewinn.</p></article>
+      <article class="kachel"><h3>Der verpasste Start</h3>
+        <p>Beim Boom der neuen Coding-Startups war GitLab nicht vorne dabei — auch wegen
+          des misslungenen Starts von Duo.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich damit umgehe</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p>Mein Kursziel sind <strong>75 Dollar</strong>. Das Chancen-Risiko-Verhältnis
+        sehe ich bei etwa <strong>3 zu 1</strong>, das Risiko stufe ich als
+        <strong>moderat</strong> ein — anders als bei Wolfspeed ist das hier keine
+        spekulative Wette, sondern ein profitables Unternehmen mit über 25 Prozent
+        Wachstum zu einer Bewertung unter dem Branchenschnitt.</p>
+      <p>Nach fast 200 Prozent seit April habe ich <strong>einen Teil realisiert</strong>.
+        Das ist kein Misstrauen gegenüber der These, sondern schlicht die Folge daraus,
+        dass eine Position nach so einem Lauf größer ist, als ich sie geplant hatte.</p>
+      <p>Was ich beobachte: ob das Wachstum tatsächlich auf 20 Prozent absinkt, wie das
+        Management andeutet, und ob der Markt anfängt, Software wieder höher zu bewerten.
+        Beides würde das Kursziel verschieben — in die eine oder die andere Richtung.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand 16. Oktober 2026. Jede Zahl auf dieser Seite trägt ihr Datum — was später
+      passiert ist, steht hier nicht.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>

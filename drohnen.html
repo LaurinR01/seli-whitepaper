@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drohnen — die Namen dahinter</title>
+<meta name="color-scheme" content="light">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="favicon-180.png">
+<style>:root{color-scheme:only light}body{margin:0;background:#FBF8F2}img{max-width:100%}</style>
+<style>
+@font-face { font-family: 'Inter'; src: url('fonts/inter.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair.woff2') format('woff2');
+  font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Playfair Display'; src: url('fonts/playfair-italic.woff2') format('woff2');
+  font-weight: 400 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Allura'; src: url('fonts/allura.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap; }
+</style>
+<style>
+:root {
+  --papier: #FBF8F2; --karte: #FFFFFF; --tinte: #17181A; --leise: #6B6558;
+  --linie: #E6E0D4; --gruen: #1F7A4D; --rot: #C8372F; --gold: #B07E1F; --feld: #F3EEE3;
+  --display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --text: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --hand: 'Allura', 'Snell Roundhand', 'Apple Chancery', cursive;
+}
+body { background: var(--papier); color: var(--tinte); font-family: var(--text);
+  font-size: 15.5px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+.seite { max-width: 720px; margin: 0 auto; padding-inline: 22px; padding-block: 48px 64px; }
+
+.seitenkopf { display: flex; align-items: center; gap: 16px; }
+.seitenkopf img { width: 76px; height: 76px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.seitenkopf > div { min-width: 0; }
+@media (max-width: 420px) { .seitenkopf img { width: 62px; height: 62px; } }
+.marke { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gruen); }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 6.5vw, 44px);
+  line-height: 1.1; margin: 8px 0 0; text-wrap: balance; letter-spacing: -0.015em; }
+.vorspann { margin-top: 14px; color: var(--leise); font-size: 16px; }
+.vorspann strong { color: var(--tinte); font-weight: 600; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(21px, 4vw, 27px);
+  margin: 0 0 10px; letter-spacing: -0.01em; }
+section { margin-top: 44px; }
+.schritt { font-size: 10.5px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--gruen); margin-bottom: 5px; }
+
+figure { margin: 22px 0 0; }
+figure img { display: block; width: 100%; height: auto; border: 1px solid var(--linie); border-radius: 3px; }
+figcaption { margin-top: 9px; font-size: 13.5px; color: var(--leise); }
+figcaption strong { color: var(--tinte); font-weight: 600; }
+
+.umschlag { overflow-x: auto; margin-top: 18px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th { text-align: left; font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--leise); padding: 0 12px 9px 0; border-bottom: 2px solid var(--tinte); }
+th.r, td.r { text-align: right; }
+td { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--linie); vertical-align: top; }
+td.zahl { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+td.haupt { font-variant-numeric: tabular-nums; font-weight: 800; color: var(--gruen); white-space: nowrap; }
+
+.block { background: var(--karte); border: 1px solid var(--linie);
+  border-left: 3px solid var(--rand, var(--gruen)); border-radius: 3px; padding: 18px 20px; min-width: 0; }
+.block:not(:first-child) { margin-top: 16px; }
+.block h3 { font-family: var(--display); font-size: 19px; font-weight: 600; margin: 0 0 4px; }
+.block .kuerzel { font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--leise); margin-bottom: 9px; }
+.block p { margin: 0 0 9px; }
+.block p:last-child { margin-bottom: 0; }
+.block .ehrlich { font-size: 14px; color: var(--leise); border-top: 1px solid var(--linie);
+  margin-top: 12px; padding-top: 10px; }
+
+.hinweis { background: var(--feld); border-radius: 3px; padding: 15px 17px; margin-top: 16px; font-size: 14.5px; }
+.hinweis a { color: var(--gruen); font-weight: 600; }
+
+.zwei { display: grid; gap: 13px; grid-template-columns: repeat(2, 1fr); margin-top: 16px; }
+@media (max-width: 620px) { .zwei { grid-template-columns: 1fr; } }
+.kachel { background: var(--karte); border: 1px solid var(--linie); border-top: 3px solid var(--rand, var(--rot));
+  border-radius: 3px; padding: 16px; min-width: 0; }
+.kachel h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--rand, var(--rot)); margin: 0 0 7px; }
+.kachel p { margin: 0; font-size: 14.5px; }
+.kachel b { font-variant-numeric: tabular-nums; }
+
+.kopfzahlen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 22px; }
+@media (max-width: 620px) { .kopfzahlen { grid-template-columns: repeat(2, 1fr); } }
+.kz { background: var(--karte); border: 1px solid var(--linie); border-radius: 3px; padding: 14px; min-width: 0; }
+.kz .l { font-size: 10px; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; color: var(--leise); }
+.kz .v { font-size: 21px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.kz .n { font-size: 11.5px; color: var(--leise); margin-top: 2px; }
+
+.signatur { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--linie);
+  display: flex; align-items: flex-start; gap: 18px; }
+.signatur img { width: 94px; height: 94px; border-radius: 50%; object-fit: cover;
+  flex: none; border: 2px solid var(--linie); }
+.signatur .rechts { min-width: 0; }
+.signatur .gruss { font-size: 14px; color: var(--leise); }
+.signatur .name { font-family: var(--hand); font-size: 60px; line-height: 1.0;
+  color: var(--tinte); margin: 0 0 10px; }
+.signatur .bio { font-size: 13.5px; color: var(--leise); }
+.signatur .bio span { display: block; margin-bottom: 3px; }
+.signatur .handle { font-size: 13px; font-weight: 700; color: var(--tinte); margin-top: 8px; }
+
+footer { margin-top: 26px; font-size: 12.5px; color: var(--leise); }
+footer p { margin: 0 0 7px; }
+footer a { color: var(--leise); text-decoration: underline; text-underline-offset: 2px; }
+footer a:hover { color: var(--gruen); }
+.rechtszeile { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--linie); }
+
+.sonder { display: flex; gap: 16px; background: color-mix(in srgb, var(--gruen) 8%, var(--karte));
+  border: 1px solid color-mix(in srgb, var(--gruen) 32%, var(--linie));
+  border-radius: 3px; padding: 20px 22px; }
+.sonder .icon { font-size: 26px; line-height: 1; flex: none; }
+.sonder h3 { font-family: var(--display); font-size: 20px; font-weight: 600; margin: 0 0 8px; }
+.sonder p { margin: 0 0 9px; }
+.sonder p:last-child { margin-bottom: 0; }
+</style>
+</head>
+<body>
+
+<div class="seite">
+
+  <header>
+    <div class="seitenkopf">
+      <img src="seli.png" alt="Seli">
+      <div>
+        <div class="marke">investieren.mit.seli</div>
+        <h1>Drohnen — die Namen dahinter</h1>
+      </div>
+    </div>
+    <p class="vorspann">
+      Sechs Firmen, zwei völlig verschiedene Geschäfte und ein Satz von Trump, der
+      beides durcheinanderbringt. <strong>Hier steht, wer was macht, welche Zahlen
+      dahinterstehen — und warum fast alle diese Aktien heute tiefer stehen als vor
+      einem Jahr.</strong>
+    </p>
+    <div class="kopfzahlen">
+      <div class="kz"><div class="l">Zölle</div><div class="v">bis 100 %</div><div class="n">auf eingeführte Drohnen, seit 13.08.2026</div></div>
+      <div class="kz"><div class="l">Erlass</div><div class="v">Juni 2025</div><div class="n">Behörden kaufen amerikanisch</div></div>
+      <div class="kz"><div class="l">Firmen hier</div><div class="v">6</div><div class="n">bauen, abwehren, auswerten</div></div>
+      <div class="kz"><div class="l">Stand</div><div class="v" style="font-size: 18px">16.10.2026</div><div class="n">Kurse vom selben Tag</div></div>
+    </div>
+  </header>
+
+  <section>
+    <div class="sonder">
+      <div class="icon">🎯</div>
+      <div>
+        <h3>Der Unterschied, den fast niemand macht</h3>
+        <p>Trump sagt, auf dem Dach solle das größte Drohnen-Imperium stehen, und es
+          solle <strong>Washington beschützen</strong>. Beschützen heißt: fremde Drohnen
+          erkennen und runterholen. Das ist eine eigene Branche — sie heißt
+          <strong>Drohnenabwehr</strong>, auf Englisch Counter-UAS.</p>
+        <p>Drohnen <em>bauen</em> ist etwas anderes. Beide Geschäfte wachsen gerade, aber
+          sie haben verschiedene Kunden, verschiedene Margen und verschiedene Risiken.
+          Wer die Aktien danach sortiert, sieht sofort, welche Firma zu welchem Satz
+          gehört — und welche zu keinem von beiden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Warum ausgerechnet jetzt</h2>
+    <p>
+      Der Krieg in der Ukraine hat etwas gezeigt, das jede Armee der Welt mitgeschrieben
+      hat: Drohnen, von denen viele aus iranischer Bauart stammen, schalten Gerät aus,
+      das ein Vielfaches kostet. <strong>Drohnen sind die neue Kriegsführung</strong> —
+      nicht mehr Zubehör, sondern eine eigene Waffengattung. Entsprechend fließt gerade
+      überall Geld in Verteidigung.
+    </p>
+    <p>
+      Dazu kommt ein zweites Problem: Die meisten Drohnen kommen bis heute aus China.
+      Washington zieht daraus zwei Konsequenzen. Ein <strong>Erlass vom Juni 2025</strong>
+      verpflichtet Bundesbehörden darauf, amerikanische Geräte zu bevorzugen. Und seit
+      dem <strong>13. August 2026</strong> stehen Zölle von bis zu hundert Prozent auf
+      eingeführte Drohnen und Bauteile. Das ist kein Stimmungsbild, das ist eine
+      Markteintrittsbarriere per Gesetz.
+    </p>
+  </section>
+
+  <section>
+    <h2>Die sechs im Überblick</h2>
+    <div class="umschlag">
+      <table>
+        <thead><tr><th>Firma</th><th>Kürzel</th><th>Geschäft</th><th class="r">Größe</th></tr></thead>
+        <tbody>
+          <tr><td>AeroVironment</td><td class="zahl">AVAV</td><td>baut &amp; wehrt ab</td><td class="r haupt">rund 2 Mrd. $ Umsatz</td></tr>
+          <tr><td>Kratos</td><td class="zahl">KTOS</td><td>baut Kampfdrohnen</td><td class="r zahl">1,75–1,81 Mrd. $ erwartet</td></tr>
+          <tr><td>DroneShield</td><td class="zahl">DRO</td><td>reine Abwehr</td><td class="r zahl">rund 261 Mio. A$ gebucht</td></tr>
+          <tr><td>Ondas</td><td class="zahl">ONDS</td><td>Abwehr &amp; Aufklärung</td><td class="r zahl">525–550 Mio. $ erwartet</td></tr>
+          <tr><td>Palantir</td><td class="zahl">PLTR</td><td>Software fürs Militär</td><td class="r zahl">Schwergewicht</td></tr>
+          <tr><td>BigBear.ai</td><td class="zahl">BBAI</td><td>Software, keine Drohnen</td><td class="r zahl">135–165 Mio. $ erwartet</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="schritt">Nummer 1 · baut</div>
+    <h2>AeroVironment</h2>
+    <div class="block">
+      <div class="kuerzel">AVAV · Nasdaq · rund 123 $</div>
+      <p>Der Platzhirsch. AeroVironment baut die Drohnen, die das US-Militär tatsächlich
+        einsetzt, und deckt über die übernommene Sparte auch die Abwehr ab. Damit ist es
+        die einzige Firma auf dieser Liste, die auf beiden Seiten verdient.</p>
+      <p><strong>Die Zahlen:</strong> Im letzten Geschäftsjahr Aufträge über
+        <strong>2,7 Milliarden Dollar</strong> bei rund 2 Milliarden Umsatz. Der fest
+        finanzierte Auftragsbestand liegt bei <strong>1,5 Milliarden</strong>, 37 Prozent
+        mehr als ein Jahr davor. Auf jeden Dollar Umsatz kamen zuletzt 1,40 Dollar neue
+        Aufträge.</p>
+      <p class="ehrlich">Und jetzt der Teil, der im Chart steht: Die Aktie hat seit dem
+        Hoch im Herbst 2025 den größten Teil ihres Werts verloren — <em>trotz</em>
+        Rekordaufträgen. Der Markt hatte die Erwartung weiter vorgeschoben als das
+        Geschäft. Das ist die Lehre dieser Seite: Aufträge sind nicht gleich Kurs.</p>
+    </div>
+    <figure>
+      <img src="drohnen_avav.webp" alt="AeroVironment Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>AeroVironment.</strong> Vom Hoch über 400 Dollar im Herbst 2025
+        auf rund 123 Dollar — während der Auftragsbestand auf Rekord stieg.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="schritt">Nummer 2 · baut</div>
+    <h2>Kratos</h2>
+    <div class="block">
+      <div class="kuerzel">KTOS · Nasdaq · rund 41 $</div>
+      <p>„Drohnen-Imperium" im wörtlichen Sinn. Kratos baut unbemannte Kampfflugzeuge —
+        die Valkyrie ist das bekannteste —, dazu Zieldrohnen und Antriebe.</p>
+      <p><strong>Die Zahlen:</strong> Für 2026 werden <strong>1,75 bis 1,81 Milliarden
+        Dollar</strong> Umsatz erwartet, organisch 18 bis 23 Prozent Wachstum. Der
+        Auftragsbestand liegt bei rund <strong>2,1 Milliarden</strong>, die Pipeline bei
+        15 Milliarden. Die Valkyrie-Produktion soll bis Anfang 2028 auf etwa 40 Stück im
+        Jahr hochlaufen.</p>
+      <p class="ehrlich">Die Umsätze der unbemannten Sparte schwanken stark von Quartal
+        zu Quartal, weil alles an einzelnen Verträgen hängt. Und auch hier steht die
+        Aktie heute deutlich tiefer als vor einem Jahr.</p>
+    </div>
+    <figure>
+      <img src="drohnen_ktos.webp" alt="Kratos Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>Kratos.</strong> Von rund 135 Dollar Anfang 2026 auf rund 41 —
+        bei steigender Prognose. Dasselbe Muster wie bei AeroVironment.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="schritt">Nummer 3 · wehrt ab</div>
+    <h2>DroneShield</h2>
+    <div class="block">
+      <div class="kuerzel">DRO · Australien · rund 1,56 A$</div>
+      <p>Der reinste Vertreter des Themas und der Name, der am genauesten zu Trumps Satz
+        passt: DroneShield macht nichts anderes, als fremde Drohnen zu erkennen, zu
+        stören und abzuwehren. Wer auf Drohnenabwehr setzen will, ohne ein ganzes
+        Rüstungskonglomerat mitzukaufen, ist hier am direktesten dran.</p>
+      <p><strong>Die Zahlen:</strong> Im ersten Halbjahr 2026 <strong>125,8 Millionen
+        australische Dollar</strong> Umsatz, 74 Prozent mehr als im Vorjahr. Fest gebucht
+        sind für das Jahr rund <strong>261 Millionen</strong>. Auf dem Konto liegen 180
+        Millionen, Schulden gibt es keine. Dazu ein US-Rahmenvertrag über bis zu 500
+        Millionen Dollar auf drei Jahre.</p>
+      <p class="ehrlich">Drei Dinge gehören dazu. Erstens ist dieser Rahmenvertrag eine
+        <strong>Obergrenze, kein Auftrag</strong> — abgerufen werden muss er erst.
+        Zweitens war das operative Ergebnis im ersten Halbjahr trotz des Wachstums
+        negativ. Und drittens läuft seit Mai 2026 eine Untersuchung der australischen
+        Finanzaufsicht, die auf der Aktie lastet. Die Notierung ist australisch — prüf
+        vorher, ob dein Broker sie überhaupt anbietet.</p>
+    </div>
+    <figure>
+      <img src="drohnen_dro.webp" alt="DroneShield Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>DroneShield.</strong> Von rund 7 australischen Dollar im Herbst
+        2025 auf rund 1,56. Das stärkste Wachstum der Liste, der schwächste Kurs.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="schritt">Nummer 4 · wehrt ab</div>
+    <h2>Ondas</h2>
+    <div class="block">
+      <div class="kuerzel">ONDS · Nasdaq · rund 6,35 $</div>
+      <p>Der Aufsteiger. Ondas baut autonome Sicherheitsdrohnen und Abfangsysteme — also
+        ebenfalls das, was „Washington beschützen" bedeutet.</p>
+      <p><strong>Die Zahlen:</strong> Im zweiten Quartal 2026 <strong>83,8 Millionen
+        Dollar</strong> Umsatz — im selben Quartal des Vorjahres waren es 6,3 Millionen.
+        Der Auftragsbestand lag zum Jahreswechsel bei 68 Millionen und Ende Juni bei
+        rund <strong>613 Millionen</strong>, mit den im dritten Quartal abgeschlossenen
+        Zukäufen rechnerisch bei rund 757 Millionen. Die Jahresprognose wurde von
+        mindestens 390 auf 525 bis 550 Millionen angehoben.</p>
+      <p class="ehrlich">Das Wachstum kommt zu einem erheblichen Teil aus Zukäufen, nicht
+        nur aus eigener Kraft. Und eine Firma, die ihren Umsatz in einem Jahr
+        verdreizehnfacht, ist per Definition schwer zu bewerten.</p>
+    </div>
+    <figure>
+      <img src="drohnen_onds.webp" alt="Ondas Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>Ondas.</strong> Von rund einem Dollar auf über fünfzehn und
+        zurück auf rund sechs. So sieht eine Aktie aus, bei der die Erwartung schneller
+        läuft als das Geschäft — in beide Richtungen.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <div class="schritt">Nummer 5 und 6 · Software</div>
+    <h2>Palantir und BigBear.ai</h2>
+    <p>
+      Beide bauen keine Drohnen und wehren keine ab. Sie werten aus, was Drohnen und
+      Sensoren liefern. Das ist ein echtes Geschäft — nur eben ein anderes. Und der
+      Vergleich der beiden ist lehrreich.
+    </p>
+    <div class="block">
+      <div class="kuerzel">PLTR · Nasdaq · rund 200 $</div>
+      <p><strong>Palantir</strong> ist das, was BigBear.ai gern wäre: dieselbe Idee,
+        nur mit Verträgen, Größe und Gewinn. Die Aktie steht nahe ihrem Höchststand —
+        und ist entsprechend teuer bewertet. Wer das Thema „Software fürs Militär"
+        will, bekommt hier die funktionierende Version, zahlt aber auch dafür.</p>
+    </div>
+    <figure>
+      <img src="drohnen_pltr.webp" alt="Palantir Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>Palantir.</strong> Der Gegenentwurf zum Rest dieser Seite —
+        die einzige Aktie hier, die nahe ihrem Hoch steht.</figcaption>
+    </figure>
+    <div class="block" style="--rand: var(--rot)">
+      <div class="kuerzel">BBAI · NYSE · rund 2,33 $</div>
+      <p><strong>BigBear.ai</strong> taucht in fast jedem Drohnen-Video auf, und ich
+        halte das für einen Fehler. Im zweiten Quartal 2026 <strong>36,7 Millionen
+        Dollar</strong> Umsatz, 13 Prozent mehr als im Vorjahr, und rund
+        <strong>410 Millionen Dollar</strong> auf dem Konto — mehr, als die Firma in
+        drei Jahren umsetzt.</p>
+      <p class="ehrlich">Dafür zwei Punkte, die seltener genannt werden: Der
+        Auftragsbestand ist im zweiten Quartal <strong>gefallen</strong>, von rund 282
+        auf 270 Millionen. Und operativ wird weiter Geld verbrannt. Die große Kasse ist
+        ein Polster, kein Beweis für ein funktionierendes Geschäft.</p>
+    </div>
+    <figure>
+      <img src="drohnen_bbai.webp" alt="BigBear.ai Kursverlauf" onerror="this.closest('figure').remove()">
+      <figcaption><strong>BigBear.ai.</strong> Von über zehn Dollar auf rund zwei. Die
+        Kasse ist groß, der Auftragsbestand schrumpft.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Das Muster, das alle sechs Charts zeigen</h2>
+    <div class="block" style="--rand: var(--gold)">
+      <p>Fünf von sechs Aktien auf dieser Seite stehen heute <strong>deutlich tiefer als
+        vor einem Jahr</strong> — während die Aufträge bei fast allen auf Rekord stehen.
+        Das ist kein Widerspruch, sondern der Normalfall bei politisch getriebenen Themen:
+        Zuerst kauft der Markt die Ankündigung, dann kommt die Ernüchterung über das
+        Tempo, und erst danach kommen die Umsätze.</p>
+      <p>Die einzige Ausnahme ist Palantir — und das ist die Firma, die ihre Umsätze
+        bereits liefert.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Was dagegen spricht</h2>
+    <div class="zwei">
+      <article class="kachel"><h3>Politik ist keine Bestellung</h3>
+        <p>Ein Erlass und ein Zoll schaffen einen Markt, aber keinen Umsatz. Zwischen
+          Ankündigung und bezahltem Auftrag liegen oft Jahre.</p></article>
+      <article class="kachel"><h3>Die Kurse sind vorgelaufen</h3>
+        <p>Bei <b>AVAV</b> und <b>KTOS</b> stiegen die Aufträge auf Rekord, während die
+          Aktien zwei Drittel verloren. Gute Nachrichten garantieren nichts.</p></article>
+      <article class="kachel"><h3>Kleine Firmen, große Schwankung</h3>
+        <p><b>ONDS</b>, <b>DRO</b> und <b>BBAI</b> sind gemessen an den Rüstungsriesen
+          winzig. Einzelne Verträge bewegen hier den ganzen Kurs.</p></article>
+      <article class="kachel"><h3>Haushalte wackeln</h3>
+        <p>Ein Regierungsstillstand hat schon einmal dafür gesorgt, dass Aufträge nicht
+          freigegeben wurden. Das kann jederzeit wieder passieren.</p></article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Wie ich das sortiere</h2>
+    <div class="block" style="--rand: var(--gruen)">
+      <p><strong>Nach Geschäft, nicht nach Schlagzeile.</strong> Wer auf Trumps Satz
+        setzen will, setzt auf <em>Abwehr</em> — das sind DroneShield und Ondas, bei
+        AeroVironment ist es ein Teil des Geschäfts. Wer auf das Militärthema insgesamt
+        setzt, landet bei AeroVironment und Kratos.</p>
+      <p><strong>Nach Größe.</strong> AeroVironment, Kratos und Palantir sind etablierte
+        Firmen. Die anderen drei sind klein, und zwei davon verdienen operativ noch kein
+        Geld. Das gehört in die Positionsgröße, nicht in die Begeisterung.</p>
+      <p>Keine dieser sechs ist für mich ein Selbstläufer. Das Thema ist echt, der
+        Zeitpunkt ist politisch gemacht — und genau deshalb ist die Schwankung hier
+        größer als bei fast allem anderen.</p>
+    </div>
+  </section>
+
+  <div class="signatur">
+    <img src="seli.png" alt="Seli">
+    <div class="rechts">
+      <div class="gruss">Liebe Grüße,</div>
+      <div class="name">Seli</div>
+      <div class="bio">
+        <span>📈 Aktien, Krypto &amp; News, die dein Geld betreffen</span>
+        <span>💻 9 Jahre selbstständig &amp; seitdem investiert</span>
+        <span>🧡 Ich helfe dir, langfristig Vermögen aufzubauen</span>
+      </div>
+      <div class="handle">investieren.mit.seli</div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Keine Anlageberatung — meine persönliche Einschätzung.</p>
+    <p>Stand 16. Oktober 2026. Jede Zahl auf dieser Seite trägt ihr Datum — was später
+      passiert ist, steht hier nicht.</p>
+    <p class="rechtszeile">
+      <a href="index.html">Home</a> &middot; <a href="impressum.html">Impressum</a>
+      &middot; <a href="datenschutz.html">Datenschutz</a>
+      &middot; <a href="disclaimer.html">Disclaimer</a>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
